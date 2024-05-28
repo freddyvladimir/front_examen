@@ -1,0 +1,43 @@
+<h2 mat-dialog-title style="background-color: #09B8B0; color:#fff;" align="center">Editar Especialidad</h2>
+<form [formGroup]="userEditForm" (ngSubmit)="onSubmitEdit()">
+<div mat-dialog-content>
+   <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+      fxLayoutGap="0.6%">
+      <div fxFlex="50%">
+         <mat-form-field appearance="fill">
+            <mat-label>Descripcion:</mat-label>
+            <mat-select formControlName="cnsl_descripcion">
+              <mat-option *ngFor="let prestaciones of prestaciones" [value]="prestaciones.descripcion">
+                {{prestaciones.descripcion}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+         <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>CP_IP:</mat-label>
+            <input type="number" matInput formControlName="cnsl_cp_id">
+         </mat-form-field>
+      </div>
+   </div>
+   <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+      fxLayoutGap="0.6%">
+      <div fxFlex="50%">
+         <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Tipo:</mat-label>
+            <input  matInput formControlName="cnsl_tipo" >
+         </mat-form-field>
+      </div>
+      <div fxFlex="50%">
+         <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Codigo:</mat-label>
+            <input matInput formControlName="cnsl_codigo">
+         </mat-form-field>
+      </div>
+   </div>
+</div>
+<div mat-dialog-actions align="end">
+   <button mat-button mat-dialog-close style="background-color: #f44336; color:#fff;">Cancelar</button>
+   <button mat-button cdkFocusInitial style="background-color: #09B8B0; color:#fff;">Guardar</button>
+</div>
+</form>

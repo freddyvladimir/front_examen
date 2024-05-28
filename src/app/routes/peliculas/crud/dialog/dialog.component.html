@@ -1,0 +1,82 @@
+<button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon class="close-icon" color="primary">close</mat-icon>
+</button>
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+    <button mat-raised-button>
+        <mat-icon class="indicador">assignment</mat-icon>
+    </button>
+    <div>
+        <strong>DATOS DE LA PELICULA</strong>
+        <p>Registro de peliculas</p>
+    </div>
+</div>
+
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutGap="8px grid">
+
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Titulo</mat-label>
+                    <input matInput placeholder="..." [(ngModel)]="datosPelicula.titulo">
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Genero</mat-label>
+                    <input matInput placeholder="..." [(ngModel)]="datosPelicula.genero">
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Director</mat-label>
+                    <input matInput placeholder="..." [(ngModel)]="datosPelicula.director">
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Actores</mat-label>
+                    <input matInput placeholder="..." [(ngModel)]="datosPelicula.actores">
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Año de lanzamiento</mat-label>
+                    <input matInput placeholder="..." [(ngModel)]="datosPelicula.anio_lanzamiento">
+                </mat-form-field>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Sinopsis</mat-label>
+                    <input matInput placeholder="..." [(ngModel)]="datosPelicula.sinopsis">
+                </mat-form-field>
+            </div>
+
+            <!--div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Calificaciones</mat-label>
+                    <input matInput placeholder="..." [(ngModel)]="datosPelicula.calificaciones">
+                </mat-form-field>
+            </div-->
+
+        </div>
+
+
+    </mat-card-content>
+</mat-card>
+<div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+
+    <button mat-button (click)="actualizarData()" *ngIf="data.tipo == 'UPDATE'">Actualizar</button>
+    <button mat-button (click)="guardarData()" *ngIf="data.tipo == 'NEW'">Guardar</button>
+    
+</div>

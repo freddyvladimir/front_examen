@@ -1,0 +1,56 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+        <div style="height: 100%;">
+            <div fxLayout="row wrap" fxLayoutGap="10px grid" class="matero-col">
+                <div fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <!--iframe src="http://localhost:4200/assets/video/aventura.mp4" width="100%" height="100%" frameborder="1" allowfullscreen></iframe-->
+                    <video controls="" autoplay="" name="media"><source src="http://localhost:4200/assets/video/aventura.mp4" width="100%" height="100%" type="video/mp4"></video>
+                </div>
+                <div fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <mat-list role="list">
+                        <mat-list-item role="listitem">
+                            FICHAS
+                        </mat-list-item>
+                    </mat-list>
+                    <mat-list role="list">
+                        <mat-list-item style="background: #2cadc1;color: white;" role="listitem"
+                            *ngFor="let fichas of listadoFichas">
+                            <div style="width: 100%;" fxLayout="row wrap" fxLayoutGap="10px grid"  fxLayout="row" fxLayoutAlign="space-around center" >
+                                <div fxFlex="33" fxFlex.lt-md="33" fxFlex.lt-sm="100">
+                                    <strong style="font-size: 50px;">{{fichas.prscodigoficha}}</strong>
+                                </div>
+                                <div fxFlex="15" fxFlex.lt-md="33" fxFlex.lt-sm="100">
+                                    <strong style="font-size: 20px;">{{fichas.vpres_tipo_ficha}}</strong>
+                                </div>
+                                <div fxFlex="15" fxFlex.lt-md="33" fxFlex.lt-sm="100">
+                                    <mat-icon>forward</mat-icon>
+                                </div>
+                                <div fxFlex="33" fxFlex.lt-md="33" fxFlex.lt-sm="100">
+                                    <strong style="font-size: 50px;">{{fichas.vnumero_puesto}}</strong>
+                                </div>
+                                
+                            </div>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                    </mat-list>
+                </div>
+            </div>
+        </div>
+
+
+    </mat-card-content>
+    <!--mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+    </mat-card-actions-->
+</mat-card>
+
+
+<!--iframe src="file:///C:/Users/freddy.mamani/Videos/video.mp4" width="500px" height="500px" frameborder="1" allowfullscreen></iframe>
+<video controls="" autoplay="" name="media"><source src="file:///C:/Users/freddy.mamani/Videos/video.mp4" width="500px" height="500px" type="video/mp4"></video-->

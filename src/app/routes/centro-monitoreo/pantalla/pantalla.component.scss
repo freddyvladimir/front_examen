@@ -1,0 +1,20 @@
+h3 {
+    color: #e8e8e8;
+    text-align: center;
+    font-size: 60px;
+    text-transform: uppercase;
+}
+.texto-encima {
+    position: absolute;
+    top: 100px;
+    text-align: center;
+//    left: 200px;
+}
+
+.centrado {
+    align-items: center;
+   // position: absolute;
+   // top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
+}

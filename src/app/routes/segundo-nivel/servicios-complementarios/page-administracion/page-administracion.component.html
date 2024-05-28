@@ -1,0 +1,28 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+    <button mat-raised-button>
+        <mat-icon class="indicador">assignment</mat-icon>
+    </button>
+    <div>
+        <strong>Servicios Complementarios</strong>
+        <p>Listado</p>
+    </div>
+</div>
+<div  fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row" fxLayoutGap="0.5%">
+    <div fxFlex="49%" fxFlex.lt-sm="100">
+        <mat-card>
+            <app-servicios-complementarios-lista></app-servicios-complementarios-lista>
+        </mat-card>
+    </div>
+    <div fxFlex="1%" fxFlex.lt-sm="1%"></div>
+    <div fxFlex="50%" fxFlex.lt-sm="100">
+        <mat-card>
+            <app-servicios-complementarios-lista-medico></app-servicios-complementarios-lista-medico>
+        </mat-card>
+    </div>
+</div>
+
+
+
+
+
+

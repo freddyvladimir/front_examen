@@ -1,0 +1,241 @@
+<mat-card>
+    <mat-card-title>Atencion del paciente</mat-card-title>
+    <mat-card-content>
+        <mat-stepper [linear]="isLinear" #stepper>
+            <mat-step label="Seleccione especialidad">
+
+                <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                    <div fxFlex="20" fxFlex.lt-md="33" fxFlex.lt-sm="50"
+                        *ngFor="let especialidades of lista_especialidades">
+                        <mat-card class="especialidad-card" (click)="SacarCalendario(stepper,especialidades);">
+                            <mat-card-content>
+                                <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column"
+                                    fxLayout.xs="column" fxLayout.md="row" fxLayout="row" fxLayoutGap="0.5%">
+                                    <div fxFlex="30%" fxFlex.lt-sm="100%" fxLayoutAlign="center center"
+                                        fxFlexAlign="center">
+
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'AD'"
+                                            src="assets/images/especialidades/cardiologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'CA'"
+                                            src="assets/images/especialidades/cardiologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'CG'"
+                                            src="assets/images/especialidades/cirugia_general.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'FI'"
+                                            src="assets/images/especialidades/fisioterapia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'MG'"
+                                            src="assets/images/especialidades/medicina_general.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'MI'"
+                                            src="assets/images/especialidades/medicina_interna.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'GO'"
+                                            src="assets/images/especialidades/ginecologia_obstetricia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'NU'"
+                                            src="assets/images/especialidades/nutricion.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'OD'"
+                                            src="assets/images/especialidades/odontologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'PE'"
+                                            src="assets/images/especialidades/pediatria.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'TR'"
+                                            src="assets/images/especialidades/traumatologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'UR'"
+                                            src="assets/images/especialidades/urologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'PS'"
+                                            src="assets/images/especialidades/psicologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'NF'"
+                                            src="assets/images/especialidades/neumologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'GE'"
+                                            src="assets/images/especialidades/gastro.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'NE'"
+                                            src="assets/images/especialidades/neumologia.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'RT'"
+                                            src="assets/images/especialidades/traumato.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'MF'"
+                                            src="assets/images/especialidades/medicina_familiar.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'TP'"
+                                            src="assets/images/especialidades/tp_niño.png" />
+                                        <img class="imgTipo" *ngIf="especialidades.cpcodigo_grupo == 'MFR'"
+                                            src="assets/images/especialidades/medicina_fisica_rehabilitacion.png" />
+                                        <img class="imgTipo" *ngIf="  
+                                                especialidades.cpcodigo_grupo != 'AD' &&
+                                                especialidades.cpcodigo_grupo != 'CA' &&
+                                                especialidades.cpcodigo_grupo != 'CG' &&
+                                                especialidades.cpcodigo_grupo != 'FI' &&
+                                                especialidades.cpcodigo_grupo != 'MG' &&
+                                                especialidades.cpcodigo_grupo != 'MI' &&
+                                                especialidades.cpcodigo_grupo != 'GO' &&
+                                                especialidades.cpcodigo_grupo != 'NU' &&
+                                                especialidades.cpcodigo_grupo != 'OD' &&
+                                                especialidades.cpcodigo_grupo != 'PE' &&
+                                                especialidades.cpcodigo_grupo != 'TR' &&
+                                                especialidades.cpcodigo_grupo != 'UR' &&
+                                                especialidades.cpcodigo_grupo != 'PS' &&
+                                                especialidades.cpcodigo_grupo != 'NF' &&
+                                                especialidades.cpcodigo_grupo != 'GE' &&
+                                                especialidades.cpcodigo_grupo != 'NE' &&
+                                                especialidades.cpcodigo_grupo != 'RT' &&
+                                                especialidades.cpcodigo_grupo != 'MF' &&
+                                                especialidades.cpcodigo_grupo != 'TP' &&
+                                                especialidades.cpcodigo_grupo != 'MFR' "
+                                            src="assets/images/especialidades/medicina_familiar.png" />
+                                    </div>
+                                    <div fxFlex="70%" fxFlex.lt-sm="100%" fxLayoutAlign="center center">
+                                        <h2 class="txtTipo">{{especialidades.cpgrupo}}</h2>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+
+            </mat-step>
+            <mat-step label="Seleccionar día/médico">
+                <mtx-popover #popover="mtxPopover" [position]="[positionStart, positionEnd]" [enterDelay]="enterDelay"
+                    [leaveDelay]="leaveDelay" [xOffset]="xOffset" [yOffset]="yOffset"
+                    [closeOnPanelClick]="closeOnPanelClick" [closeOnBackdropClick]="true">
+                    <mat-card class="card-medico">
+                        <mat-card-title-group>
+                            <img style="width: 150px; height: 150px; text-align: center; border-radius: 100%;"
+                                mat-card-sm-image src="assets/images/avatars/doctora.webp">
+                            <mat-card-title> DR. {{decMedico.nombre_doctor}} <br>
+                                {{decMedico.paterno_doctor}} {{decMedico.materno_doctor}}
+                            </mat-card-title>
+                            <mat-card-subtitle>{{decEspecialidad}}</mat-card-subtitle>
+
+                        </mat-card-title-group>
+                        <mat-card-content>
+                            TURNO: {{decMedico.tptrn_descripcion}}
+                            <br>
+                            HORARIO: {{decMedico.horaInicio}} - {{decMedico.horaFin}}
+                            <br>
+                            FICHAS OCUPADAS: {{decMedico.trn_cont_fichas_pre}} DE {{decMedico.trn_fichas_precitadas}}
+                        </mat-card-content>
+                        <mat-card-footer>
+                            <mat-progress-bar mode="determinate" value="100"></mat-progress-bar>
+                        </mat-card-footer>
+                    </mat-card>
+                </mtx-popover>
+
+                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Domingo</th>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miercoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                            <th>Sabado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let calen of calendario">
+                            <td class="dia" *ngFor="let semanas of calen.semana"> <strong>{{semanas.fecha_dia}}</strong>
+                                <div *ngFor="let datos_doctores of semanas.datos_doctor">
+                                    <mat-chip-list aria-label="Dog selection" width="100%" height="100%">
+                                        <mat-chip style="background: aquamarine;" color="primary"
+                                            (click)="listar_fichas(stepper,datos_doctores)"
+                                            (mouseenter)="datoMedico(datos_doctores)"
+                                            #popoverTrigger="mtxPopoverTrigger" [mtxPopoverTriggerFor]="popover"
+                                            mtxPopoverTriggerOn="hover">
+                                            <mat-chip-avatar>
+                                                <img src="assets/images/iconoMed.png" width="100%" height="100%" />
+                                            </mat-chip-avatar>
+                                            <strong style="font-size:10px;">
+                                                {{datos_doctores.nombre_doctor}} {{datos_doctores.paterno_doctor}}
+                                                {{datos_doctores.materno_doctor}}
+                                            </strong>
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-step>
+            <mat-step label="Seleccionar hora">
+                <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                    <div fxFlex="20" fxFlex.lt-md="33" fxFlex.lt-sm="50" *ngFor="let fichas of data_fichas">
+                        <mat-card *ngIf="fichas.Estado === 'L' " class="card-ficha-libre"
+                            (click)="seleccionar_ficha(stepper,fichas)">
+                            <mat-card-content>
+                                <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column"
+                                    fxLayout.xs="column" fxLayout.md="row" fxLayout="row" fxLayoutGap="0.5%">
+                                    <div fxFlex="50%" fxFlex.lt-sm="100%">
+                                        <h2>{{fichas.Ficha}}</h2>
+                                        {{fichas.Hora}}
+                                    </div>
+                                    <div fxFlex="50%" fxFlex.lt-sm="100%" class="icons" fxLayoutAlign="center center">
+                                        <mat-icon>offline_pin</mat-icon>
+                                        <p>Disponible</p>
+                                    </div>
+                                </div>
+
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card *ngIf="fichas.Estado === 'O' " class="card-ficha-ocupado"
+                            (click)="seleccionar_ficha(stepper,fichas)">
+                            <mat-card-content>
+                                <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column"
+                                    fxLayout.xs="column" fxLayout.md="row" fxLayout="row" fxLayoutGap="0.5%">
+                                    <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutAlign="center center">
+                                        <h2>{{fichas.Ficha}}</h2>
+                                        {{fichas.Hora}}
+                                    </div>
+                                    <div fxFlex="50%" fxFlex.lt-sm="100%" class="icons">
+                                        <mat-icon>highlight_off</mat-icon>
+                                        <p>No disponible</p>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card *ngIf="fichas.Estado === 'P' " class="card-ficha-no-disponible"
+                            (click)="seleccionar_ficha(stepper,fichas)">
+                            <mat-card-content>
+                                <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column"
+                                    fxLayout.xs="column" fxLayout.md="row" fxLayout="row" fxLayoutGap="0.5%">
+                                    <div fxFlex="50%" fxFlex.lt-sm="100%">
+                                        <h2>{{fichas.Ficha}}</h2>
+                                        {{fichas.Hora}}
+                                    </div>
+                                    <div fxFlex="50%" fxFlex.lt-sm="100%" class="icons" fxLayoutAlign="center center">
+                                        <mat-icon>help</mat-icon>
+                                        <p>Vencido</p>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </mat-step>
+            <mat-step label="Completado">
+
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title class="titulo-ficha">
+                            <h2>FICHA: {{fichaSeleccionada}}</h2>
+                        </mat-card-title>
+                        <mat-card-subtitle class="titulo-ficha">
+                            <h3>Fecha de atención: {{fechaSeleccionada | date : "y-MM-dd"}}</h3>
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <h3>
+                            DR(A). {{doctor_seleccionado.nombre_doctor}} {{doctor_seleccionado.paterno_doctor}}
+                            {{doctor_seleccionado.materno_doctor}} <br>
+                            CONSULTORIO: {{decEspecialidad}} <br>
+                            {{doctor_seleccionado.tptrn_descripcion}} <br>
+                            {{horaAtencion}}
+                        </h3>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button>Volver</button>
+                        <button mat-button>Cancelar</button>
+                        <button mat-button (click)="guardarFicha(dataReserva)">Reservar</button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-step>
+        </mat-stepper>
+    </mat-card-content>
+</mat-card>

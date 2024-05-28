@@ -1,0 +1,291 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+    <button mat-raised-button>
+        <mat-icon class="indicador">assignment</mat-icon>
+    </button>
+    <div>
+        <strong>Reportes GAMLP</strong>
+        <p>Por Hospital</p>
+    </div>
+</div>
+<mat-card>
+    <div fxLayoutAlign="end" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+        fxLayoutGap="0.8%">
+
+        <div fxFlex="25%">
+            <mat-form-field appearance="outline">
+                <mat-label>Seleccione Reporte</mat-label>
+                <mat-select [(ngModel)]="selectedReporte" name="reporte" (selectionChange)="onReportesChange()">
+                    <mat-option *ngFor="let reporte of reportes" [value]="reporte.value">
+                        {{reporte.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25%">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput [matDatepicker]="pickerIni" (dateChange)="onSelectDateIni('change', $event)" #input>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="pickerIni"></mat-datepicker-toggle>
+                <mat-datepicker #pickerIni></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxFlex="25%">
+            <mat-form-field appearance="outline">
+                <mat-label>Fecha Final</mat-label>
+                <input matInput [matDatepicker]="pickerFin" (dateChange)="onSelectDateFin('change', $event)" #input>
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFin></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <mat-tab-group animationDuration="1000ms" [(selectedIndex)]="selectedTabIndex"
+        (selectedTabChange)="onTabChanged($event);">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon> bar_chart</mat-icon>
+                Gráfico
+            </ng-template>
+            <mat-card *ngIf="isVisibleHospitales">
+                <mat-card-subtitle>
+                    <h3>REPORTE DE FICHAS EMITIDAS POR HOSPITAL</h3>
+                </mat-card-subtitle>
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="30%">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Filtrar Por</mat-label>
+                            <mat-select [(ngModel)]="selectedFilter" name="filter" (selectionChange)="onFilterChange()">
+                                <mat-option *ngFor="let filter of filters" [value]="filter.value">
+                                    {{filter.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+                        <div class="matero-col" fxFlex="100">
+                            <div id="chart-por-hospital"></div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card *ngIf="isVisibleEspecialidades">
+                <mat-card-subtitle>FICHAS SOLICITADAS DE ESPECIALIDADES POR HOSPITAL</mat-card-subtitle>
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+                        <div class="matero-col" fxFlex="100">
+                            <div id="chart-especialidades"></div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card *ngIf="isVisibleReservasPorMeses">
+                <mat-card-subtitle>REPORTE DE RESERVAS SOLICITADAS POR INTERNET POR MESES</mat-card-subtitle>
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+                        <div class="matero-col" fxFlex="100">
+                            <div id="chart-reservas-por-meses"></div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card *ngIf="isVisibleReservasPorMesesAlternativa">
+                <mat-card-subtitle>REPORTE DE RESERVAS SOLICITADAS POR INTERNET POR MESES</mat-card-subtitle>
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+                        <div class="matero-col" fxFlex="100">
+                            <div id="chart-reservas-por-meses-alternativa"></div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <mat-card *ngIf="isVisibleReservas">
+                <mat-card-subtitle>REPORTE DE RESERVAS SOLICITADAS POR INTERNET</mat-card-subtitle>
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+                        <div class="matero-col" fxFlex="100">
+                            <div id="chart-reservas"></div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+        </mat-tab>
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <mat-icon>grid_on</mat-icon>
+                Tabla
+            </ng-template>
+            <mat-card *ngIf="isVisibleHospitales">
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+
+                        <mat-card-actions align="end">
+                            <button mat-raised-button color="primary">
+                                Exportar a Excel</button>
+                        </mat-card-actions>
+
+                        <table mat-table [dataSource]="dataSource.data" class="container" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> N&#176; </th>
+                                <td mat-cell *matCellDef="let row; index as i"> {{i + 1}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="hospital">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Hospital</th>
+                                <td mat-cell *matCellDef="let row"> {{row.hospital}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fichas_planificadas">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fichas Planificadas</th>
+                                <td mat-cell *matCellDef="let row"> {{row.planificadas}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="fichas_solicitadas">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fichas Solicitadas</th>
+                                <td mat-cell *matCellDef="let row"> {{row.solicitadas}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fichas_atendidas">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fichas Atendidas</th>
+                                <td mat-cell *matCellDef="let row"> {{row.atendidas}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="porcentaje_atendidas">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> % Atendidas </th>
+                                <td mat-cell *matCellDef="let row"> {{row.porcentaje_atendidas}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="porcentaje_solicitadas">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> % Solicitadas</th>
+                                <td mat-cell *matCellDef="let row"> {{row.porcentaje_solicitadas}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </mat-card>
+
+            <mat-card *ngIf="isVisibleEspecialidades">
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+
+                        <mat-card-actions align="end">
+                            <button mat-raised-button color="primary">
+                                Exportar a Excel</button>
+
+                        </mat-card-actions>
+
+                        <h4>FICHAS SOLICITADAS DE ESPECIALIDADES POR HOSPITAL</h4>
+                        <table mat-table [dataSource]="dataSourceEspecialidades" class="container" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> N&#176; </th>
+                                <td mat-cell *matCellDef="let row; index as i"> {{i + 1}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="especialidad">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidades</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vespecilidad}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="total_merced">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total La Merced</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vmerced}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="total_pinos">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Los Pinos</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vpinos}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="total_portada">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-hader>FTotal La Portada</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vportada}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="total_cotahuma">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Cotahuma</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vcotahuma}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="totales">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Totales</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vtotal}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsEspecialidades"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsEspecialidades;"></tr>
+
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </mat-card>
+
+            <mat-card *ngIf="isVisibleReservas">
+                <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                    fxLayoutGap="0.8%">
+                    <div fxFlex="100%">
+
+                        <mat-card-actions align="end">
+                            <button mat-raised-button color="primary">
+                                Exportar a Excel</button>
+
+                        </mat-card-actions>
+
+                        <h4> REPORTE DE RESERVAS SOLICITADAS POR INTERNET</h4>
+
+                        <table mat-table [dataSource]="dataSourceReservas" class="container" matSort>
+
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header> N&#176; </th>
+                                <td mat-cell *matCellDef="let row; index as i"> {{i + 1}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="hospital">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Especialidades</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vnombre_hospital}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="fichas_hospital">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total La Merced</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vfichas_hospital}} </td>
+                            </ng-container>
+                            <ng-container matColumnDef="fichas_internet">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Los Pinos</th>
+                                <td mat-cell *matCellDef="let row"> {{row.vfichas_hospital}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsReservas"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsReservas;"></tr>
+
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </mat-card>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>

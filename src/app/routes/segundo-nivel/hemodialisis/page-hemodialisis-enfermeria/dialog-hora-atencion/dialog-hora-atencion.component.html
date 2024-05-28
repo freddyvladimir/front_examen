@@ -1,0 +1,108 @@
+<h2 mat-dialog-title color="primary">Registro Hora de Atención</h2>
+<form [formGroup]="horarioAtencionForm">
+    <div mat-dialog-content>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Hora:</mat-label>
+                    <input matInput formControlName="enf_hora">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Temp:</mat-label>
+                    <input matInput formControlName="enf_temp">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>PA:</mat-label>
+                    <input matInput formControlName="enf_pa">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Pvenosa:</mat-label>
+                    <input matInput formControlName="enf_pvenosa">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>SAT 02:</mat-label>
+                    <input matInput formControlName="enf_sat">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Flujo de Sangre:</mat-label>
+                    <input matInput formControlName="enf_fs">
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>FC:</mat-label>
+                    <input matInput formControlName="enf_fc">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>FR:</mat-label>
+                    <input matInput formControlName="enf_fr">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+
+            </div>
+        </div>
+        <h2 mat-dialog-title color="primary">Datos de la Máquina</h2>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>QD:</mat-label>
+                    <input matInput formControlName="enf_qd">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>PTM:</mat-label>
+                    <input matInput formControlName="enf_ptm">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Conductividad:</mat-label>
+                    <input matInput formControlName="enf_condu">
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Observaciones:</mat-label>
+                    <input matInput formControlName="enf_obs">
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+
+            </div>
+            <div fxFlex="33%">
+
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close>Cancelar</button>
+        <button mat-raised-button cdkFocusInitial color="primary" (click)="guardarNuevaHora()">Guardar</button>
+    </div>
+</form>

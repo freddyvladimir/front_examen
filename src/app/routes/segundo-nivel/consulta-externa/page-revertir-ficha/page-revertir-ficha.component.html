@@ -1,0 +1,109 @@
+<div fxLayoutAlign="end start" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+    fxLayoutGap="0.5%">
+    <div fxFlex="6%">
+        <button mat-raised-button>
+            <mat-icon class="indicador">assignment</mat-icon>
+        </button>
+    </div>
+    <div fxFlex="94%">
+        <strong>Revertir Ficha</strong>
+        <p>Ejecución para revertir la ficha del paciente</p>
+    </div>
+</div>
+<mat-card>
+    <mat-card-title>Listado de Fichas de Atención</mat-card-title>
+    <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+        fxLayoutGap="0.5%">
+        <div fxFlex="33%">
+        </div>
+        <div fxFlex="33%">
+        </div>
+        <div fxFlex="33%">
+            <mat-form-field class="example-form-field" appearance="outline">
+                <mat-label>Escribir</mat-label>
+                <input matInput type="text" [(ngModel)]="value" (keyup)="applyFilter($event)" #input>
+                <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                    <mat-icon (click)="recargar()">close</mat-icon>
+                </button>
+                <button *ngIf="!value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                    <mat-icon>search</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="mat-elevation-z8 table-container">
+        <table mat-table [dataSource]="dataSource" class="container" matSort>
+
+            <ng-container matColumnDef="serial">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nª </th>
+                <td mat-cell *matCellDef="let row; index as i"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="opciones">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Opciones </th>
+                <td mat-cell *matCellDef="let row"> 
+                    <div class="example-button-container">
+                        <button mat-mini-fab color="primary" aria-label="Example icon button with a home icon" (click)="seleccion(row); openDialog('0ms', '0ms')">
+                            <mat-icon>restore_page</mat-icon> 
+                        </button>
+                    </div>        
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vficha_codigo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ficha </th>
+                <td mat-cell *matCellDef="let row"> {{row.vficha_codigo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vdescespecialidad">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Especialidad </th>
+                <td mat-cell *matCellDef="let row"> {{row.vdescespecialidad}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vhcl_codigoseg">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Código SICE </th>
+                <td mat-cell *matCellDef="let row"> {{row.vhcl_codigoseg}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vpres_dtspsl_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Código SIIS </th>
+                <td mat-cell *matCellDef="let row"> {{row.vpres_dtspsl_id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vpaciente">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Paciente </th>
+                <td mat-cell *matCellDef="let row"> {{row.vpaciente}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vdoctor">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Médico </th>
+                <td mat-cell *matCellDef="let row"> {{row.vdoctor}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vturno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Turno</th>
+                <td mat-cell *matCellDef="let row"> {{row.vturno}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vfecha_atencion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Atención </th>
+                <td mat-cell *matCellDef="let row"> {{row.vfecha_atencion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="vhora_inicio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora Atención </th>
+                <td mat-cell *matCellDef="let row"> {{row.vhora_inicio}} a {{row.vhora_fin}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No existen datos "{{input.value}}"</td>
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20, 30, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+</mat-card>

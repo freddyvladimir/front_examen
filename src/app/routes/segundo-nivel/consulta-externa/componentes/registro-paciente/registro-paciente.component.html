@@ -1,0 +1,490 @@
+<div fxFlex="100" fxFlex.lt-sm="100" class="matero-col">
+    <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title>Información del paciente
+
+
+            </mat-card-title>
+            <h2>
+                Historia Clínica SIIS
+                {{IDPACIENTE}}
+            </h2>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+        </div>
+
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item disabled>
+                <mat-icon>assignment</mat-icon>
+                <span>Registro pacientes</span>
+            </button>
+            <button mat-menu-item (click)="regresar()">
+                <mat-icon>reply_all</mat-icon>
+                <span>Cancelar</span>
+            </button>
+        </mat-menu>
+
+        <form [formGroup]="formDatosPaciente" #myForm="ngForm" class="form-field-full">
+            <br>
+            <mat-stepper labelPosition="bottom" #stepper>
+                <mat-step [stepControl]="formDatosPaciente">
+                    <form [formGroup]="formDatosPaciente">
+                        <ng-template matStepLabel>Datos generales</ng-template>
+                        
+                        <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                            
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <img style="width: 150px; height: 150px; text-align: center; border-radius: 100%; text-transform: uppercase; border-color: rgb(11, 10, 10); background-color: rgba(161, 157, 161, 0.559); font: 66px / 200px Helvetica, Arial, sans-serif;"
+                                    src="{{img}}" alt="" size="50">
+                                <label class="cameraButton">SUBIR IMAGEN
+                                    <input type="file" id="file" (change)="handleFileInput($event)"
+                                        accept="image/*;capture=camera">
+                                </label>
+                            </div>
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Tipo paciente</mat-label>
+                                    <mat-select matInput formControlName="tipo_paciente">
+                                        <mat-option value="">seleccione</mat-option>
+                                        <mat-option *ngFor="let option of listaTipoPaciente" [value]="option.stpid">
+                                            <span>{{option.stipopaciente}}</span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Historia Clínica SICE </mat-label>
+                                    <input matInput autocomplete="off" placeholder="SICE" formControlName="sice">
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>C.I.</mat-label>
+                                    <input matInput autocomplete="off" placeholder="C.I." formControlName="ci">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                                    <div fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Duplicado</mat-label>
+                                            <input matInput autocomplete="off" placeholder="Duplicado"
+                                                formControlName="duplicado">
+                                        </mat-form-field>
+                                    </div>
+                                    <div fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Expedido</mat-label>
+                                            <mat-select matInput formControlName="expedido">
+                                                <mat-option [value]="2">LA PAZ</mat-option>
+                                                <mat-option [value]="3">COCHABAMBA</mat-option>
+                                                <mat-option [value]="7">SANTA CRUZ</mat-option>
+                                                <mat-option [value]="1">CHUQUISACA</mat-option>
+                                                <mat-option [value]="6">TARIJA</mat-option>
+                                                <mat-option [value]="5">POTOSI</mat-option>
+                                                <mat-option [value]="4">ORURO</mat-option>
+                                                <mat-option [value]="8">BENI</mat-option>
+                                                <mat-option [value]="9">PANDO</mat-option>
+                                                <mat-option [value]="10">OTRO</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Fecha nacimiento</mat-label>
+                                    <input matInput autocomplete="off" [matDatepicker]="picker2"
+                                        placeholder="Fecha de nacimiento" formControlName="fechaNacimiento"
+                                        (dateInput)="calcularEdadActual('M',$event,'')">
+                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Edad</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Edad" formControlName="edad">
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombres</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Nombres" formControlName="nombre">
+                                    <mat-error *ngIf="formDatosPaciente.get('nombre')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Apellido paterno</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Apellido paterno"
+                                        formControlName="apellidoPaterno">
+                                    <mat-error *ngIf="formDatosPaciente.get('apellidoPaterno')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Apellido materno</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Apellido materno"
+                                        formControlName="apellidoMaterno">
+                                    <mat-error *ngIf="formDatosPaciente.get('apellidoMaterno')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Genero</mat-label>
+                                    <mat-select matInput formControlName="genero">
+                                        <mat-option [value]="1">MASCULINO</mat-option>
+                                        <mat-option [value]="2">FEMENINO</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nacionalidad</mat-label>
+                                    <input type="text" placeholder="Seleccione nacionalidad" matInput
+                                        formControlName="nacionalidad" [matAutocomplete]="nacionalidad">
+                                    <mat-autocomplete autoActiveFirstOption #nacionalidad="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsNacionalidad | async"
+                                            [value]="option.pais_desc">
+                                            <span>{{option.pais_desc}}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Lugar de nacimiento</mat-label>
+                                    <mat-select matInput formControlName="lugarNacimiento"
+                                        (selectionChange)="cargarProvincias($event.value, 0 )">
+                                        <mat-option [value]="1">CHUQUISACA</mat-option>
+                                        <mat-option [value]="2">LA PAZ</mat-option>
+                                        <mat-option [value]="3">COCHABAMBA</mat-option>
+                                        <mat-option [value]="4">ORURO</mat-option>
+                                        <mat-option [value]="5">POTOSI</mat-option>
+                                        <mat-option [value]="6">TARIJA</mat-option>
+                                        <mat-option [value]="7">SANTA CRUZ</mat-option>
+                                        <mat-option [value]="8">BENI</mat-option>
+                                        <mat-option [value]="9">PANDO</mat-option>
+                                        <mat-option [value]="10">EXTRANJERO</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Provincia</mat-label>
+                                    <input type="text" placeholder="Seleccione provincia" matInput
+                                        formControlName="provincia" [matAutocomplete]="provincia">
+                                    <mat-autocomplete autoActiveFirstOption #provincia="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsProvincia | async"
+                                            (click)="cargarMinicipios(option,0)" [value]="option.prov_nombre">
+                                            <span>{{option.prov_nombre}}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Municipio</mat-label>
+                                    <mat-select matInput formControlName="municipio">
+                                        <mat-option value="">seleccione</mat-option>
+                                        <mat-option *ngFor="let option of optionsMunicipios"
+                                            [value]="option.mun_codigo">
+                                            <span>{{option.mun_nombre}}</span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Estado civil</mat-label>
+                                    <mat-select matInput formControlName="estadoCivil">
+                                        <mat-option [value]="">seleccione</mat-option>
+                                        <mat-option [value]="1">Soltero/a</mat-option>
+                                        <mat-option [value]="2">Casado/a</mat-option>
+                                        <mat-option [value]="3">Divorciado/a</mat-option>
+                                        <mat-option [value]="4">Viudo/a</mat-option>
+                                        <mat-option [value]="5">Unión Libre</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Teléfono</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Teléfono"
+                                        formControlName="telefono">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Celular</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Celular" formControlName="celular">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Correo</mat-label>
+                                    <input matInput autocomplete="off" placeholder="ejemplo@correo.com"
+                                        formControlName="email">
+                                </mat-form-field>
+                            </div>
+
+
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Profesión</mat-label>
+                                    <input type="text" placeholder="Seleccione profesion" matInput
+                                        formControlName="profesion" [matAutocomplete]="profesion">
+                                    <mat-autocomplete autoActiveFirstOption #profesion="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsProfesion | async"
+                                            [value]="option.pro_descripcion">
+                                            <span>{{option.pro_descripcion}}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Dirección</mat-label>
+                                    <textarea matInput autocomplete="off" placeholder="Dirección"
+                                        formControlName="direccion"></textarea>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Idioma nativo</mat-label>
+                                    <input type="text" placeholder="Seleccione idiomaNativo" matInput
+                                        formControlName="idiomaNativo" [matAutocomplete]="idiomaNativo">
+                                    <mat-autocomplete autoActiveFirstOption #idiomaNativo="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsIdiomaNativo | async"
+                                            [value]="option.ctlnombre">
+                                            <span>{{option.ctlnombre}}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Observaciones</mat-label>
+                                    <textarea matInput autocomplete="off" placeholder="observaciones"
+                                        formControlName="observaciones"></textarea>
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Departamento</mat-label>
+                                    <mat-select matInput formControlName="departamentoDP"
+                                        (selectionChange)="cargarProvinciasDP($event.value,0)">
+                                        <mat-option [value]="1">CHUQUISACA</mat-option>
+                                        <mat-option [value]="2">LA PAZ</mat-option>
+                                        <mat-option [value]="3">COCHABAMBA</mat-option>
+                                        <mat-option [value]="4">ORURO</mat-option>
+                                        <mat-option [value]="5">POTOSI</mat-option>
+                                        <mat-option [value]="6">TARIJA</mat-option>
+                                        <mat-option [value]="7">SANTA CRUZ</mat-option>
+                                        <mat-option [value]="8">BENI</mat-option>
+                                        <mat-option [value]="9">PANDO</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Provincia</mat-label>
+                                    <input type="text" placeholder="Seleccione provincia" matInput
+                                        formControlName="provinciaDP" [matAutocomplete]="provinciaDP">
+                                    <mat-autocomplete autoActiveFirstOption #provinciaDP="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsProvinciaDP | async"
+                                            (click)="cargarMinicipiosDP(option,0)" [value]="option.prov_codigo">
+                                            <span>{{option.prov_nombre}}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Municipio</mat-label>
+                                    <mat-select matInput formControlName="municipioDP">
+                                        <mat-option value="">seleccione</mat-option>
+                                        <mat-option *ngFor="let option of optionsMunicipiosDP"
+                                            [value]="option.mun_codigo">
+                                            <span>{{option.mun_nombre}}</span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Zona</mat-label>
+                                    <input type="text" placeholder="Seleccione Zona" matInput formControlName="zonaDP"
+                                        [matAutocomplete]="zonaDP">
+                                    <mat-autocomplete autoActiveFirstOption #zonaDP="matAutocomplete">
+                                        <mat-option *ngFor="let option of filteredOptionsZonaDP | async"
+                                            [value]="option.zon_descripcion">
+                                            <span>{{option.zon_descripcion}}</span>
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="formDatosPaciente" optional>
+                    <form [formGroup]="formDatosPaciente">
+                        <ng-template matStepLabel>Datos laborales</ng-template>
+                        <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                            <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Lugar</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Lugar" formControlName="lugar">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Direccion laboral</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Direccion laboral"
+                                        formControlName="direccionLaboral">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Telefono laboral</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Telefono laboral"
+                                        formControlName="telefonoLaboral">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="formDatosPaciente" optional>
+                    <form [formGroup]="formDatosPaciente">
+                        <ng-template matStepLabel>Referencias familiares</ng-template>
+                        <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Resp de familia</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Resp de familia"
+                                        formControlName="respDeFamilia">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Padre tutor(a)</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Padre tutor(a)"
+                                        formControlName="padreTutor">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Madre</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Madre" formControlName="madre">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Télefono referencia</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Télefono referencia"
+                                        formControlName="telefonoRF">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Conyuge</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Conyuge" formControlName="conyuge">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Otros</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Otros" formControlName="otros">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </form>
+                </mat-step>
+                <mat-step [stepControl]="formDatosPaciente" optional>
+                    <ng-template matStepLabel>Datos de personas mas proxima</ng-template>
+                    <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                        <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nombre del acompañante</mat-label>
+                                <input matInput autocomplete="off" placeholder="Nombre del acompañante"
+                                    formControlName="nombreAcompananteDPMP">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Relacion</mat-label>
+                                <mat-select matInput formControlName="relacionDPMP">
+                                    <mat-option value="FAMILIAR">FAMILIAR</mat-option>
+                                    <mat-option value="VECINO">VECINO</mat-option>
+                                    <mat-option value="AMIGO (A)">AMIGO (A)</mat-option>
+                                    <mat-option value="PARAMEDICO">PARAMEDICO</mat-option>
+                                    <mat-option value="POLICIA">POLICIA</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ciudad</mat-label>
+                                <input matInput autocomplete="off" placeholder="Ciudad" formControlName="ciudadDPMP">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Zona</mat-label>
+                                <input matInput autocomplete="off" placeholder="Zona" formControlName="zonaDPMP">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Dirección</mat-label>
+                                <input matInput autocomplete="off" placeholder="Dirección"
+                                    formControlName="direccionDPMP">
+                            </mat-form-field>
+                        </div>
+                        <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Télefono</mat-label>
+                                <input matInput autocomplete="off" placeholder="Télefono"
+                                    formControlName="telefonoDPMP">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </mat-step>
+            </mat-stepper>
+
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="0.5%">
+                <button mat-raised-button color="blanco" class="m-t-8" (click)="regresar()">Cancelar</button>
+                <button mat-raised-button color="primary" class="m-t-8"
+                    (click)="guardarDatosPersonales()">Guardar</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

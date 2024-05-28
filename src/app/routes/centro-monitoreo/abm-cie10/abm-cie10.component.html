@@ -1,0 +1,94 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+    <button mat-raised-button>
+        <mat-icon class="indicador">assignment</mat-icon>
+    </button>
+    <div>
+        <strong>LISTADO DE CIE 10</strong>
+        <p>Registro de diagnosticos de CIE 10</p>
+    </div>
+</div>
+
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <!--mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle-->
+    </mat-card-header>
+
+    <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutGap="8px grid">
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="..." #input>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="mat-elevation-z8 table-container">
+            <table mat-table [dataSource]="dataSource" class="container" matSort>
+
+                <ng-container matColumnDef="serial">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nª </th>
+                    <td mat-cell *matCellDef="let row; index as i"> {{i + 1}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="alfa">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ALFA </th>
+                    <td mat-cell *matCellDef="let row"> {{row.alfa}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPCION </th>
+                    <td mat-cell *matCellDef="let row"> {{row.descripcion}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA DE MODIFICAION </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                            fxLayout="row" fxLayoutGap="0.5%">
+                            <div fxFlex="50%">
+                                {{row.fecha}}
+                            </div>
+                            <div fxFlex="50%">
+                                <button mat-mini-fab color="blanco" matTooltip="Modificar registro"
+                                    (click)="editarRegistro(row)" matTooltipPosition="left"
+                                    matTooltipClass="tooltip-plomo" class="btn_eliminar" matSuffix mat-icon-button
+                                    aria-label="Clear">
+                                    <mat-icon class="indicador">edit</mat-icon>
+                                </button>
+                                &nbsp;
+                                <button mat-mini-fab color="blanco" matTooltip="Eliminar registro"
+                                    (click)="eliminarRegistro(row)" matTooltipPosition="right"
+                                    matTooltipClass="tooltip-plomo" class="btn_eliminar" matSuffix mat-icon-button
+                                    aria-label="Clear">
+                                    <mat-icon class="indicador">restore_from_trash</mat-icon>
+                                </button>
+
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                </tr>
+
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No data matching the filter
+                    </td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users">
+            </mat-paginator>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+
+<div class="btn-flotante">
+    <button mat-fab color="primary" (click)="nuevoRegistro();" aria-label="Example icon button with a home icon">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>

@@ -1,0 +1,280 @@
+#d18 {
+    margin-top: 160px;
+}
+
+#d17 {
+    margin-top: 130px;
+}
+
+#d16 {
+    margin-top: 100px;
+}
+
+#d15 {
+    margin-top: 80px;
+}
+
+#d14 {
+    margin-top: 50px;
+}
+
+#d13 {
+    margin-top: 30px;
+}
+
+#d12 {
+    margin-top: 10px;
+}
+
+/*#d11 {
+    margin-top: 10px;
+}*/
+
+#d28 {
+    margin-top: 160px;
+}
+
+#d27 {
+    margin-top: 130px;
+}
+
+#d26 {
+    margin-top: 100px;
+}
+
+#d25 {
+    margin-top: 80px;
+}
+
+#d24 {
+    margin-top: 50px;
+}
+
+#d23 {
+    margin-top: 30px;
+}
+
+#d22 {
+    margin-top: 10px;
+}
+
+/*-------------------------------- inferior --------------------------------*/
+
+
+
+#d47 {
+    margin-top: 15px;
+}
+
+#d46 {
+    margin-top: 40px;
+}
+
+#d45 {
+    margin-top: 60px;
+}
+
+#d44 {
+    margin-top: 90px;
+}
+
+#d43 {
+    margin-top: 110px;
+}
+
+#d42 {
+    margin-top: 130px;
+}
+
+#d41 {
+    margin-top: 150px;
+}
+
+/* ---------------------------------------- */
+
+#d37 {
+    margin-top: 15px;
+}
+
+#d36 {
+    margin-top: 40px;
+}
+
+#d35 {
+    margin-top: 60px;
+}
+
+#d34 {
+    margin-top: 90px;
+}
+
+#d33 {
+    margin-top: 110px;
+}
+
+#d32 {
+    margin-top: 130px;
+}
+
+#d31 {
+    margin-top: 150px;
+}
+
+
+
+/*img {
+    width: 50px;
+    height: 90px;
+}*/
+
+img {
+    width: 50px;
+    height: 90px;
+}
+
+/*img {
+    width: 7%;
+    height: 10%;
+}*/
+
+
+
+#d55 {
+    margin-top: 80px;
+}
+
+#d54 {
+    margin-top: 50px;
+}
+
+#d53 {
+    margin-top: 30px;
+}
+
+#d52 {
+    margin-top: 10px;
+}
+
+/*----------------------------------------------*/
+#d65 {
+    margin-top: 80px;
+}
+
+#d64 {
+    margin-top: 50px;
+}
+
+#d63 {
+    margin-top: 30px;
+}
+
+#d62 {
+    margin-top: 10px;
+}
+
+/*----------------------------------------------*/
+#d85 {
+    margin-top: 60px;
+}
+
+#d84 {
+    margin-top: 90px;
+}
+
+#d83 {
+    margin-top: 110px;
+}
+
+#d82 {
+    margin-top: 130px;
+}
+
+#d81 {
+    margin-top: 150px;
+}
+
+/*----------------------------------------------*/
+#d75 {
+    margin-top: 60px;
+}
+
+#d74 {
+    margin-top: 90px;
+}
+
+#d73 {
+    margin-top: 110px;
+}
+
+#d72 {
+    margin-top: 130px;
+}
+
+#d71 {
+    margin-top: 150px;
+}
+
+.espacioOdontograma{
+    height:650px;
+}
+
+@media only screen and (min-width: 1270px) {
+    .espacioOdontograma{
+        height:800px;
+    }   
+}
+
+@media only screen and (max-width: 1745px) {
+    .espacioOdontograma{
+        //height:500px;
+    }   
+}
+
+.imagen{
+    cursor: pointer;
+}
+.padingDMayor{
+    //padding-top:30%;
+}
+.padingLMayor{
+    //padding-top:15%;
+}
+@media only screen and (max-width: 1445px) {
+    .padingDMayor{
+        padding-top:28%;
+    }
+    .padingLMayor{
+        padding-top:100px;
+        padding-left: 22px;
+    }
+}
+
+@media only screen and (min-width: 1445px) {
+    .padingDMayor{
+        padding-top:20%;
+    }
+    .padingLMayor{
+        padding-top:100px;
+        padding-left: 22px;
+    }
+}
+
+@media only screen and (max-width: 900) {
+    .padingDMayor{
+        padding-top:100%;
+    }
+    .padingLMayor{
+        padding-top:100px;
+        padding-left: 22px;
+    }
+}
+
+.divForm {
+    //display: inline-block;
+    background: red;
+}
+
+div4 {
+    float:left;
+    clear:both;
+}

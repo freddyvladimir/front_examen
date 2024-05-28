@@ -1,0 +1,30 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Zonas</mat-label>
+    <input matInput aria-label="Zona" [matAutocomplete]="auto" [formControl]="stateCtrl" placeholder="Zona">
+    <button *ngIf="stateCtrl" matSuffix mat-icon-button aria-label="Clear">
+      <mat-icon>close</mat-icon>
+    </button>
+    <button *ngIf="!stateCtrl" matSuffix mat-icon-button aria-label="Clear">
+      <mat-icon>search</mat-icon>
+    </button>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let zona of filteredZonas | async" [value]="zona.name"
+        (onSelectionChange)="onSelectedZona(zona)">
+
+        <span>{{zona.name}}</span>
+        <small></small>
+
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <br>
+</form>
+
+<div>
+  <div id="map" class="map"></div>
+</div>
+
+<div>
+  {{ coordenadas }}
+</div>

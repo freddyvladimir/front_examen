@@ -1,0 +1,192 @@
+<h2 mat-dialog-title>PROGRAMACIÓN DE TURNOS</h2>
+<mat-dialog-content class="mat-typography">
+  <div fxFlex="100" fxFlex.lt-sm="100" class="matero-col">
+    <form #myForm="ngForm" class="form-field-full">
+      <div fxLayout="row wrap" fxLayoutGap="8px grid">
+        
+        <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="!tipoBock">
+          <mat-form-field color="accent" appearance="outline">
+            <mat-label>Fecha inicio - Fecha fin</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+              <input matStartDate formControlName="start" placeholder="Fecha inicio" #dateRangeStart>
+              <input matEndDate formControlName="end" placeholder="Fecha fin" #dateRangeEnd
+                (dateChange)="seleccionar_fecha(dateRangeStart, dateRangeEnd)">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker disabled="false"></mat-date-range-picker>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="tipoBock">
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha:</mat-label>
+            <input id="fechaSelec" name="fechaSelec" [(ngModel)]="datos.fechaSelec" disabled matInput
+              placeholder="NUMERO DE FICHAS">
+            <mat-icon matSuffix>calendar_today</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="!tipoBock">
+          <section class="example-section" [formGroup]="dias_semana">
+            <h4>Seleccione el dia de atencion :</h4>
+            <p>
+              <mat-checkbox formControlName="lunes">lunes</mat-checkbox>
+            </p>
+            <p>
+              <mat-checkbox formControlName="martes">martes</mat-checkbox>
+            </p>
+            <p>
+              <mat-checkbox formControlName="miercoles">miercoles</mat-checkbox>
+            </p>
+            <p>
+              <mat-checkbox formControlName="jueves">jueves</mat-checkbox>
+            </p>
+            <p>
+              <mat-checkbox formControlName="viernes">viernes</mat-checkbox>
+            </p>
+            <p>
+              <mat-checkbox formControlName="sabado">sabado</mat-checkbox>
+            </p>
+            <p>
+              <mat-checkbox formControlName="domingo">domingo</mat-checkbox>
+            </p>
+          </section>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100">
+          <mat-form-field appearance="outline">
+            <mat-label>TURNOS:</mat-label>
+            <mat-select id="turnos" name="turnos" [(ngModel)]="datos.turnos"
+              (selectionChange)="select($event.value);cargarTurno($event.value)" [disabled]="tipoBock" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let turno of data_turnos" [value]="turno.thtrnid">
+                {{turno.thtrn_descripcion}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="datos.prestacion == undefined ">Seleccione turno</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="NIVEL_HOSPITAL==2">
+          <mat-form-field appearance="outline">
+            <mat-label>GRUPO PRESTACION:</mat-label>
+            <mat-select id="prestacion" name="prestacion" [(ngModel)]="datos.prestacion"
+              (selectionChange)="listar_servicios($event.value)" [disabled]="tipoBock" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let prest of data_prestacion" [value]="prest.hspprestacion_id">
+                {{prest.cpgrupo}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="datos.prestacion == undefined ">Seleccione turno</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="NIVEL_HOSPITAL==1">
+          <mat-form-field appearance="outline">
+            <mat-label>SERVICIOS:</mat-label>
+            <mat-select id="servicios" name="servicios" [(ngModel)]="datos.servicios"
+              (selectionChange)="listar_medicos($event.value)" [disabled]="tipoBock" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let servicio of data_servicios"
+                [value]="servicio.hspcid + '-' +servicio.vesp_tiempo_atencion">
+                {{servicio.cpgrupo}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="datos.servicios == undefined ">Seleccione turno</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100" *ngIf="NIVEL_HOSPITAL==2">
+          <mat-form-field appearance="outline">
+            <mat-label>SERVICIOS:</mat-label>
+            <mat-select id="servicios" name="servicios" [(ngModel)]="datos.servicios"
+              (selectionChange)="listar_medicos($event.value)" [disabled]="tipoBock" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let servicio of data_servicios"
+                [value]="servicio.hspcid + '-' +servicio.vesp_tiempo_atencion">
+                {{servicio.cpgrupo}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="datos.servicios == undefined ">Seleccione turno</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100">
+          <mat-form-field appearance="outline">
+            <mat-label>TIEMPO DE ATENCION POR FICHA (EN MINUTO):</mat-label>
+            <input id="tiempo" name="tiempo" [(ngModel)]="datos.tiempo" disabled matInput placeholder="TIEMPO">
+            <mat-icon matSuffix>query_builder</mat-icon>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100">
+          <mat-form-field appearance="outline">
+            <mat-label>MEDICO:</mat-label>
+            <mat-select id="medico" name="medico" [(ngModel)]="datos.medico" (selectionChange)="select($event.value);"
+            required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let medicos of data_medico" [value]="medicos.huid">
+                {{medicos.medico}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="datos.medico == undefined ">Seleccione medicos</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100">
+          <mat-form-field appearance="outline">
+            <mat-label>CONSULTORIO:</mat-label>
+            <mat-select id="consultorio" name="consultorio" [(ngModel)]="datos.consultorio" [disabled]="tipoBock" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let consultorios of data_consultorio" [value]="consultorios.ycnsl_id">
+                {{consultorios.ycnsl_descripcion}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="datos.consultorio == undefined ">Seleccione consultorio</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100">
+          <mat-form-field appearance="outline">
+            <mat-placeholder>HORA INICIO:</mat-placeholder>
+            <mtx-datetimepicker-toggle [for]="hora_inicio" matSuffix></mtx-datetimepicker-toggle>
+            <mtx-datetimepicker #hora_inicio [timeInterval]="5" type="time">
+            </mtx-datetimepicker>
+            <input [mtxDatetimepicker]="hora_inicio" name="hora_inicio" [(ngModel)]="datos.hora_inicio"
+              (ngModelChange)="calcular_cantidad_fichas()" matInput [disabled]="tipoBock" required>
+            <mat-error>Formato incorrecto</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100">
+          <mat-form-field appearance="outline">
+            <mat-placeholder>HORA FIN:</mat-placeholder>
+            <mtx-datetimepicker-toggle [for]="hora_fin" matSuffix></mtx-datetimepicker-toggle>
+            <mtx-datetimepicker #hora_fin [timeInterval]="5" mode="landscape" type="time">
+            </mtx-datetimepicker>
+            <input [mtxDatetimepicker]="hora_fin" name="hora_fin" [(ngModel)]="datos.hora_fin"
+              (ngModelChange)="calcular_cantidad_fichas()" matInput required>
+            <mat-error>Formato incorrecto</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div fxFlex="50" fxFlex.lt-sm="100">
+          <mat-form-field appearance="outline">
+            <mat-label>NUMERO DE FICHAS:</mat-label>
+            <input id="cantidad_fichas" name="cantidad_fichas" [(ngModel)]="datos.cantidad_fichas" disabled matInput
+              placeholder="NUMERO DE FICHAS">
+            <mat-icon matSuffix>view_array</mat-icon>
+          </mat-form-field>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>CANCELAR</button>
+  <button *ngIf="!tipoBock" mat-button [mat-dialog-close]="data" color="primary" (click)="generarFichas()"
+    [disabled]="!myForm.form.valid" cdkFocusInitial>GUARDAR</button>
+  <button *ngIf="tipoBock" mat-button [mat-dialog-close]="data" color="primary" (click)="modificarFichas()"
+    [disabled]="!myForm.form.valid" cdkFocusInitial>MODIFICAR</button>
+</mat-dialog-actions>

@@ -1,0 +1,267 @@
+<h2 mat-dialog-title> Reserva de Fichas </h2>
+<mat-dialog-content class="mat-typography">
+  <div fxFlex="100" fxFlex.lt-sm="100" class="matero-col">
+    <form #myForm="ngForm" class="form-field-full">
+        <div fxLayout="row" fxLayoutAlign="center center" >
+            <mat-card fxFlex="25%" class="especialidad-card" (click)="asignar_servicio(servicio)" *ngFor="let servicio of data_servicios">
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <div fxFlex="100%" >
+                        <img mat-card-image src="assets/images/servicios/{{servicio.scdescripcion}}.jpg"
+                            style="width: 90px; height: 90px; margin-top: 5px;">
+                    </div>
+                    <div fxFlex="100%" >
+                        <mat-card-title-group>
+                            <mat-card-title style="font-size:15px;">{{servicio.scdescripcion}}</mat-card-title>
+                        </mat-card-title-group>
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100" *ngIf="habEstudios">    
+            <div fxFlex="50" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                  <mat-label> Seleccionar Estudio: </mat-label>
+                  <mat-select id="estudio" name="estudio" [(ngModel)]="datos.estudio" (ngModelChange)="seleccion_estudio($event)" required>
+                    <mat-option *ngFor="let estudios of data_estudios" [value]="estudios.est_id">
+                      {{estudios.est_descripcion}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="datos.estudio === undefined ">Seleccione Estudio</mat-error>
+                </mat-form-field>
+                <!--mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Seleccionar Estudio:</mat-label>
+                    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                      <mat-option *ngFor="let estudios of data_estudios | async" [value]="estudios.est_id">
+                        {{estudios.est_descripcion}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field-->
+            </div>
+            <div fxFlex="20" fxFlex.lt-sm="100" *ngIf="habEstudioInst">
+                <div fxLayout="row" fxLayout="column" fxFlexAlign="baseline">
+                    <!--mat-label> Estudios INSTITUCIONALES: </mat-label-->
+                    <button mat-flat-button color="primary" (click)="cambiar_tipo_institucional()">Estudios INSTITUCIONALES</button>
+                </div>
+            </div>
+            <div fxFlex="20" fxFlex.lt-sm="100" *ngIf="habEstudioLey">
+                <div fxLayout="row" fxLayout="column" fxFlexAlign="baseline">
+                    <!--mat-label> Estudios SUS - LEY 1152: </mat-label-->
+                    <button mat-flat-button color="primary" (click)="cambiar_tipo_sus()">Estudios SUS - LEY 1152</button>
+                </div>
+            </div>
+            <!--div fxFlex="20" fxFlex.lt-sm="100" *ngIf="habEstudioSoat">
+                <div fxLayout="row" fxLayout="column">
+                    <mat-label> Estudios SOAT: </mat-label>
+                    <button mat-flat-button color="primary" (click)="cambiar_tipo_soat()">Listar Estudios</button>
+                </div>
+            </div-->
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100" *ngIf="habServicio">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+                <!-- Opciones Column -->
+                <ng-container matColumnDef="opciones">
+                  <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                  <td mat-cell *matCellDef="let element"><button mat-fab color="warn"><mat-icon>delete</mat-icon></button></td>
+                </ng-container>
+              
+                <!-- Estudios Column -->
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef>Estudios</th>
+                  <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+                </ng-container>
+
+                <!-- Precio Column -->
+                <ng-container matColumnDef="precio">
+                    <th mat-header-cell *matHeaderCellDef>Precio</th>
+                    <td mat-cell *matCellDef="let element">{{element.precio}} (Bs.)</td>
+                </ng-container>
+
+                <!-- Especificaciones Column -->
+                <ng-container matColumnDef="especificaciones">
+                    <th mat-header-cell *matHeaderCellDef>Especificaciones</th>
+                    <td mat-cell *matCellDef="let element"><textarea name="especificaciones" id="especificaciones" cols="30" rows="3"></textarea></td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table> 
+        </div>
+        <br>
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100" *ngIf="habServicio">
+            <div fxFlex="35" fxFlex.lt-sm="100" fxFlexAlign="center"></div>
+            <div fxFlex="15" fxFlex.lt-sm="100" fxFlexAlign="center">
+                <button mat-flat-button color="primary" (click)="reserva_sin_fichas()">Reserva sin Ficha</button>
+            </div>
+            <div fxFlex="15" fxFlex.lt-sm="100" fxFlexAlign="center">
+                <button mat-flat-button color="primary" (click)="reserva_con_fichas()">Reserva con Ficha</button>
+            </div>
+            <div fxFlex="35" fxFlex.lt-sm="100" fxFlexAlign="center"></div>
+        </div>
+        
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100" *ngIf="habResrvFich">
+            <mat-form-field appearance="outline">
+                <mat-label> Fecha Disponible: </mat-label>
+                <mat-select id="fecha" name="fecha" [(ngModel)]="datos.fecha" (ngModelChange)="seleccion_fechaDisponible($event)" required>
+                  <mat-option *ngFor="let fechas of data_fechaDisp" [value]="fechas.vtrn_fecha">
+                    {{fechas.vtrn_fecha_literal}} - {{fechas.vtrn_dia}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="datos.fecha === undefined">Fecha Disponible</mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100" *ngIf="habResrvFich">
+            <table mat-table [dataSource]="dataSourceRyx" class="mat-elevation-z8 demo-table">
+                <!-- Seleccionar Column -->
+                <ng-container matColumnDef="seleccionar">
+                  <th mat-header-cell *matHeaderCellDef>Seleccionar</th>
+                  <td mat-cell *matCellDef="let element"><button mat-icon-button color="primary" (click)="listar_fichas_disponibles(element)"><mat-icon>next_week</mat-icon></button></td>
+                </ng-container>
+              
+                <!-- Técnico Column -->
+                <ng-container matColumnDef="tecnico">
+                  <th mat-header-cell *matHeaderCellDef>Técnico</th>
+                  <td mat-cell *matCellDef="let element">{{element.vprs_paterno}} {{element.vprs_materno}} {{element.vprs_nombres}}</td>
+                </ng-container>
+
+                <!-- Turno Column -->
+                <ng-container matColumnDef="turno">
+                    <th mat-header-cell *matHeaderCellDef>Turno</th>
+                    <td mat-cell *matCellDef="let element">{{element.vtptrn_descripcion}}</td>
+                </ng-container>
+
+                <!-- Horario Atención Column -->
+                <ng-container matColumnDef="horarioAtencion">
+                    <th mat-header-cell *matHeaderCellDef>Horario Atención</th>
+                    <td mat-cell *matCellDef="let element">{{element.vhora_inicio}} - {{element.vhora_fin}}</td>
+                </ng-container>
+
+                <!-- Ficha Extra Column -->
+                <ng-container matColumnDef="fichaExtra">
+                    <th mat-header-cell *matHeaderCellDef>Ficha Extra</th>
+                    <td mat-cell *matCellDef="let element"><button mat-icon-button><mat-icon>add_to_queue</mat-icon></button></td>
+                  </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsRyx"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsRyx;"></tr>
+            </table> 
+        </div>
+        
+        
+        <mat-grid-list cols="4" rowHeight="2:1" *ngIf="habListFichas">
+            <mat-grid-tile *ngFor="let fichas of data_fichas_disponibles" >
+                <mat-card *ngIf="fichas.Estado === 'L' " class="card-ficha-libre"
+                    (click)="seleccionar_ficha(fichas)">
+                    <mat-card-content>
+                        <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                            fxLayoutGap="0.5%">
+                            <div fxFlex="50%" fxFlex.lt-sm="100%">
+                                <h2>{{fichas.Ficha}}</h2>
+                                {{fichas.Hora}}
+                            </div>
+                            <div fxFlex="50%" fxFlex.lt-sm="100%" class="icons" fxLayoutAlign="center center">
+                                <mat-icon>offline_pin</mat-icon>
+                                <p>Disponible</p>
+                            </div>
+                        </div>
+                        
+                    </mat-card-content>
+                </mat-card>
+                <mat-card *ngIf="fichas.Estado === 'O' " class="card-ficha-ocupado"
+                    (click)="seleccionar_ficha(fichas)">
+                    <mat-card-content>
+                            <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                            fxLayoutGap="0.5%">
+                            <div fxFlex="50%" fxFlex.lt-sm="100%" fxLayoutAlign="center center">
+                                <h2>{{fichas.Ficha}}</h2>
+                                {{fichas.Hora}}
+                            </div>
+                            <div fxFlex="50%" fxFlex.lt-sm="100%" class="icons">
+                                <mat-icon>highlight_off</mat-icon>
+                                <p>Ocupado</p>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+                <mat-card *ngIf="fichas.Estado === 'P' " class="card-ficha-no-disponible"
+                    (click)="seleccionar_ficha(fichas)">
+                    <mat-card-content>
+                        <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                            fxLayoutGap="0.5%">
+                            <div fxFlex="50%" fxFlex.lt-sm="100%">
+                                <h2>{{fichas.Ficha}}</h2>
+                                {{fichas.Hora}}
+                            </div>
+                            <div fxFlex="50%" fxFlex.lt-sm="100%" class="icons" fxLayoutAlign="center center">
+                                <mat-icon>help</mat-icon>
+                                <p>Vencido</p>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </mat-grid-tile>
+        </mat-grid-list>
+
+
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100" *ngIf="habServicioEco">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+                <!-- Opciones Column -->
+                <ng-container matColumnDef="opciones">
+                  <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                  <td mat-cell *matCellDef="let element"><button mat-fab color="warn"><mat-icon>delete</mat-icon></button></td>
+                </ng-container>
+              
+                <!-- Estudios Column -->
+                <ng-container matColumnDef="descripcion">
+                  <th mat-header-cell *matHeaderCellDef>Estudios</th>
+                  <td mat-cell *matCellDef="let element">{{element.descripcion}}</td>
+                </ng-container>
+
+                <!-- Tiempo Column -->
+                <ng-container matColumnDef="tiempo">
+                    <th mat-header-cell *matHeaderCellDef>Tiempo</th>
+                    <td mat-cell *matCellDef="let element">{{element.tiempo}} (min)</td>
+                </ng-container>
+
+                <!-- Preparacion Column -->
+                <ng-container matColumnDef="preparacion">
+                    <th mat-header-cell *matHeaderCellDef>Preparacion</th>
+                    <td mat-cell *matCellDef="let element">{{element.preparacion}}</td>
+                </ng-container>
+
+                <!-- Precio Column -->
+                <ng-container matColumnDef="precio">
+                    <th mat-header-cell *matHeaderCellDef>Precio</th>
+                    <td mat-cell *matCellDef="let element">{{element.precio}} (Bs.)</td>
+                </ng-container>
+
+                <!-- Especificaciones Column -->
+                <ng-container matColumnDef="especificaciones">
+                    <th mat-header-cell *matHeaderCellDef>Especificaciones</th>
+                    <!--td mat-cell *matCellDef="let element">{{element.especificaciones}}</td-->
+                    <td mat-cell *matCellDef="let element"><textarea name="especificaciones" id="especificaciones" cols="30" rows="3"></textarea></td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+            </table> 
+        </div>
+        <br>
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100" *ngIf="habServicioEco">
+            <div fxFlex="35" fxFlex.lt-sm="100" fxFlexAlign="center"></div>
+            <div fxFlex="15" fxFlexAlign="center" fxFlex.lt-sm="100">
+                <button mat-flat-button color="primary" (click)="reserva_sin_fichas_eco()">Reserva sin Ficha</button>
+            </div>
+            <div fxFlex="15" fxFlexAlign="center" fxFlex.lt-sm="100">
+                <button mat-flat-button color="primary" (click)="derivar_a_programacion()">Derivar para Programación</button>
+            </div>
+            <div fxFlex="35" fxFlex.lt-sm="100" fxFlexAlign="center"></div>
+        </div>
+    </form>        
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" (click)="cerrar()">CANCELAR</button>
+</mat-dialog-actions>    

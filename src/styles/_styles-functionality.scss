@@ -1,0 +1,147 @@
+/* boton flotente */
+.btn-flotante {
+	font-size: 16px;
+	text-transform: uppercase;
+	font-weight: bold;
+	position: fixed;
+	bottom: 30px;
+	right: 40px;
+	transition: all 300ms ease 0ms;
+	z-index: 99;
+}
+
+.btn-flotante:hover {
+	transform: translateY(-7px);
+}
+
+@media only screen and (max-width: 600px) {
+	.btn-flotante {
+		font-size: 14px;
+		padding: 12px 20px;
+		bottom: 20px;
+		right: 20px;
+	}
+}
+
+/* boton flotente */
+/* tooltips */
+.tooltip-red {
+	background: #b71c1c;
+}
+
+.tooltip-plomo {
+	background: #2a2929ab;
+}
+
+/* tooltips */
+/* tablas con fitro y paginado*/
+.table-container {
+	position: relative;
+	min-height: 300px;
+	max-height: 600px;
+	overflow: auto;
+}
+
+.container {
+	position: relative;
+}
+
+table {
+	width: 100%;
+}
+
+.btn_eliminar {
+	visibility: hidden;
+}
+
+.mat-row:hover .mat-cell {
+	background-color: rgba(153, 153, 153, 0.274);
+	transition: background-color .9s;
+
+	.btn_eliminar {
+		visibility: visible;
+	}
+}
+
+.mat-list:hover .mat-list-item {
+	background-color: rgba(153, 153, 153, 0.274);
+	transition: background-color .9s;
+
+	.btn_eliminar {
+		visibility: visible;
+	}
+}
+
+/* tablas con fitro y paginado*/
+/* inputs */
+.mat-form-field {
+	font-size: 14px;
+	width: 100%;
+}
+
+/* inputs */
+
+.indicador {
+	color: #09B8B0;
+}
+
+.titulos {
+	color: #09B8B0;
+	font-weight: bold;
+	font-weight: 900;
+}
+
+.button-primary {
+	background: #09b8b0;
+	color: #fefeff;
+}
+
+table.mat-table {
+	border-spacing: 9px !important;
+	//padding: 15px;
+}
+
+// botones centro-monitoreo  &  Cards 
+.texto-encima{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+	top: 50%;
+    left: 50%;
+	transform: translate(-50%, -50%);
+}
+.numeros-monitoreo{
+	margin-top: -16px;
+	position: relative;
+	left: -22px;
+	font-size: 28px;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+	text-align:justify;
+	vertical-align: super;
+	font-weight: bold;
+}
+.card-p {
+	border-color: #4c4c4c;
+	padding: 10px;
+	background: linear-gradient(135deg, #ffc488, #ff970f, #e48500, #ffb366, #e77300, #e77300);
+	background-size: 500%;
+	animation: color 10s infinite;
+}
+.card-merced {
+	padding: 10px;
+	background: linear-gradient(135deg, #00b3b0, #27fae9, #2dc3bb, #3db2a4, #1f9e98, #05a4a1);
+	background-size: 500%;
+	animation: color 10s infinite;
+}
+.card-cotahuma {
+	padding: 10px;
+	background: linear-gradient(135deg, #005eca, #009cda, rgb(0, 70, 192), #0097dd, #001bcd, #2da0ff);
+	background-size: 500%;
+	animation: color 10s infinite;
+}
+.card-portada {
+	padding: 10px;
+	background: linear-gradient(135deg, #fe7259, #ff0d0d, #ff9090, #ff0d0d, #ef0000, #ff2d2d);
+	background-size: 500%;
+	animation: color 10s infinite;
+}

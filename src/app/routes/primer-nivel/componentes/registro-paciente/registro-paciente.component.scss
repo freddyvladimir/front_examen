@@ -1,0 +1,16 @@
+label.cameraButton {
+    display: inline-block;
+    margin: 1em 0;
+    padding: 0.5em;
+    border: 2px solid rgb(177, 153, 153);
+    border-color: #EEE #CCC #CCC #EEE;
+    background-color: #DDD;
+}
+
+label.cameraButton:active {
+    border-color: #CCC #EEE #EEE #CCC;
+}
+
+label.cameraButton input[accept*="camera"] {
+    display: none;
+}

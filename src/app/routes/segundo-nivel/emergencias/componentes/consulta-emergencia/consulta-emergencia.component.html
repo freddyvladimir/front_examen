@@ -1,0 +1,327 @@
+<br>
+<div class="example-action-buttons">
+    <button mat-button (click)="accordion.openAll()">Expandir Todo</button>
+    <button mat-button (click)="accordion.closeAll()">Colapsar Todo</button>
+</div>
+
+
+<mat-accordion class="example-headers-align" multi hideToggle>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <b>ATENCIÓN PACIENTE</b>
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Tipo de Paciente:</mat-label>
+                    <input matInput type="text"
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].tipoSeguroSalud" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Cubiculo de Atención:</mat-label>
+
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].cubiculo_aten" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Tipo de Paciente:</mat-label>
+
+                    <input matInput type="text"
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].referido_inst1" />
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <b>ATENCIÓN EMERGENCIAS Y ENFERMERIA</b>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+        </mat-panel-description>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Hora de Ingreso:</mat-label>
+
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].horaingreso" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Fecha de Ingreso:</mat-label>
+
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].fechaingreso" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input matInput type="text"
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].fechaNacimiento" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Edad</mat-label>
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].edad" />
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                SIGNOS VITALES
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-signos-vitales [signosVitales]="currentSignosVitales"></app-signos-vitales>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Motivo de Consulta:</mat-label>
+
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].horaingreso" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Historia de la Enfermedad Actual:</mat-label>
+
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].fechaingreso" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Antecedente Personales Patologicos</mat-label>
+                    <input matInput type="text"
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].fechaNacmiento" />
+                </mat-form-field>
+            </div>
+        </div>
+
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                EXAMEN FÍSICO
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <h4>GLASGOW</h4>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Apertura Ocular:</mat-label>
+
+                    <input matInput type="text"
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].apertura_ocular" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Respuesta Verbal:</mat-label>
+
+                    <input matInput type="text"
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].respuesta_verbal" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Respuesta Motora:</mat-label>
+                    <input matInput type="text"
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].respuesta_motora" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>TOTAL(/15)</mat-label>
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].total" />
+                </mat-form-field>
+            </div>
+        </div>
+
+        <h4>PUPILAS</h4>
+
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>OD:mm</mat-label>
+
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].od" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>OI:mm</mat-label>
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].oi" />
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Craneo-facial:</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].craneo_facial"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Piel y mucosas</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].piel_mucosas"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Cardiaco:</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].cardiaco"></textarea>
+
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Pulmonar</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].pulmonar"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Abdomen:</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].abdomen"></textarea>
+
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Genito Urinario</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].genito_urinario"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Extremidades:</mat-label>
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].extremidades" />
+                </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Otros</mat-label>
+                    <input matInput type="text" [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].otros" />
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                ANAMNESIS
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Resumen de ANAMNESIS:</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].anamnesis"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Examen clinico:</mat-label>
+                    <textarea rows="6" rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].examenfisico"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                DIAGNÓSTICO
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Impresión Diagnóstica:</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].diagnosticoDescriptivo"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Diagnóstico de Ingreso CIE 10</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].diagnosticoIngreso"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Diagnóstico de Egreso CIE 10</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].diagnosticoEgreso"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                TRATAMIENTO Y CONDUCTA AMBULATORIA
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Tratamiento:</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].diagnosticoDescriptivo"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Observaciones:</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].diagnosticoIngreso"></textarea>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Conducta Ambulatoria</mat-label>
+                    <textarea rows="6" matInput
+                        [(ngModel)]="datosConsultaEmergencias.vconsultexter[0].diagnosticoEgreso"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

@@ -1,0 +1,60 @@
+.especialidad-card {
+    background-color: #B0F5F2;
+    width: 90%;
+    cursor:pointer; cursor: hand;
+}
+
+.especialidad-card:hover {
+    background-color: #16f3e8;
+}
+
+.dia {
+    background-color: #FDE6D5;
+    width: 120px;
+    height: 120px;
+    text-align: center;
+}
+
+.mat-radio-button {
+    margin: 1rem;
+}
+
+.card-medico {
+    background: #FFC397;
+}
+
+.card-ficha-libre {
+    background-color: #A8F3AB;
+    width: 90%;
+    cursor:pointer;
+}
+
+.card-ficha-ocupado {
+    background-color: #FF4343;
+    width: 90%;
+    cursor:pointer;
+}
+
+.card-ficha-no-disponible {
+    background-color: #FFFF63;
+    width: 90%;
+    cursor:pointer;
+}
+
+.toast-container .toast-info {
+    background-color: #20b8b0;
+}
+
+
+.example-card {
+    max-width: 400px;
+}
+
+.example-header-image {
+    background-image: url('../../../../../assets/images/logo_ficha.png');
+    background-size: cover;
+}
+
+.titulo-ficha{
+    color: #F3388A;
+}

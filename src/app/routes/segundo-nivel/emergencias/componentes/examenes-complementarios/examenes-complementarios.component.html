@@ -1,0 +1,336 @@
+<mat-card *ngIf="new_contenedor_data == true">
+    <mat-card-title align="center">Formulario de Solicitud de Examenes de Laboratorio, Imagenologia/Gabinete y Hemocomponentes</mat-card-title>
+    <mat-card-title align="center">Laboratorio</mat-card-title>
+    <form [formGroup]="laboratorioForm" (ngSubmit)="onSubmitLaboratorio()">
+        <div fxLayout="row wrap" fxLayoutGap="8px grid" fxFlex.lt-sm="100">
+                <div fxLayout="row" fxFlex="100" fxLayoutGap="20px">
+                    <div fxFlex="33" fxLayout="column">
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l1">Baciloscopia seriada</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l4">Moco fecal</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l7">Coproparasitólogico Seriado</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l10">Proteinuria de 24 horas</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l13">Cultivo p/germenes comunes y antibiograma</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l16">Tiempo de coagulación y tiempo de sangría</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l19">Fostatasa alcalina y acida</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l22">Transaminasas TGO-TGP</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l25">Glicemia</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l28">Reacción Widal</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l31">Hemograma completo</mat-checkbox>
+                        </section>
+                    </div>
+                    <div fxFlex="33" fxLayout="column">
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l2">Inmunoglobulinas IgG, IgM, IgA</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l5">Coproparasitológico Simple</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l8">Proteina C Reactiva - PCR</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l11">Creatinina sérica</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l14">Prueba rápida sifilis</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l17">Factor Reumatoide</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l20">Tinción PAP</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l23">Grupo sanguineo y factor Rh</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l26">Reactantes de fase aguda(VES, Fibrinogenoy PCR)</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l29">Hemoglobina y hematocrito</mat-checkbox>
+                        </section>
+                    </div>
+                    <div fxFlex="33" fxLayout="column">
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l3">Bilirrubinas totales y fracciones</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l6">Nitrogeno ureico sérico y úrea</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l9">Proteina en orina</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l12">Prueba de Coombs directa/indirecta</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l15">Examen general de orina</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l18">Tiempo de protrombina/TPP</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l21">Frotis tincion Gram</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l24">Test de embarazo en sangre/HCG</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l27">Gota gruesa y fritus sanguineo + tinción</mat-checkbox>
+                        </section>
+                        <section class="example-section">
+                            <mat-checkbox class="example-margin" formControlName="l30">RPR para Sifilis - VDRL</mat-checkbox>
+                        </section>
+                    </div>
+                </div>
+                <div fxLayout="row" fxFlex="100" fxLayoutGap="40px">
+                    <div fxFlex="30" fxLayout="column">
+                        <mat-card-title>IMAGENOLOGIA</mat-card-title>
+                        <section class="example-section">
+                            <p>
+                                <mat-checkbox class="example-margin" formControlName="ecografia">Ecografia</mat-checkbox>
+                            </p>
+                            <p>
+                                <mat-checkbox class="example-margin" formControlName="rayosX">Rayos X</mat-checkbox>
+                            </p>
+                        </section>
+                        <div fxLayout="row">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>TAC</mat-label>
+                                    <input matInput autocomplete="off" placeholder="TAC" formControlName="tac" required>
+                                    <mat-error *ngIf="laboratorioForm.get('tac')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Endoscopia</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Endoscopia"
+                                        formControlName="endoscopia" required>
+                                    <mat-error *ngIf="laboratorioForm.get('endoscopia')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="35" fxLayout="column">
+                        <mat-card-title>OTROS ESTUDIOS DE LABORATORIO O GABINETE</mat-card-title>
+                        <div fxLayout="row">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>1.-</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="uno" required>
+                                    <mat-error *ngIf="laboratorioForm.get('uno')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>2.-</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="dos" required>
+                                    <mat-error *ngIf="laboratorioForm.get('dos')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>3.-</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="tres" required>
+                                    <mat-error *ngIf="laboratorioForm.get('tres')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>4.-</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="cuatro" required>
+                                    <mat-error *ngIf="laboratorioForm.get('cuatro')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxFlex="35" fxLayout="column">
+                        <mat-card-title>SERVICIO DE BANCO DE SANGRE - SIRVASE OTORGAR</mat-card-title>
+                        <div fxLayout="row">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <!--mat-form-field appearance="outline">
+                                    <mat-label>Grupo Sanguineo y Factor Rh</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="input_tac" required>
+                                    <mat-error *ngIf="laboratorioForm.get('input_tac')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field-->
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Grupo Sanguineo y Factor Rh</mat-label>
+                                        <mat-select  formControlName="grupoSanguineo" required>
+                                            <!--mat-option>--</mat-option-->
+                                            <mat-option *ngFor="let grupSan of grupoSanguineo" [value]="grupSan">
+                                                {{grupSan.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    <!--mat-error *ngIf="animalControl.hasError('required')">Please choose an animal</mat-error>
+                                    <mat-hint>{{animalControl.value?.sound}}</mat-hint-->
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="20px">
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Sangre total</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="sangreTotal" required>
+                                    <mat-error *ngIf="laboratorioForm.get('sangreTotal')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Crioprecipitados</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="criopre" required>
+                                    <mat-error *ngIf="laboratorioForm.get('criopre')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Paquete Globaular</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="paqueteGlobular" required>
+                                    <mat-error *ngIf="laboratorioForm.get('paqueteGlobular')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="20px">
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Anticuerpos Irregulares</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="anticuerposIrregul" required>
+                                    <mat-error *ngIf="laboratorioForm.get('anticuerposIrregul')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Plasma Fresco Congelado</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="plasmaCongelado" required>
+                                    <mat-error *ngIf="laboratorioForm.get('plasmaCongelado')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Plasma Normal</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="plasmaNormal" required>
+                                    <mat-error *ngIf="laboratorioForm.get('plasmaNormal')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="20px">
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Concentrado de Plaquetas</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="concentradoPlaquetas" required>
+                                    <mat-error *ngIf="laboratorioForm.get('concentradoPlaquetas')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Globulos Rojos Lavados</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="globulosRojLavados" required>
+                                    <mat-error *ngIf="laboratorioForm.get('globulosRojLavados')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="31">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Aféresis</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="aferesis" required>
+                                    <mat-error *ngIf="laboratorioForm.get('aferesis')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxLayoutGap="20px">
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Otros (Especificar)</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="activeotros" required>
+                                    <mat-error *ngIf="laboratorioForm.get('activeotros')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="100" fxFlex.lt-sm="100">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>N°</mat-label>
+                                    <input matInput autocomplete="off" placeholder="Llenar Datos" formControlName="otros" required>
+                                    <mat-error *ngIf="laboratorioForm.get('otros')?.invalid">
+                                        {{'validations.required' | translate}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        <mat-dialog-content>
+            <mat-dialog-actions align="end">
+                <section>
+                    <div class="example-button-row">
+                        <button  mat-raised-button class="actions-button" (click)="grabar_formulario()">Grabar Formulario <mat-icon>save</mat-icon></button>
+                        <button mat-raised-button class="actions-button" (click)="imprimir_formulario()">Imprimir Formulario <mat-icon> local_printshop</mat-icon></button>
+                    </div>
+                  </section>
+            </mat-dialog-actions>
+        </mat-dialog-content>
+
+    </form>
+</mat-card>

@@ -1,0 +1,101 @@
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+  <button mat-raised-button>
+    <mat-icon class="indicador">assignment</mat-icon>
+  </button>
+  <div>
+    <strong>Caja</strong>
+    <p>Registro de pagos de atención en hospital</p>
+  </div>
+</div>
+
+
+<mat-card>
+  <mat-card-title>Listado de pacientes</mat-card-title>
+  <mat-card-content>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+    </mat-form-field>
+
+    <div class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="siis">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> H.C. SIIS </th>
+          <td mat-cell *matCellDef="let row"> {{row.dtspslid}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="sice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> H.C. SICE </th>
+          <td mat-cell *matCellDef="let row"> {{row.vcodigopaciente}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="registro">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA Y HORA <br> DE REGISTRO </th>
+          <td mat-cell *matCellDef="let row"> {{row.vfregistrado}} <br> {{row.vhoraregistrado}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="atencion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA Y HORA <br> DE REGISTRO </th>
+          <td mat-cell *matCellDef="let row"> {{row.vpres_fecha_atencion}} <br> {{row.vpres_hora_inicio_ficha}} -
+            {{row.vpres_hora_fin_ficha}} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="paciente">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> PACIENTE </th>
+          <td mat-cell *matCellDef="let row"> {{row.vpaciente}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="origenFicha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ORIGEN DE FICHA </th>
+          <td mat-cell *matCellDef="let row"> {{row.vtipoficha}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="servicios">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> SERVICIO </th>
+          <td mat-cell *matCellDef="let row"> {{row.vesp_desc_especialidad}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="codigoFicha">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO DE FICHA </th>
+          <td mat-cell *matCellDef="let row"> {{row.vpres_codigo_ficha}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tipoConsulta">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> TIPO DE CONSULTA </th>
+          <td mat-cell *matCellDef="let row"> 
+
+            <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+              fxLayoutGap="0.5%">
+              <div fxFlex="50%">
+                {{row.tipoconsulta}}
+              </div>
+              <div fxFlex="50%">
+                <button matTooltip="Habilitacion caja" matTooltipClass="tooltip-plomo" class="btn_eliminar"
+                   matSuffix mat-icon-button aria-label="Clear">
+                  <mat-icon class="indicador">assignment_turned_in</mat-icon>
+                </button>
+                
+
+
+
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,21 @@
+<mat-card class="example-card">
+  <!-- <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+  </mat-card-header>
+    -->
+  <div class="centrado">
+    <img mat-card-image src="assets/images/centro_monitoreo/{{tipoImg}}">
+    <div class="texto-encima">
+      <h3>
+        CENTRO DE MONITOREO SIIS 24/7
+        <mat-slide-toggle [(ngModel)]="options.showHeader"
+          [disabled]="options.headerPos === 'above' || options.navPos === 'top'">
+        </mat-slide-toggle>
+      </h3>
+    </div>
+  </div>
+
+
+</mat-card>

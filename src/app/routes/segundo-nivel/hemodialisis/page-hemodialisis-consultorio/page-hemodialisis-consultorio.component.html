@@ -1,0 +1,1053 @@
+<!--<app-signos-vitales [signosVitales]="currentSignosVitales"></app-signos-vitales>
+<app-signos-vitales [signosVitales]="currentSignosVitales2"></app-signos-vitales>-->
+
+<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="2%">
+  <button mat-raised-button>
+    <mat-icon class="indicador">assignment</mat-icon>
+  </button>
+  <div>
+    <strong>Hemodiálisis</strong>
+    <p>{{ titleSection }}</p>
+  </div>
+</div>
+<div *ngIf="isVisibleListPaciente">
+  <mat-card>
+    <mat-card-title></mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+    <mat-card-content>
+      <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="left">
+        <div fxFlex="50%"></div>
+        <div fxFlex="50%">
+          <mat-form-field appearance="outline">
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker" (dateChange)="listConsultorio('change', $event)" #input />
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="mat-elevation-z8 table-container">
+        <table mat-table [dataSource]="dataSource" class="container" matSort>
+          <ng-container matColumnDef="serial">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nª</th>
+            <td mat-cell *matCellDef="let row; index as i">{{ i + 1 }}</td>
+          </ng-container>
+          <ng-container matColumnDef="siis">
+            <th mat-header-cell *matHeaderCellDef>HC. SIIS</th>
+            <td mat-cell *matCellDef="let row">{{ row.hc_siis }}</td>
+          </ng-container>
+          <ng-container matColumnDef="sice">
+            <th mat-header-cell *matHeaderCellDef>HC. SICE</th>
+            <td mat-cell *matCellDef="let row">{{ row.hc_sice }}</td>
+          </ng-container>
+          <ng-container matColumnDef="nombres">
+            <th mat-header-cell *matHeaderCellDef>Nombres</th>
+            <td mat-cell *matCellDef="let row">{{ row.nombres }}</td>
+          </ng-container>
+          <ng-container matColumnDef="paterno">
+            <th mat-header-cell *matHeaderCellDef>Paterno</th>
+            <td mat-cell *matCellDef="let row">{{ row.paterno }}</td>
+          </ng-container>
+          <ng-container matColumnDef="materno">
+            <th mat-header-cell *matHeaderCellDef>Materno</th>
+            <td mat-cell *matCellDef="let row">{{ row.materno }}</td>
+          </ng-container>
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef>Codigo</th>
+            <td mat-cell *matCellDef="let row">{{ row.codigo }}</td>
+          </ng-container>
+          <ng-container matColumnDef="edad">
+            <th mat-header-cell *matHeaderCellDef>Edad</th>
+            <td mat-cell *matCellDef="let row">{{ row.hjedad }}</td>
+          </ng-container>
+          <ng-container matColumnDef="fecha">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let row">{{ row.fsolicitud }}</td>
+          </ng-container>
+          <ng-container matColumnDef="opciones">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Opciones</th>
+            <td mat-cell *matCellDef="let row">
+              <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                fxLayoutGap="0.5%">
+                <div fxFlex="100%">
+                  <button mat-icon-button color="primary" matTooltip="Consultorio" class="btn_eliminar" matSuffix
+                    mat-icon-button aria-label="Clear" (click)="getProcedimiento(row)">
+                    <mat-icon> border_color </mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" matTooltip="Laboratorio" class="btn_eliminar"
+                    (click)="getLaboratorio(row)">
+                    <mat-icon> local_pharmacy</mat-icon>
+                  </button>
+                  <button mat-icon-button color="primary" matTooltip="Medicamentos" class="btn_eliminar"
+                    (click)="getMedicamentos(row)">
+                    <mat-icon> business_cente </mat-icon>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No se encontraron resultados "{{ input.value }}"</td>
+          </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div *ngIf="isVisibleFormDatosPaciente">
+  <mat-card>
+    <mat-card-title>REGISTRO DATOS DEL PACIENTE</mat-card-title>
+    <mat-card-subtitle>"{{ nombreCompleto }}"</mat-card-subtitle>
+    <mat-card-content> </mat-card-content>
+  </mat-card>
+
+  <form [formGroup]="procedimientoForm" (ngSubmit)="onSubmit()">
+    <div formGroupName="vhoja_datos_consultorio">
+      <mat-card>
+        <mat-card-title>DATOS GENERALES</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-content>
+          <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Alergias:</mat-label>
+                <input matInput formControlName="cnsl_alergias" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Diagnosticos:</mat-label>
+                <input matInput formControlName="cnsl_diagnosticos" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Subjetivo Anamnesis Pre-Dialisis:</mat-label>
+                <textarea matInput formControlName="cnsl_subanam_predial"></textarea>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Objetivo Anamnesis Pre-Dialisis:</mat-label>
+                <textarea matInput formControlName="cnsl_objanam_predial"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Observaciones:</mat-label>
+                <textarea matInput formControlName="cnsl_observacion"></textarea>
+              </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Indicaciones:</mat-label>
+                <textarea matInput formControlName="cnsl_indicaciones"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-title>PRESCRIPCIÓN HEMODIÁLISIS</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-content>
+          <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Tiempo:</mat-label>
+                <input matInput formControlName="cnsl_tiempo" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Ultrafiltrado:</mat-label>
+                <input matInput formControlName="cnsl_ultrafiltrado" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Sodio:</mat-label>
+                <input matInput formControlName="cnsl_sodio" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Temperatura:</mat-label>
+                <input matInput formControlName="cnsl_temperatura" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Potasio:</mat-label>
+                <input matInput formControlName="cnsl_potasio" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Calcio:</mat-label>
+                <input matInput formControlName="cnsl_calcio" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Qb:</mat-label>
+                <input matInput formControlName="cnsl_qb" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Qd:</mat-label>
+                <input matInput formControlName="cnsl_qd" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayoutAlign="" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Heparina:</mat-label>
+                <input matInput formControlName="cnsl_heparina" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayoutAlign="" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="100%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Tratamiento y/o recomendaciones:</mat-label>
+                <textarea matInput formControlName="cnsl_presc_obs"></textarea>
+              </mat-form-field>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card>
+        <mat-card-title>COMPLICACIONES INTRADIALISIS</mat-card-title>
+        <mat-card-subtitle></mat-card-subtitle>
+        <mat-card-content>
+          <div fxLayoutAlign="" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="30%">
+              <p>
+                <mat-checkbox formControlName="cnsl_arritmia">Arritmia</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_doltorax">Dolor toráxico</mat-checkbox>
+              </p>
+
+              <p>
+                <mat-checkbox formControlName="cnsl_emboliare">Embolia Aerea</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_has">HAS</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_hipotension">Hipotension</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_infmiocardio">Infarto de Miocardio
+                </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_parocr">Paro cariorespiratorio </mat-checkbox>
+              </p>
+            </div>
+            <div fxFlex="30%">
+              <p>
+                <mat-checkbox formControlName="cnsl_ansiedad">Ansiedad</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_calambres">Calambres</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_cefalea">Cefalea</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_convulsiones">Convulsiones</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_mareos">Mareos</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_nauseas">Nauseas</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_vomitos">Vomitos</mat-checkbox>
+              </p>
+            </div>
+            <div fxFlex="40%">
+              <p>
+                <mat-checkbox formControlName="cnsl_despltrocar">Desplazamiento de trocar
+                </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_disfaccv">Disfuncion de Acceso Vascular
+                </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_ematomafis">Hematoma en fistula </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_otros">Otros</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_reacdesinf">Reaccion a Desinfectante
+                </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_rupfiltro">Rupturas de filtro</mat-checkbox>
+              </p>
+
+              <p>
+                <mat-checkbox formControlName="cnsl_ruplineas">Rupturas de Lineas</mat-checkbox>
+              </p>
+
+              <p>
+                <mat-checkbox formControlName="cnsl_sangramiento">Sangramiento</mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_sindrouso">Sindrome de Primer Uso
+                </mat-checkbox>
+              </p>
+              <p>
+                <mat-checkbox formControlName="cnsl_trombosis">Trombosis de Circuito Extra Corporea
+                </mat-checkbox>
+              </p>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <mat-card-actions align="end">
+      <button mat-raised-button (click)="showListConsultorio()">Cancelar <mat-icon>reply</mat-icon></button>
+      <button mat-raised-button color="primary" (click)="imprimirReporte()">Imprimir <mat-icon>print</mat-icon></button>
+      <button mat-raised-button cdkFocusInitial color="primary" (click)="onSubmitHoja()">Guardar <mat-icon>file_copy</mat-icon></button>
+    </mat-card-actions>
+  </form>
+</div>
+<div *ngIf="isVisibleFormMedicamentos">
+  <mat-card>
+    <mat-card-title>MEDICAMENTOS</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+    <mat-card-content> </mat-card-content>
+  </mat-card>
+  <form (ngSubmit)="onSubmitMedicamento()">
+    <mat-card>
+      <mat-card-title></mat-card-title>
+      <mat-card-subtitle></mat-card-subtitle>
+      <mat-card-content>
+        <div *ngFor="let medicamento of medicamentos; let i = index">
+          <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="25%">
+              <mat-label>{{ medicamento.nom_comercial }}</mat-label>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Dosis recomendada</mat-label>
+                <input matInput name="medicamento.medi_dosis_recom" [(ngModel)]="medicamento.medi_dosis_recom" />
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label></mat-label>
+                <mat-select [(ngModel)]="medicamento.medi_modo_empl" name="medicamento.medi_modo_empl">
+                  <mat-option value="-1">--Modo Empleo --</mat-option>
+                  <mat-option value="O:Via Oral">O:Via Oral</mat-option>
+                  <mat-option value="IV: Via Intravenosa">IV: Via Intravenosa </mat-option>
+                  <mat-option value="IM:Via Intramuscular">IM:Via Intramuscular </mat-option>
+                  <mat-option value="VV: Via Vaginal">VV: Via Vaginal</mat-option>
+                  <mat-option value="R: Via Rectal">R: Via Rectal</mat-option>
+                  <mat-option value="T: Aplicacion Topica">T: Aplicacion Topica </mat-option>
+                  <mat-option value="SC: Via Subcutanea">SC: Via Subcutanea </mat-option>
+                  <mat-option value="SL: VIa Sublingual">SL: VIa Sublingual </mat-option>
+                  <mat-option value="I: Via Inalatoria">I: Via Inalatoria</mat-option>
+                  <mat-option value="C: Via Conjuntival">C: Via Conjuntival </mat-option>
+                  <mat-option value="ET: Via Endotraqueal">ET: Via Endotraqueal </mat-option>
+                  <mat-option value="L: Infiltracion Local">L: Infiltracion Local </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="25%">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Cantidad</mat-label>
+                <input matInput name="medicamento.medi_cantidad" [(ngModel)]="medicamento.medi_cantidad" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card-actions align="end">
+      <button mat-raised-button title="Regresar" (click)="showListConsultorio()">Regresar <mat-icon>reply</mat-icon></button>
+      <button mat-raised-button cdkFocusInitial color="primary" (click)="guardarDatos()">Imprimir Formulario <mat-icon>print</mat-icon></button>
+      <button mat-raised-button color="primary" (click)="reimprimir()">Reimprimir <mat-icon>print</mat-icon></button>
+    </mat-card-actions>
+  </form>
+</div>
+
+<div *ngIf="isVisibleLaboratorio">
+  <mat-card>
+    <mat-card>
+      <mat-card-title>FORMULARIO LABORATORIO</mat-card-title>
+      <mat-card-subtitle>"{{ nombreCompletoLab }}"</mat-card-subtitle>
+      <mat-card-content> </mat-card-content>
+    </mat-card>
+
+    <mat-card-content>
+      <mat-stepper (selectionChange)="eliminar_laboraorio_array($event)">
+        <mat-step label="Mensual">
+          <mat-grid-list cols="4" rowHeight="2:1">
+            <mat-card>
+              <form [formGroup]="FormMensual">
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="33%"></div>
+
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Laboratorio</mat-label>
+                      <select matNativeControl id="mySelectId" #SelectLaboratorio>
+                        <option value="" disabled selected></option>
+                        <option value="Globulos Rojos">Globulos Rojos</option>
+                        <option value="Globulos Blancos">Globulos Blancos</option>
+                        <option value="Ematocrito">Ematocrito</option>
+                        <option value="Hemoglobina">Hemoglobina</option>
+                        <option value="Plaquetas">Plaquetas</option>
+                        <option value="Glicemia">Glicemia</option>
+                        <option value="Creatinina">Creatinina</option>
+                        <option value="NUS">NUS</option>
+                        <option value="Sodio">Sodio</option>
+                        <option value="Calcio">Calcio</option>
+                        <option value="Fosforo">Fosforo</option>
+                        <option value="Potasio">Potasio</option>
+                        <option value="Sericos">Sericos</option>
+                        <option value="TGO">TGO</option>
+                        <option value="TGP">TGP</option>
+                        <option value="Acido Urico">Acido Urico</option>
+                        <option value="Proteinas Totales">Proteinas Totales</option>
+                        <option value="Cloro">Cloro</option>
+                        <option value="Hemograma Completo">Hemograma Completo</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Mes</mat-label>
+                      <select matNativeControl id="mySelectId2" #SelectMes>
+                        <option value="" disabled selected></option>
+                        <option value="Enero">Enero</option>
+                        <option value="Febrero">Febrero</option>
+                        <option value="Marzo">Marzo</option>
+                        <option value="Abril">Abril</option>
+                        <option value="Mayo">Mayo</option>
+                        <option value="Junio">Junio</option>
+                        <option value="Julio">Julio</option>
+                        <option value="Agosto">Agosto</option>
+                        <option value="Septiembre">Septiembre</option>
+                        <option value="Octubre">Octubre</option>
+                        <option value="Noviembre">Noviembre</option>
+                        <option value="Diciembre">Diciembre</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="43%">
+                    <button *ngIf="SelectLaboratorio.value != '' && SelectMes.value != ''" mat-raised-button
+                      matTooltip="Agregar" color="primary"
+                      (click)="prueba({ laboratorio: SelectLaboratorio.value, mes: SelectMes.value })">
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="array_laboratorio_programado.length > 0">
+                  <!--div-->
+                  <mat-form-field appearance="standard">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Escriba el dato" #input />
+                  </mat-form-field>
+
+                  <table mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+                    <!-- codigo Column -->
+                    <ng-container matColumnDef="codigo">
+                      <th mat-header-cell *matHeaderCellDef>No.</th>
+                      <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
+                    </ng-container>
+
+                    <!-- laboratorio Column -->
+                    <ng-container matColumnDef="laboratorio">
+                      <th mat-header-cell *matHeaderCellDef>Laboratorio</th>
+                      <td mat-cell *matCellDef="let element">{{ element.laboratorio }}</td>
+                    </ng-container>
+
+                    <!-- programado Column -->
+                    <ng-container matColumnDef="programado">
+                      <th mat-header-cell *matHeaderCellDef>Programado</th>
+                      <td mat-cell *matCellDef="let element">{{ element.programado }}</td>
+                    </ng-container>
+
+                    <!-- opciones Column -->
+                    <ng-container matColumnDef="opciones">
+                      <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                      <td mat-cell *matCellDef="let element">
+                        <button matTooltip="Eliminar" matTooltipClass="tooltip-plomo" class="btn_eliminar" matSuffix
+                          mat-icon-button aria-label="Clear" (click)="eliminarLaboraorioProgrmado(element.codigo)">
+                          <mat-icon class="indicador">delete</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsbar"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsbar"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="4">
+                        No data matching the filter "{{ input.value }}"
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <br />
+                <mat-divider></mat-divider><br />
+                <h4>Servicio de Transfusion</h4>
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="40%">
+                    <label class="example-margin"> Solicitud de la transfusion </label>
+                    <label class="example-margin"> UNIDAD / SERVICIO </label>
+                  </div>
+                  <div fxFlex="60%">
+                    <section class="example-section">
+                      <mat-radio-group formControlName="unidad_servicio">
+                        <div fxFlex="50%">
+                          <mat-radio-button class="example-margin" color="primary" value="Urgente"
+                            (change)="radioButtonChange($event)">
+                            Urgente
+                          </mat-radio-button>
+                        </div>
+                        <div fxFlex="50%">
+                          <mat-radio-button class="example-margin" color="primary" value="Programada"
+                            (change)="radioButtonChange($event)">
+                            Programada
+                          </mat-radio-button>
+                        </div>
+                      </mat-radio-group>
+                    </section>
+                  </div>
+                </div>
+                <br />
+                <mat-divider></mat-divider><br />
+                <h4>SERVICIO DE BANCO DE SANGRE - SIRVASE OTORGAR:</h4>
+                <section class="example-section">
+                  <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                    fxLayout="row" fxLayoutGap="0.5%">
+                    <div fxFlex="40%">
+                      <mat-form-field class="example-margin example-full-width input-rh" appearance="outline"
+                        style="width: 80%">
+                        <mat-label>Grupo sanguineo y factor RH:</mat-label>
+                        <input type="text" matInput formControlName="grupo_sanguineo" />
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                    fxLayout="row" fxLayoutGap="0.5%">
+                    <div fxFlex="50%">
+                      <label class="example-margin"> No </label>
+                      <p>
+                        <mat-checkbox class="example-margin" color="primary" formControlName="Sangre_Total">Sangre
+                          Total</mat-checkbox>
+                      </p>
+                      <p>
+                        <mat-checkbox formControlName="Paquete_Globular" class="example-margin" color="primary"
+                          value="Paquete Globular">Paquete Globular</mat-checkbox>
+                      </p>
+                      <p>
+                        <mat-checkbox formControlName="Plasma_Fresco_Congelado" class="example-margin" color="primary"
+                          value="Plasma_Fresco_Congelado">
+                          Plasma Fresco Congelado</mat-checkbox>
+                      </p>
+                      <p>
+                        <mat-checkbox formControlName="Concentrado_De_Plaquetas" class="example-margin" color="primary"
+                          value="Concentrado De Plaquetas">
+                          Concentrado De Plaquetas</mat-checkbox>
+                      </p>
+                      <P>
+                        <mat-form-field class="example-margin example-full-width input-rh" appearance="outline">
+                          <mat-label>Otros (Especificar):</mat-label>
+                          <input type="text" matInput formControlName="otros" />
+                        </mat-form-field>
+                      </P>
+                    </div>
+                    <div fxFlex="50%">
+                      <label class="example-margin"> No </label>
+                      <p>
+                        <mat-checkbox formControlName="Crioprecipitados" class="example-margin" color="primary"
+                          value="Crioprecipitados">Crioprecipitados</mat-checkbox>
+                      </p>
+                      <p>
+                        <mat-checkbox formControlName="Anticuerpos_Irregulares" class="example-margin" color="primary"
+                          value="Anticuerpos_Irregulares">
+                          Anticuerpos Irregulares</mat-checkbox>
+                      </p>
+                      <p>
+                        <mat-checkbox formControlName="Plasma_Normal" class="example-margin" color="primary"
+                          value="Plasma_Normal">Plasma Normal</mat-checkbox>
+                      </p>
+                      <p>
+                        <mat-checkbox formControlName="Globulos_Rojos_Lavados" class="example-margin" color="primary"
+                          value="Globulos Rojos Lavados">
+                          Globulos Rojos Lavados</mat-checkbox>
+                      </p>
+                      <p>
+                        <mat-checkbox formControlName="Nada" class="example-margin" color="primary"
+                          value="Nada"></mat-checkbox>
+                      </p>
+                    </div>
+                  </div>
+                </section>
+                <br />
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="70%"></div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Regresar" (click)="volver()">
+                      Regresar
+                      <mat-icon>reply</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <!--button mat-raised-button title="Imprimir" color="primary" (click)='onSubmitLaboratorio()'> Imprimir
+                        <mat-icon>print</mat-icon>
+                    </button-->
+                    <button mat-raised-button title="Imprimir" color="primary" (click)='imprimirLab()'> Imprimir
+                        <mat-icon>print</mat-icon>
+                    </button>
+                </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Guardar" color="primary"
+                      (click)="guardar({ laboratorio: SelectLaboratorio.value, mes: SelectMes.value })">
+                      Guardar
+                      <mat-icon>file_copy</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Imprimir" color="primary" (click)='reimprimirLab()'> Reimprimir
+                        <mat-icon>print</mat-icon>
+                    </button>
+                </div>
+                </div>
+              </form>
+            </mat-card>
+          </mat-grid-list>
+        </mat-step>
+        <mat-step label="Trimestral">
+          <mat-grid-list cols="4" rowHeight="2:1">
+            <mat-card>
+              <form [formGroup]="FormMensual">
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="33%"></div>
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Laboratorio</mat-label>
+                      <select matNativeControl #SelectLaboratorio2>
+                        <option value="" disabled selected></option>
+                        <option value="Colesterol">Colesterol</option>
+                        <option value="Trigliceridos">Trigliceridos</option>
+                        <option value="HDL">HDL</option>
+                        <option value="LDL">LDL</option>
+                        <option value="VLDL">VLDL</option>
+                        <option value="Albumina">Albumina</option>
+                        <option value="Ferritina">Ferritina</option>
+                        <option value="% De Saturación De Transferencia">
+                          % De Saturación De Transferencia
+                        </option>
+                        <option value="Anti HVC">Anti HVC</option>
+                        <option value="Hierro Serico">Hierro Serico</option>
+                        <option value="Fosforo">Urea</option>
+                        <option value="Fosfatasa Alcalina">Fosfatasa Alcalina</option>
+                        <option value="Antigenos de Superficie VHB">
+                          Antigenos de Superficie VHB
+                        </option>
+                        <option value="Antigenos Core VHB">Antigenos Core VHB</option>
+                        <option value="VIH">VIH</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Trimestre</mat-label>
+                      <select matNativeControl #SelectTrimestre>
+                        <option value="" disabled selected></option>
+                        <option value="Trimestre 1">Trimestre 1</option>
+                        <option value="Trimestre 2">Trimestre 2</option>
+                        <option value="Trimestre 3">Trimestre 3</option>
+                        <option value="Trimestre 4">Trimestre 4</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="43%">
+                    <button *ngIf="SelectLaboratorio2.value != '' && SelectTrimestre.value != ''" mat-raised-button
+                      matTooltip="Agregar" color="primary" (click)="
+                        prueba({
+                          laboratorio: SelectLaboratorio2.value,
+                          mes: SelectTrimestre.value
+                        })
+                      ">
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="array_laboratorio_programado.length > 0">
+                  <mat-form-field appearance="standard">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Escriba el dato" #input />
+                  </mat-form-field>
+
+                  <table mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+                    <!-- codigo Column -->
+                    <ng-container matColumnDef="codigo">
+                      <th mat-header-cell *matHeaderCellDef>No.</th>
+                      <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
+                    </ng-container>
+
+                    <!-- laboratorio Column -->
+                    <ng-container matColumnDef="laboratorio">
+                      <th mat-header-cell *matHeaderCellDef>Laboratorio</th>
+                      <td mat-cell *matCellDef="let element">{{ element.laboratorio }}</td>
+                    </ng-container>
+
+                    <!-- programado Column -->
+                    <ng-container matColumnDef="programado">
+                      <th mat-header-cell *matHeaderCellDef>Programado</th>
+                      <td mat-cell *matCellDef="let element">{{ element.programado }}</td>
+                    </ng-container>
+
+                    <!-- opciones Column -->
+                    <ng-container matColumnDef="opciones">
+                      <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                      <td mat-cell *matCellDef="let element">
+                        <button matTooltip="Eliminar" matTooltipClass="tooltip-plomo" class="btn_eliminar" matSuffix
+                          mat-icon-button aria-label="Clear" (click)="eliminarLaboraorioProgrmado(element.codigo)">
+                          <mat-icon class="indicador">delete</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsbar"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsbar"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="4">
+                        No data matching the filter "{{ input.value }}"
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <br />
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="80%"></div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Regresar" (click)="volver()">
+                      Regresar
+                      <mat-icon>reply</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Imprimir" color="primary" (click)="onSubmit()">
+                      Imprimir
+                      <mat-icon>print</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Guardar" color="primary" (click)="
+                        guardar({ laboratorio: SelectLaboratorio.value, mes: SelectMes.value })
+                      ">
+                      Guardar
+                      <mat-icon>file_copy</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </mat-card>
+          </mat-grid-list>
+        </mat-step>
+        <mat-step label="Semestral">
+          <mat-grid-list cols="4" rowHeight="2:1">
+            <mat-card>
+              <form [formGroup]="FormMensual">
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="33%"></div>
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Laboratorio</mat-label>
+                      <select matNativeControl #SelectLaboratorio3>
+                        <option value="" disabled selected></option>
+                        <option value="PTH">PTH</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Semestre</mat-label>
+                      <select matNativeControl #SelectSemestre>
+                        <option value="" disabled selected></option>
+                        <option value="Semestre 1">Semestre 1</option>
+                        <option value="Semestre 2">Semestre 2</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="43%">
+                    <button *ngIf="SelectLaboratorio3.value != '' && SelectSemestre.value != ''" mat-raised-button
+                      matTooltip="Agregar" color="primary" (click)="
+                        prueba({ laboratorio: SelectLaboratorio3.value, mes: SelectSemestre.value })
+                      ">
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="array_laboratorio_programado.length > 0">
+                  <mat-form-field appearance="standard">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Escriba el dato" #input />
+                  </mat-form-field>
+
+                  <table mat-table [dataSource]="dataSources" class="mat-elevation-z8">
+                    <!-- codigo Column -->
+                    <ng-container matColumnDef="codigo">
+                      <th mat-header-cell *matHeaderCellDef>No.</th>
+                      <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
+                    </ng-container>
+
+                    <!-- laboratorio Column -->
+                    <ng-container matColumnDef="laboratorio">
+                      <th mat-header-cell *matHeaderCellDef>Laboratorio</th>
+                      <td mat-cell *matCellDef="let element">{{ element.laboratorio }}</td>
+                    </ng-container>
+
+                    <!-- programado Column -->
+                    <ng-container matColumnDef="programado">
+                      <th mat-header-cell *matHeaderCellDef>Programado</th>
+                      <td mat-cell *matCellDef="let element">{{ element.programado }}</td>
+                    </ng-container>
+
+                    <!-- opciones Column -->
+                    <ng-container matColumnDef="opciones">
+                      <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                      <td mat-cell *matCellDef="let element">
+                        <button matTooltip="Eliminar" matTooltipClass="tooltip-plomo" class="btn_eliminar" matSuffix
+                          mat-icon-button aria-label="Clear" (click)="eliminarLaboraorioProgrmado(element.codigo)">
+                          <mat-icon class="indicador">delete</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsbar"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsbar"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="4">
+                        No data matching the filter "{{ input.value }}"
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <br />
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="80%"></div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Regresar" (click)="volver()">
+                      Regresar
+                      <mat-icon>reply</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Imprimir" color="primary" (click)="onSubmit()">
+                      Imprimir
+                      <mat-icon>print</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Guardar" color="primary" (click)="
+                        guardar({ laboratorio: SelectLaboratorio.value, mes: SelectMes.value })
+                      ">
+                      Guardar
+                      <mat-icon>file_copy</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </mat-card>
+          </mat-grid-list>
+        </mat-step>
+        <mat-step label="Anual">
+          <mat-grid-list cols="4" rowHeight="2:1">
+            <mat-card>
+              <form [formGroup]="FormMensual">
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="33%"></div>
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Laboratorio</mat-label>
+                      <select matNativeControl #SelectLaboratorio4>
+                        <option value="" disabled selected></option>
+                        <option value="Rx">Rx</option>
+                        <option value="Ecografia">Ecografia</option>
+                        <option value="Valoración">Valoración</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="33%">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Anual</mat-label>
+                      <select matNativeControl #SelectAnual>
+                        <option value="" disabled selected></option>
+                        <option value="Anual 1">Anual 1</option>
+                      </select>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="43%">
+                    <button *ngIf="
+                        SelectLaboratorio4.value != '' &&
+                        SelectAnual.value != '' &&
+                        SelectDescripcion.value != ''
+                      " mat-raised-button matTooltip="Agregar" color="primary" (click)="
+                        agregarA({
+                          laboratorio: SelectLaboratorio4.value,
+                          mes: SelectAnual.value,
+                          descripcion: SelectDescripcion.value
+                        })
+                      ">
+                      <mat-icon>save</mat-icon>
+                    </button>
+                  </div>
+                </div>
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="100%">
+                    <mat-form-field formControlName="unidad_descripcion_anual" class="example-full-width" appearance="outline">
+                      <mat-label>Descripción</mat-label>
+                      <textarea matInput autocomplete="off" placeholder="Descripción" name="descripcion" cols="50"
+                        rows="5" #SelectDescripcion></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div *ngIf="array_laboratorio_programado_anual.length > 0">
+                  <mat-form-field appearance="standard">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Escriba el dato" #input />
+                  </mat-form-field>
+
+                  <table mat-table [dataSource]="dataSourcesAnual" class="mat-elevation-z8">
+                    <!-- codigo Column -->
+                    <ng-container matColumnDef="codigo">
+                      <th mat-header-cell *matHeaderCellDef>No.</th>
+                      <td mat-cell *matCellDef="let element">{{ element.codigo }}</td>
+                    </ng-container>
+
+                    <!-- laboratorio Column -->
+                    <ng-container matColumnDef="laboratorio">
+                      <th mat-header-cell *matHeaderCellDef>Laboratorio</th>
+                      <td mat-cell *matCellDef="let element">{{ element.laboratorio }}</td>
+                    </ng-container>
+
+                    <!-- programado Column -->
+                    <ng-container matColumnDef="programado">
+                      <th mat-header-cell *matHeaderCellDef>Programado</th>
+                      <td mat-cell *matCellDef="let element">{{ element.programado }}</td>
+                    </ng-container>
+
+                    <!-- descripcion Column -->
+                    <ng-container matColumnDef="descripcion">
+                      <th mat-header-cell *matHeaderCellDef>Descripcion</th>
+                      <td mat-cell *matCellDef="let element">{{ element.descripcion }}</td>
+                    </ng-container>
+
+                    <!-- opciones Column -->
+                    <ng-container matColumnDef="opciones">
+                      <th mat-header-cell *matHeaderCellDef>Opciones</th>
+                      <td mat-cell *matCellDef="let element">
+                        <button matTooltip="Eliminar" matTooltipClass="tooltip-plomo" class="btn_eliminar" matSuffix
+                          mat-icon-button aria-label="Clear" (click)="eliminarLaboraorioProgrmado(element.codigo)">
+                          <mat-icon class="indicador">delete</mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsAnual"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsAnual"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <tr class="mat-row" *matNoDataRow>
+                      <td class="mat-cell" colspan="4">
+                        No data matching the filter "{{ input.value }}"
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <br />
+                <mat-divider></mat-divider><br />
+                <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                  fxLayout="row" fxLayoutGap="0.5%">
+                  <div fxFlex="80%"></div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Regresar" (click)="volver()">
+                      Regresar
+                      <mat-icon>reply</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Imprimir" color="primary" (click)="onSubmit()">
+                      Imprimir
+                      <mat-icon>print</mat-icon>
+                    </button>
+                  </div>
+                  <div fxFlex="10%">
+                    <button mat-raised-button title="Guardar" color="primary" (click)="
+                        guardar({ laboratorio: SelectLaboratorio.value, mes: SelectMes.value })
+                      ">
+                      Guardar
+                      <mat-icon>file_copy</mat-icon>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </mat-card>
+          </mat-grid-list>
+        </mat-step>
+      </mat-stepper>
+    </mat-card-content>
+  </mat-card>
+</div>

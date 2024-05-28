@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>ASIGNACION MEDICO ESPECIALIDAD</h2>
+<mat-dialog-content class="mat-typography">
+    <form #myForm="ngForm">
+        <div fxFlex="100" fxFlex.lt-sm="100" class="matero-col">
+            <div fxLayout="row wrap" fxLayoutGap="8px grid">
+                <div fxFlex="100" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Especialidad del medico</mat-label>
+                        <mat-select [disabled]="disableSelect.value" name="especialidad"
+                            [(ngModel)]="dataFormulario.especialidad" required>
+                            <mat-option *ngFor="let servicio of listaEspecialidad"
+                                [value]="servicio.espid_cuaderno">
+                                {{servicio.espdescesp}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="100" fxFlex.lt-sm="100" *ngIf="NIVEL_HOSPITAL==2">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Codigo persona (SICE)</mat-label>
+                        <input matInput autocomplete="off" name="codigoSice" [(ngModel)]="dataFormulario.codigoSice"
+                            disabled>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="100" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Medico</mat-label>
+                        <mat-select [disabled]="disableSelect.value" name="medico" [(ngModel)]="dataFormulario.medico"
+                            required>
+                            <mat-option *ngFor="let medico of listaMedicos"
+                                [value]="medico.prscodper">
+                                {{medico.prsNombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCELAR</button>
+    <button mat-button [mat-dialog-close]="data" color="primary" (click)="guardarRelacion()"
+        [disabled]="!myForm.form.valid" cdkFocusInitial>GUARDAR</button>
+</mat-dialog-actions>

@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-card-title>Seleccione el medico de turno</mat-card-title>
+    <mat-card-content>
+
+        <div fxLayout="row wrap" fxLayoutGap="10px grid">
+            <div fxFlex="20" fxFlex.lt-md="33" fxFlex.lt-sm="50" *ngFor="let medico of listadoMedicos">
+                <mat-card class="especialidad-card">
+                    <mat-card-content>
+                        <div fxLayoutAlign="center center" fxFlexAlign="center" fxLayout.sm="column"
+                            fxLayout.xs="column" fxLayout.md="row" fxLayout="row" fxLayoutGap="0.5%">
+                            <div fxFlex="30%" fxFlex.lt-sm="100%" fxLayoutAlign="center center" fxFlexAlign="center">
+
+                                <img class="imgTipo" *ngIf="medico.genero == 'F'"
+                                    src="assets/images/doctora.png" />
+                                <img class="imgTipo" *ngIf="medico.genero == 'M'"
+                                    src="assets/images/doctor.png" />
+                            </div>
+                            <div fxFlex="70%" fxFlex.lt-sm="100%" fxLayoutAlign="center center">
+                                <h2 class="txtTipo">{{medico.medpaterno}}  {{medico.medmaterno}}  {{medico.mednombre}}</h2>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

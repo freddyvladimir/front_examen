@@ -1,0 +1,55 @@
+<mat-card>
+    <mat-card-title>Ingrese los datos</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="formDatosPaciente" #myForm="ngForm" class="form-field-full">
+            <div fxLayout="row wrap" fxLayoutGap="10px grid">
+                <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha de afiliacion</mat-label>
+                        <input matInput autocomplete="off" formControlName="fechaAfiliacion">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Transferido de:</mat-label>
+                        <input matInput autocomplete="off" formControlName="transferidoDe">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ficha clinica</mat-label>
+                        <input matInput autocomplete="off" formControlName="fichaClinica">
+                    </mat-form-field>
+                </div>
+    
+                <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Procedencia</mat-label>
+                        <input matInput autocomplete="off" formControlName="procedencia">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Serologia</mat-label>
+                        <mat-select matInput formControlName="tipoSerologia">
+                            <mat-option value="">seleccione</mat-option>
+                            <mat-option *ngFor="let option of listaserologia" [value]="option.parid">
+                                <span>{{option.descrip}}</span>
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="33" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Lugar donde vive</mat-label>
+                        <input matInput autocomplete="off" formControlName="lugarVive">
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+
+        <div fxLayout="row" fxLayoutAlign="end center">
+            <button mat-raised-button color="blanco" class="primary" (click)="registroDatos()">GUARDAR</button>
+        </div>
+    </mat-card-content>
+</mat-card>

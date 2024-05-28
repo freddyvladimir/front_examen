@@ -1,0 +1,91 @@
+<button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon class="close-icon" color="primary">close</mat-icon>
+</button>
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title-group>
+            <mat-card-title>REPORTE DE FICHAS ATENDIDAS POR MEDICO</mat-card-title>
+            <mat-card-subtitle>{{titleEspecialidad}}</mat-card-subtitle>
+        </mat-card-title-group>
+    </mat-card-header>
+
+    <mat-card-content>
+        <mat-tab-group>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon> bar_chart</mat-icon>
+                    Gráfico
+                </ng-template>
+                <mat-card>
+                    <mat-card-subtitle>
+                    </mat-card-subtitle>
+
+                    <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                        fxLayoutGap="0.8%">
+                        <div fxFlex="100%">
+                            <div class="matero-col" fxFlex="100">
+                                <div id="chart-por-hospital-especialidad-medico"></div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </mat-tab>
+            <mat-tab>
+                <ng-template mat-tab-label>
+                    <mat-icon>grid_on</mat-icon>
+                    Tabla
+                </ng-template>
+                <mat-card>
+                    <div fxLayoutAlign="left" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+                        fxLayoutGap="0.8%">
+                        <div fxFlex="100%">
+
+                            <mat-card-actions align="end">
+                                <button mat-raised-button color="primary">
+                                    Exportar a Excel</button>
+
+                            </mat-card-actions>
+
+                            <table mat-table [dataSource]="dataSourceEspecialidadesMedico" class="container" matSort>
+
+                                <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> N&#176; </th>
+                                    <td mat-cell *matCellDef="let row; index as i"> {{i + 1}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="nombre_medico">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Medico</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.nombremedico}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="fichas_planificadas">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fichas Planificadas
+                                    </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.vplanificadas}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="fichas_solicitadas">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fichas Solicitadas
+                                    </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.vsolicitadas}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="fichas_atendidas">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fichas Atendidas</th>
+                                    <td mat-cell *matCellDef="let row"> {{row.vatendidas}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsEspecialidadesMedico"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsEspecialidadesMedico;"></tr>
+
+                                <tr class="mat-row" *matNoDataRow>
+                                    <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card-content>
+</mat-card>

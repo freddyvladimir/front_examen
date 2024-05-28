@@ -1,0 +1,163 @@
+.btn {
+
+    width: 45px;
+    height: 45px;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid rgb(146, 146, 146);
+    color: rgb(103, 103, 103);
+    box-shadow: 0px 0px 20px rgb(207, 207, 207, 0.5);
+}
+
+.btn:hover {
+    transform: scale(0.90);
+}
+
+.btn-emer {
+    
+    width: 50px;
+    height: 50px;
+    font-size: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(255, 232, 27);
+    border: 2px solid rgb(239, 239, 239);
+    color: rgb(103, 103, 103);
+    box-shadow: 0px 0px 20px rgb(207, 207, 207, 0.5);
+
+}
+
+.btn-emer:hover {
+    transform: scale(0.90);
+}
+
+.cardMonitoreo {
+    background-color: #686868;
+
+}
+
+.card {
+
+
+    overflow: visible;
+    white-space: initial;
+    background-color: #ffffff;
+
+}
+
+.container2 {
+    padding-top: 40px;
+    background-size: 500%;
+    animation: color 15s infinite;
+    border-radius: 6px;
+    margin: 0 0 1rem;
+    height: 3.5rem;
+    width: 11rem;
+    display: flex;
+}
+
+.center-h {
+    justify-content: center;
+}
+
+.center-v {
+    align-items: center;
+}
+
+.child {
+    padding: 5px;
+}
+
+@keyframes color {
+    0% {
+        background-position: 0 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0 50%;
+    }
+}
+
+.card-titulos {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.969), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 16px;
+    border: 1px solid rgba(129, 129, 129, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.37);
+}
+
+
+.card-titulos1 {
+    background-color: #0284ee;
+    width: 220px;
+}
+
+.card-m {
+    padding: 2px;
+    background-color: #45D3D3;
+}
+
+.card-c {
+    padding: 2px;
+    background-color: #549EF2;
+}
+
+.card-lp {
+    padding: 2px;
+    background-color: #EA5353;
+}
+
+h1 {
+    color: #161616;
+    -webkit-text-stroke: 0.01px rgba(255, 255, 255, 0.406);
+    text-align: center;
+    font-size: 22px;
+    text-transform: uppercase;
+}
+
+h2 {
+
+    padding-block: 8px;
+    color: #3f3f3f;
+    -webkit-text-stroke: 0.01px rgb(255, 255, 255, 0.2);
+    text-align: center;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+h3 {
+    color: #e3e3e3;
+    text-align: center;
+    font-size: 40px;
+    text-transform: uppercase;
+}
+
+h4 {
+    color: #010101;
+
+    text-align: end;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+h5 {
+
+    position: relative;
+    left: -9px;
+    color: #010101;
+    margin-top: 1em;
+    font-size: 17px;
+}
+
+
+.agranda {}
+
+.agranda:hover {
+    transform: scale(1.2);
+    transition: all 1.5s;
+}

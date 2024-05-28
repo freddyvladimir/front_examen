@@ -1,0 +1,145 @@
+<!--p>page-enfermeria works!</p-->
+
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>ENFERMERIA</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+        <div fxLayoutAlign="end start" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row" fxLayoutGap="0.5%">
+            <div fxFlex="33%">
+                <mat-form-field appearance="outline">
+                    <mat-label>Seleccion Turno</mat-label>
+                    <mat-select [formControl]="selectedTurnos" [(ngModel)]="selectedValue" name="turno" required>
+                        <mat-option>-- Seleccione --</mat-option>
+                        <mat-option *ngFor="let turno of turnos" [value]="turno.thtrnid">
+                          {{turno.thtrn_descripcion}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint>Elija un turno</mat-hint>
+                    <mat-error>Por favor, elija un turno</mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha</mat-label>
+                        <input matInput [matDatepicker]="picker" #date (dateChange)="seleccionar_fecha(date)">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div fxFlex="33%">
+                <mat-form-field class="example-form-field" appearance="outline">
+                    <mat-label>Escribir</mat-label>
+                    <input matInput type="text" [(ngModel)]="value" (keyup)="applyFilter($event)" #input>
+                    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon >close</mat-icon>
+                    </button>
+                    <button *ngIf="!value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="mat-elevation-z8 table-container">
+            <table mat-table [dataSource]="dataSource" class="container" matSort>
+    
+                <ng-container matColumnDef="serial">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Nª </th>
+                    <td mat-cell *matCellDef="let row; index as i"> {{i + 1}} </td>
+                </ng-container>
+   
+                <ng-container matColumnDef="dtspslid">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> HISTORIA CLÍNICA SIIS </th>
+                    <td mat-cell *matCellDef="let row"> {{row.dtspslid}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="vcod_segsocial">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> HISTORIA CLÍNICA SICE </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vcod_segsocial}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vprs_fecha_atencion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> FECHA Y HORA DE ATENCIÓN </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vprs_fecha_atencion}} <br> {{row.vcita_inicio}} - {{row.vcita_fin}}</td>
+                </ng-container>
+    
+                <ng-container matColumnDef="vpaciente">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> PACIENTE </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vpaciente}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vcp_grupo">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> SERVICIO </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vcp_grupo}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vmedico">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> MÉDICO </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vmedico}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="vprs_codigo_ficha">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> CÓDIGO DE FICHA </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vprs_codigo_ficha}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vhcl_tp_id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> TIPO DE PACIENTE </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vhcl_tp_id}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="vhcl_tipo_pac">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTADO DE PAGO </th>
+                    <td mat-cell *matCellDef="let row"> {{row.vhcl_tipo_pac}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="opciones">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> OPCIONES </th>
+                    <td mat-cell *matCellDef="let row"> 
+                        <div fxLayoutAlign="end center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row"
+                            fxLayout="row" fxLayoutGap="0.5%">
+                            <div fxFlex="50%">
+                                <button matTooltip="Salida Registro" matTooltipClass="tooltip-red"
+                                    class="btn_eliminar" matSuffix mat-icon-button aria-label="Clear">
+                                    <mat-icon>thumb_up_alt</mat-icon>
+                                </button>
+                            </div>
+                            <div fxFlex="50%">
+                                <button matTooltip="Recepción Registro" matTooltipClass="tooltip-red"
+                                    class="btn_eliminar" matSuffix mat-icon-button aria-label="Clear">
+                                    <mat-icon>thumb_down_alt</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="atencion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ATENCIÓN </th>
+                    <td mat-cell *matCellDef="let row; index as i"> 
+                        <button matTooltip="Atender Atención" matTooltipClass="tooltip-red"
+                            class="btn_mostrar" matSuffix mat-icon-button aria-label="Clear" (click)="seleccion(row)">
+                            <mat-icon>folder</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No existen datos  "{{input.value}}"</td>
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+
+    </mat-card-content>
+</mat-card>
+
+<div *ngIf="opciones === 'detalle' ">
+    <app-datos-pacientes [codigo]="paciente_seleccionado.codigo" (retornarDatos)="retornar()" ></app-datos-pacientes>
+    <br>
+    <app-signos-vitales [datosPa]="paciente_seleccionado" ></app-signos-vitales>
+</div>

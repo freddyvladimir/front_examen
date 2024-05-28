@@ -1,0 +1,192 @@
+<div fxFlex="100" fxFlex.lt-sm="100" class="matero-col">
+    <mat-card>
+        <mat-card-title>Formulario nuevo paciente</mat-card-title>
+
+        <form [formGroup]="formDatosPaciente" #myForm="ngForm" class="form-field-full">
+            <div fxLayout="row wrap" fxLayoutGap="8px grid">
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>C.I.</mat-label>
+                        <input matInput autocomplete="off" placeholder="C.I." formControlName="ci">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="12.5" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Duplicado</mat-label>
+                        <input matInput autocomplete="off" placeholder="Duplicado" formControlName="duplicado">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="12.5" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Expedido</mat-label>
+                        <mat-select matInput formControlName="expedido">
+                            <mat-option value="2">LA PAZ</mat-option>
+                            <mat-option value="3">COCHABAMBA</mat-option>
+                            <mat-option value="7">SANTA CRUZ</mat-option>
+                            <mat-option value="1">CHUQUISACA</mat-option>
+                            <mat-option value="6">TARIJA</mat-option>
+                            <mat-option value="5">POTOSI</mat-option>
+                            <mat-option value="4">ORURO</mat-option>
+                            <mat-option value="8">BENI</mat-option>
+                            <mat-option value="9">PANDO</mat-option>
+                            <mat-option value="10">OTRO</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Fecha nacimiento</mat-label>
+                        <input matInput autocomplete="off" [matDatepicker]="picker2" placeholder="Fecha de nacimiento"
+                            formControlName="fechaNacimiento" (dateInput)="calcularEdadActual('M',$event,'')">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Edad</mat-label>
+                        <input matInput autocomplete="off" placeholder="Edad" formControlName="edad">
+                    </mat-form-field>
+                </div>
+
+
+
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nombres</mat-label>
+                        <input matInput autocomplete="off" placeholder="Nombres" formControlName="nombre" required>
+                        <mat-error *ngIf="formDatosPaciente.get('nombre')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido paterno</mat-label>
+                        <input matInput autocomplete="off" placeholder="Apellido paterno"
+                            formControlName="apellidoPaterno" required>
+                        <mat-error *ngIf="formDatosPaciente.get('apellidoPaterno')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Apellido materno</mat-label>
+                        <input matInput autocomplete="off" placeholder="Apellido materno"
+                            formControlName="apellidoMaterno" required>
+                        <mat-error *ngIf="formDatosPaciente.get('apellidoMaterno')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Genero</mat-label>
+                        <mat-select matInput formControlName="genero">
+                            <mat-option value="1">MASCULINO</mat-option>
+                            <mat-option value="2">FEMENINO</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Nacionalidad</mat-label>
+                        <mat-select matInput formControlName="nacionalidad">
+                            <mat-option value="">seleccione</mat-option>
+                            <mat-option value="341">BOLIVIANA</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Lugar de nacimiento</mat-label>
+                        <mat-select matInput formControlName="lugarNacimiento">
+                            <mat-option value="2">LA PAZ</mat-option>
+                            <mat-option value="3">COCHABAMBA</mat-option>
+                            <mat-option value="7">SANTA CRUZ</mat-option>
+                            <mat-option value="1">CHUQUISACA</mat-option>
+                            <mat-option value="6">TARIJA</mat-option>
+                            <mat-option value="5">POTOSI</mat-option>
+                            <mat-option value="4">ORURO</mat-option>
+                            <mat-option value="8">BENI</mat-option>
+                            <mat-option value="9">PANDO</mat-option>
+                            <mat-option value="10">OTRO</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Teléfono</mat-label>
+                        <input matInput autocomplete="off" placeholder="Teléfono" formControlName="telefono">
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Correo</mat-label>
+                        <input matInput autocomplete="off" placeholder="ejemplo@correo.com" formControlName="email">
+                    </mat-form-field>
+                </div>
+
+
+
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <img style="width: 150px; height: 150px; text-align: center; border-radius: 100%; text-transform: uppercase; border-color: rgb(11, 10, 10); background-color: rgba(161, 157, 161, 0.559); font: 66px / 200px Helvetica, Arial, sans-serif;"
+                        src="{{img}}" alt="" size="50">
+                    <label class="cameraButton">SUBIR IMAGEN
+                        <input type="file" id="file" (change)="handleFileInput($event)" accept="image/*;capture=camera">
+                    </label>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tipo paciente</mat-label>
+                        <mat-select matInput formControlName="genero">
+                            <mat-option value="2">INSTITUCIONAL</mat-option>
+                            <mat-option value="1">SUS</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Codigo soap</mat-label>
+                        <input matInput autocomplete="off"  formControlName="codigoSoap" required>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Dirección</mat-label>
+                        <textarea matInput autocomplete="off" rows="8" placeholder="Dirección"
+                            formControlName="direccion"></textarea>
+                    </mat-form-field>
+                </div>
+                <!--div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Observaciones</mat-label>
+                        <textarea matInput autocomplete="off" rows="8" placeholder="Observaciones"
+                            formControlName="observaciones"></textarea>
+                    </mat-form-field>
+                </div-->
+
+
+
+
+                <div fxFlex="100" fxFlex.lt-sm="100">
+                    <app-mapa (datosMapa)="recuperarDatos($event)"></app-mapa>
+                </div>
+
+
+            </div>
+            <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="0.5%">
+                <button mat-raised-button color="blanco" class="m-t-8" (click)="regresar()">Cancelar</button>
+                <button mat-raised-button color="primary"  [disabled]="!myForm.form.valid" class="m-t-8" (click)="guardarDatosPersonales()">Guardar</button>
+            </div>            
+        </form>
+
+    </mat-card>
+</div>

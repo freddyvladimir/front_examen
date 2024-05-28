@@ -1,0 +1,11 @@
+<h2 mat-dialog-title style="background-color: #09B8B0; color:#fff;" align="center">Eliminar Especialidad</h2>
+<div mat-dialog-content>
+   <h2><b>¿Esta seguro de eliminar?</b></h2>
+   <p>Codigo:  {{data.codigo}}</p>
+   <p>Descripcion:  {{data.descripcion}}</p>
+</div>
+<div mat-dialog-actions align="end">
+   <button mat-button mat-dialog-close style="background-color: #f44336; color:#fff;">Cancelar</button>
+   <button mat-button cdkFocusInitial style="background-color: #09B8B0; color:#fff;" (click)="onSubmitDelete()">Eliminar</button>
+</div>
+

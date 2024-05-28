@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Registro de Maquinas</h2>
+<mat-dialog-content> </mat-dialog-content>
+<hr>
+<br>
+<form [formGroup]="newForm">
+    <div mat-dialog-content>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Hospital:</mat-label>
+                <div fxFlex="100%">
+                    <input type="string" matInput formControlName="hospital" readonly>
+                </div>
+            </mat-form-field>
+
+            <div fxFlex="2%"></div>
+            <mat-form-field appearance="outline">
+                <mat-label>Servicio : </mat-label>
+                <div fxFlex="100%">
+                    <mat-select formControlName="servicio" (selectionChange)="valueCombo($event.value)">
+                        <mat-option *ngFor="let variablec of variable_combo" [value]="variablec.parid">
+                            {{variablec.parid}}&nbsp;&nbsp;
+                            {{variablec.descrip}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </mat-form-field>
+
+        </div>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Codigo Maquina:</mat-label>
+                <div fxFlex="100%">
+                    <input type="string" matInput formControlName="codigo">
+                </div>
+            </mat-form-field>
+
+            <div fxFlex="2%"></div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Descripcion:</mat-label>
+                <div fxFlex="100%">
+                    <input type="string" matInput formControlName="descripcion">
+                </div>
+            </mat-form-field>
+
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close>Cancelar</button>
+        <button mat-raised-button (click)="onSubmit('crear')">Enviar</button>
+    </div>
+</form>

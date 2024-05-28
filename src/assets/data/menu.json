@@ -1,0 +1,217 @@
+{
+  "menu": [
+    {
+      "route": "dashboard",
+      "name": "dashboard",
+      "type": "link",
+      "icon": "dashboard",
+      "badge": {
+        "color": "red-500",
+        "value": "5"
+      }
+    },
+    {
+      "route": "parametricas",
+      "name": "parametricas",
+      "type": "sub",
+      "icon": "brightness_7",
+      "children": [
+        {
+          "route": "programacion-fichas",
+          "name": "programacion-fichas",
+          "type": "link"
+        },
+        {
+          "route": "especialidades",
+          "name": "especialidades",
+          "type": "link"
+        },
+        {
+          "route": "consultorios",
+          "name": "consultorios",
+          "type": "link"
+        },
+        {
+          "route": "medico-especialidad",
+          "name": "medico-especialidad",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "primer-nivel",
+      "name": "primer-nivel",
+      "type": "sub",
+      "icon": "assignment",
+      "children": [
+        {
+          "route": "admisiones",
+          "name": "admisiones",
+          "type": "link"
+        },
+        {
+          "route": "cajas",
+          "name": "cajas",
+          "type": "link"
+        },
+        {
+          "route": "enfermeria",
+          "name": "enfermeria",
+          "type": "link"
+        },
+        {
+          "route": "consultorio",
+          "name": "consultorio",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "segundo-nivel",
+      "name": "segundo-nivel",
+      "type": "sub",
+      "icon": "assignment",
+      "children": [
+        {
+          "route": "admisiones",
+          "name": "admisiones",
+          "type": "link"
+        },
+        {
+          "route": "cajas",
+          "name": "cajas",
+          "type": "link"
+        },
+        {
+          "route": "kardex",
+          "name": "kardex",
+          "type": "link"
+        },
+        {
+          "route": "enfermeria",
+          "name": "enfermeria",
+          "type": "link"
+        },
+        {
+          "route": "consultorio",
+          "name": "consultorio",
+          "type": "link"
+        },
+        {
+          "route": "revertirFicha",
+          "name": "revertirFicha",
+          "type": "link"
+        },
+        {
+          "route": "hojaReferencia",
+          "name": "hojaReferencia",
+          "type": "link"
+        },
+        {
+          "route": "buscarFicha",
+          "name": "buscarFicha",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "hemodialisis",
+      "name": "hemodialisis",
+      "type": "sub",
+      "icon": "assignment",
+      "children": [
+        {
+          "route": "enfermeria",
+          "name": "enfermeria",
+          "type": "link"
+        }
+        ,
+        {
+          "route": "consultorio",
+          "name": "consultorio",
+          "type": "link"
+        },
+        {
+          "route": "maquinas",
+          "name": "maquinas",
+          "type": "link"
+        },
+        {
+          "route": "pacientesNoAsignados",
+          "name": "pacientesNoAsignados",
+          "type": "link"
+        },
+        {
+          "route": "pacientesAsignados",
+          "name": "pacientesAsignados",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "emergencias",
+      "name": "emergencias",
+      "type": "sub",
+      "icon": "assignment",
+      "children": [
+        {
+          "route": "enfermeria",
+          "name": "enfermeria",
+          "type": "link"
+        },
+        {
+          "route": "consultorio",
+          "name": "consultorio",
+          "type": "link"
+        },
+        {
+          "route": "medico",
+          "name": "medico",
+          "type": "link"
+        },
+        {
+          "route": "medico-especialista",
+          "name": "medico-especialista",
+          "type": "link"
+        },
+        {
+          "route": "reporte-medico",
+          "name": "reporte-medico",
+          "type": "link"
+        }
+      ]
+    },
+    {
+      "route": "servicios-complementarios",
+      "name": "servicios-complementarios",
+      "type": "sub",
+      "icon": "assignment",
+      "children": [
+        {
+          "route": "administracion",
+          "name": "administracion",
+          "type": "link"
+        }
+      ]
+    },
+
+    {
+      "route": "admisiones",
+      "name": "admisiones",
+      "type": "sub",
+      "icon": "assignment",
+      "children": [
+        {
+          "route": "duplicados",
+          "name": "duplicados",
+          "type": "link"
+        },
+        {
+          "route": "reprogramacion",
+          "name": "reprogramacion",
+          "type": "link"
+        }
+      ]
+    }
+  ]
+}

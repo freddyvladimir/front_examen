@@ -1,0 +1,206 @@
+<div fxFlex="100" fxFlex.lt-sm="100" class="matero-col">
+    <mat-card>
+        <mat-card-title>Signos vitales</mat-card-title>
+
+        <form [formGroup]="formDatosPaciente" class="form-field-full">
+            <div fxLayout="row wrap" fxLayoutGap="8px grid">
+
+
+                <div fxFlex="12.5" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Peso(kg).(lg)</mat-label>
+                        <input matInput autocomplete="off" placeholder="Peso(kg).(lg)" formControlName="pesoK"
+                            required>
+                        <mat-error *ngIf="formDatosPaciente.get('pesoK')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="12.5" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label></mat-label>
+                        <input matInput autocomplete="off" placeholder="" formControlName="pesoL" required>
+                        <mat-error *ngIf="formDatosPaciente.get('pesoL')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Estatura</mat-label>
+                        <input matInput autocomplete="off" placeholder="Estatura" formControlName="estatura" required>
+                        <mat-error *ngIf="formDatosPaciente.get('estatura')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Indice Masa Corporal (IMC)</mat-label>
+                        <input matInput autocomplete="off" placeholder="Indice Masa Corporal (IMC)"
+                            formControlName="masaCorporal" required>
+                        <mat-error *ngIf="formDatosPaciente.get('masaCorporal')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Frecuencia cardiaca (l/m)</mat-label>
+                        <input matInput autocomplete="off" placeholder="Frecuencia Cardiaca (l/m)" formControlName="frecuenciaCardiaca" required>
+                        <mat-error *ngIf="formDatosPaciente.get('frecuenciaCardiaca')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="12.5" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Preción arterial(mmHg) </mat-label>
+                        <input matInput autocomplete="off" placeholder="Preción Arterial(mmHg) " formControlName="presionArterialP"
+                            required>
+                        <mat-error *ngIf="formDatosPaciente.get('presionArterialP')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div fxFlex="12.5" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label></mat-label>
+                        <input matInput autocomplete="off" placeholder="" formControlName="presionArterialS" required>
+                        <mat-error *ngIf="formDatosPaciente.get('presionArterialS')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Frecuencia Respiratoria (r/m)</mat-label>
+                        <input matInput autocomplete="off" placeholder="Frecuencia Respiratoria (r/m)" formControlName="frecuenciaRespiratoria" required>
+                        <mat-error *ngIf="formDatosPaciente.get('frecuenciaRespiratoria')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-form-field appearance="outline">
+                        <mat-label> Saturación de Oxígeno (o2)</mat-label>
+                        <input matInput autocomplete="off" placeholder=" Saturación de Oxígeno (o2)" formControlName="saturacionOxigeno" required>
+                        <mat-error *ngIf="formDatosPaciente.get('saturacionOxigeno')?.invalid">
+                            {{'validations.required' | translate}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="25" fxFlex.lt-sm="100">
+                    <mat-accordion class="example-headers-align" multi>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    Temperatura Cª
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                    <mat-icon>assignment</mat-icon>
+                                </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <div fxLayout="row wrap" fxLayoutGap="8px grid">
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Axilar</mat-label>
+                                        <input matInput autocomplete="off" placeholder="Axilar" formControlName="tAxialP"
+                                            required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tAxialP')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label></mat-label>
+                                        <input matInput autocomplete="off" placeholder="" formControlName="tAxialS"
+                                            required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tAxialS')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Rectal</mat-label>
+                                        <input matInput autocomplete="off" placeholder="Rectal" formControlName="tRectalP"
+                                            required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tRectalP')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label></mat-label>
+                                        <input matInput autocomplete="off" placeholder="" formControlName="tRectalS"
+                                            required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tRectalS')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Oral</mat-label>
+                                        <input matInput autocomplete="off" placeholder="Oral" formControlName="tOralP"
+                                            required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tOralP')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label></mat-label>
+                                        <input matInput autocomplete="off" placeholder="" formControlName="tOralS"
+                                            required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tOralS')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Auricular</mat-label>
+                                        <input matInput autocomplete="off" placeholder="Auricular"
+                                            formControlName="tAuricularP" required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tAuricularP')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div fxFlex="50" fxFlex.lt-sm="100">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label></mat-label>
+                                        <input matInput autocomplete="off" placeholder="" formControlName="tAuricularS"
+                                            required>
+                                        <mat-error *ngIf="formDatosPaciente.get('tAuricularS')?.invalid">
+                                            {{'validations.required' | translate}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>                                
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+
+
+            </div>
+
+            <button *ngIf="!tipoAtencion" mat-raised-button color="primary" class="m-t-8" (click)="guardarSignosVitales()" >Guardar</button>
+        </form>
+
+    </mat-card>
+</div>

@@ -1,0 +1,32 @@
+<form [formGroup]="newForm">
+    <div mat-dialog-content>
+       <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+          fxLayoutGap="0.6%">
+          <div fxFlex="49%">
+             <mat-form-field appearance="outline">
+                <mat-label>Servicio:</mat-label>
+                <mat-select  formControlName="xsca_sc_id">
+                  <mat-option *ngFor="let variable_combo of variable_combo" [value]="variable_combo.scomdescripcion">
+                    {{variable_combo.scomdescripcion}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+          <div fxFlex="2%"></div>
+          <div fxFlex="49%">
+            <mat-form-field appearance="outline">
+               <mat-label>Medico:</mat-label>
+               <mat-select  formControlName="xsca_id_medico">
+                 <mat-option *ngFor="let variable_combo_medico of variable_combo_medico" [value]="variable_combo_medico.nombremedico">
+                   {{variable_combo_medico.nombremedico}}
+                 </mat-option>
+               </mat-select>
+             </mat-form-field>
+         </div>
+       </div>
+    </div>
+    <div mat-dialog-actions align="end">
+       <button mat-raised-button mat-dialog-close>Cancelar</button>
+       <button mat-raised-button  (click)="onSubmit('crear')">Enviar</button>
+    </div>
+  </form>

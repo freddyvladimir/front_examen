@@ -1,0 +1,46 @@
+<!--p>dialog-historico-atenciones works!</p-->
+<h2 mat-dialog-title>LISTADO DE ATENCIONES</h2>
+<mat-dialog-content class="mat-typography">
+    <form #myForm="ngForm">
+        <div fxFlex="100" fxFlex.lt-sm="100" class="matero-col">
+            <!--div fxLayout="row wrap" fxLayoutGap="8px grid"-->
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <!--- Note that these columns can be defined in any order.
+                          The actual rendered columns are set as a property on the row definition" -->
+                  
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="especialidad">
+                      <th mat-header-cell *matHeaderCellDef> Especialidad o Servicio </th>
+                      <td mat-cell *matCellDef="let element"> {{element.especialidad}} </td>
+                    </ng-container>
+                  
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="medico">
+                      <th mat-header-cell *matHeaderCellDef> Medico </th>
+                      <td mat-cell *matCellDef="let element"> {{element.medico}} </td>
+                    </ng-container>
+                  
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="fecha_atencion">
+                      <th mat-header-cell *matHeaderCellDef> Fecha de Atención </th>
+                      <td mat-cell *matCellDef="let element"> {{element.fecha_atencion}} </td>
+                    </ng-container>
+                  
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="vtipo_estado">
+                      <th mat-header-cell *matHeaderCellDef> Estado de Atención </th>
+                      <td mat-cell *matCellDef="let element"> {{element.vtipo_estado}} </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+            <!--/div-->
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCELAR</button>
+    <!--button mat-button [mat-dialog-close]="data" color="primary" (click)="guardarRelacion()"
+        [disabled]="!myForm.form.valid" cdkFocusInitial>GUARDAR</button-->
+</mat-dialog-actions>

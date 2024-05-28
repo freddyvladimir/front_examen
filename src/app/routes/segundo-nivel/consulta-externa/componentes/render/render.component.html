@@ -1,0 +1,415 @@
+<mat-form-field *ngIf="false" appearance="outline">
+    <mat-label>Tipo paciente</mat-label>
+    <mat-select matInput [(ngModel)]="tipo" id="tipo" name="tipo" (change)="cambio_tipo(tipo)">
+        <mat-option value="">seleccione</mat-option>
+        <mat-option value="mayor">MAYOR</mat-option>
+        <mat-option value="menor">MENOR</mat-option>
+
+    </mat-select>
+</mat-form-field>
+
+<div *ngIf="false" fxLayout="row wrap" fxLayoutGap="10px grid">
+
+
+    <div fxFlex="70" fxFlex.lt-md="100" fxFlex.lt-sm="100" class="espacioOdontograma">
+        <table>
+            <tr *ngIf="tipo == 'mayor' ">
+                <td data-toggle="modal" *ngFor="let diente of superior;index as i" width="40px" height="100%"
+                    id="d{{diente.piesa_dental}}" (click)="piesa(i,'superior')">
+                    <img id="d{{diente.piesa_dental}}" class="imagen"
+                        src="assets/images/odontograma/DIENTES SANOS/d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.caries ==true" class="imagen"
+                        src="assets/images/odontograma/DIENTES CARIES/ca_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.coronada ==true" class="imagen"
+                        src="assets/images/odontograma/DIENTES CORONADAS/c_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.implante ==true" class="imagen"
+                        src="assets/images/odontograma/DIENTES IMPLANTES/i_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.lesion_cervical ==true" class="imagen"
+                        src="assets/images/odontograma/DIENTES LESION CERVICAL/lc_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.endodoncia ==true" class="imagen"
+                        src="assets/images/odontograma/DIENTES ENDODONCIAS/e_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.extraccion ==true" class="imagen"
+                        src="assets/images/odontograma/DIENTES EXTRACCIONES/cross.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.ausente ==true" class="imagen"
+                        src="assets/images/odontograma/DIENTES AUSENTES/ausente.png"
+                        style="border-style:none;position:absolute;" />
+                </td>
+            </tr>
+            <tr *ngIf="tipo == 'mayor' ">
+                <td *ngFor="let diente of superior" class="padingLMayor" width="40px">
+                    <label style="padding-left: 99%;" id="d{{diente.piesa_dental}}"
+                        style="border-style:none;position:absolute;">{{diente.piesa_dental}}</label>
+                </td>
+            </tr>
+
+            <tr *ngIf="tipo == 'menor' ">
+                <td width="40px" data-toggle="modal" *ngFor="let diente of superior_menor;index as i" height="100%"
+                    id="d{{diente.piesa_dental}}" (click)="piesa(i,'superior_menor')">
+
+                    <img id="d{{diente.piesa_dental}}" class="imagen"
+                        src="assets/images/odontograma/DIENTES SANOS/d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.caries == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES CARIES/ca_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.endodoncia == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES ENDODONCIAS/endodoncia temporarios.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.extraccion == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES EXTRACCIONES/cross.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.ausente == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES AUSENTES/ausente.png"
+                        style="border-style:none;position:absolute;" />
+                </td>
+            </tr>
+            <tr *ngIf="tipo == 'menor' ">
+                <td width="40px" *ngFor="let diente of superior_menor" style="padding-top:15%;">
+                    <label style="padding-left: 99%;" id="d{{diente.piesa_dental}}"
+                        style="border-style:none;position:absolute;">{{diente.piesa_dental}}</label>
+                </td>
+            </tr>
+            <tr *ngIf="tipo == 'menor' ">
+                <td style="padding-top:15%;" width="40px" data-toggle="modal"
+                    *ngFor="let diente of inferior_menor;index as i" height="100%" id="d{{diente.piesa_dental}}"
+                    (click)="piesa(i,'inferior_menor')">
+                    <img id="d{{diente.piesa_dental}}" class="imagen"
+                        src="assets/images/odontograma/DIENTES SANOS/d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.caries == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES CARIES/ca_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.endodoncia == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES ENDODONCIAS/endodoncia temporarios.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.extraccion == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES EXTRACCIONES/cross.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.ausente == true" class="imagen"
+                        src="assets/images/odontograma/DIENTES AUSENTES/ausente.png"
+                        style="border-style:none;position:absolute;" />
+                </td>
+            </tr>
+            <tr *ngIf="tipo == 'menor' ">
+                <td width="40px" *ngFor="let diente of inferior_menor" style="padding-top:15%;">
+                    <label style="padding-left: 99%;" id="d{{diente.piesa_dental}}"
+                        style="border-style:none;position:absolute;">{{diente.piesa_dental}}</label>
+                </td>
+            </tr>
+
+
+            <tr *ngIf="tipo == 'mayor' ">
+                <td class="padingDMayor" data-toggle="modal" *ngFor="let diente of inferior;index as i" width="40px"
+                    (click)="piesa(i,'inferior')">
+                    <img id="d{{diente.piesa_dental}}" height="90px" class="imagen"
+                        src="assets/images/odontograma/DIENTES SANOS/d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.caries ==true" width="50px" height="90px"
+                        class="imagen" src="assets/images/odontograma/DIENTES CARIES/ca_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.coronada ==true" width="50px" height="90px"
+                        class="imagen" src="assets/images/odontograma/DIENTES CORONADAS/c_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.implante ==true" width="50px" height="90px"
+                        class="imagen" src="assets/images/odontograma/DIENTES IMPLANTES/i_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.lesion_cervical ==true" width="50px" height="90px"
+                        class="imagen"
+                        src="assets/images/odontograma/DIENTES LESION CERVICAL/lc_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.endodoncia ==true" width="50px" height="90px"
+                        class="imagen"
+                        src="assets/images/odontograma/DIENTES ENDODONCIAS/e_d{{diente.piesa_dental}}.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.extraccion ==true" width="50px" height="90px"
+                        class="imagen" src="assets/images/odontograma/DIENTES EXTRACCIONES/cross.png"
+                        style="border-style:none;position:absolute;" />
+                    <img id="d{{diente.piesa_dental}}" *ngIf="diente.ausente ==true" width="50px" height="90px"
+                        class="imagen" src="assets/images/odontograma/DIENTES AUSENTES/ausente.png"
+                        style="border-style:none;position:absolute;" />
+                </td>
+            </tr>
+            <tr *ngIf="tipo == 'mayor' ">
+                <td *ngFor="let diente of inferior" class="padingLMayor" width="40px">
+                    <label style="padding-left: 99%;" id="d{{diente.piesa_dental}}"
+                        style="border-style:none;position:absolute;">{{diente.piesa_dental}}</label>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div fxFlex="30" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+        <label id="example-radio-group-label">SELECCIONE TIPO DE TRATAMIENTO</label><br>
+        <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+            [(ngModel)]="tipo_seleccionado" *ngFor="let trat of tratamientos">
+            <mat-radio-button class="example-radio-button" [value]="trat.tipo" (click)="seleccion_tipo(trat.tipo)">
+                {{trat.descipcion}}
+            </mat-radio-button> <br>
+        </mat-radio-group>
+    </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!--div *ngFor="let data of dataFormulario;"-->
+    
+<div fxLayout="row wrap" fxLayoutGap="10px grid">
+        <ng-container *ngFor="let data of dataFormulario;" [ngSwitch]="data.tipo" >
+
+            <div *ngSwitchCase="'FOR_OC'">
+            </div>
+            <div *ngSwitchCase="'TXTL_TEMP'">
+            </div>
+
+
+
+            <div *ngSwitchCase="'TIT'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <h2><label>{{data.titulo}} yyyy</label></h2>
+            </div>
+
+            <div *ngSwitchCase="'SUBTIT'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+
+                <hr style="width:100%; height:1px; background-color:#249FE6;" />
+                <h4><label>{{data.titulo}}</label></h4>
+
+            </div>
+
+            <div *ngSwitchCase="'NRO'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <div class="form-group">
+                    <label class="control-label no-padding-right">{{data.titulo}}
+                    </label>
+                    <div>
+                        <span class="block input-icon input-icon-right">
+                            <input class="form-control" type="number" name="atencion" id="{{data.campo}}"
+                                [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}"
+                                placeholder="{{data.campo}}" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'NROL'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <div class="form-group">
+                    <label class="control-label no-padding-right">{{data.titulo}}
+                    </label>
+                    <div>
+                        <span class="block input-icon input-icon-right">
+                            <input class="form-control" type="text" name="atencion" id="{{data.campo}}"
+                                [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}"
+                                placeholder="{{data.campo}}" readonly />
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'TXT'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+
+                <div class="form-group">
+                    <label class="control-label no-padding-right">{{data.titulo}}
+                    </label>
+                    <div>
+                        <span class="block input-icon input-icon-right">
+                            <input class="form-control" type="text" name="{{data.campo}}" id="{{data.campo}}"
+                                [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}"
+                                placeholder="{{data.campo}}" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'TXTL'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <div class="form-group">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{data.titulo}}</mat-label>
+                        <input matInput autocomplete="off" name="{{data.campo}}" id="{{data.campo}}"
+                            [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}" placeholder="{{data.campo}}">
+                    </mat-form-field>
+
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'TAR'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{data.titulo}}</mat-label>
+                    <textarea matInput autocomplete="off" name="{{data.campo}}" id="{{data.campo}}" rows="5" cols="70"
+                        [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}"
+                        placeholder="{{data.campo}}"></textarea>
+                </mat-form-field>
+            </div>
+
+            <div *ngSwitchCase="'TARN'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{data.titulo}}</mat-label>
+                    <textarea matInput autocomplete="off" name="{{data.campo}}" id="{{data.campo}}" rows="5" cols="70"
+                        [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}" placeholder="{{data.campo}}"
+                        required></textarea>
+                </mat-form-field>
+            </div>
+
+            <div *ngSwitchCase="'TARL'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <label class="control-label no-padding-right">{{data.titulo}}
+                    <font size="5px" color="#FF0000"> * </font>
+                </label>
+                <div>
+                    <span class="block input-icon input-icon-right">
+                        <textarea type="text" name="{{data.campo}}" id="{{data.campo}}" class="form-control" rows="5"
+                            cols="70" [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}"
+                            placeholder="{{data.campo}}" required></textarea>
+                    </span>
+                </div>
+
+            </div>
+
+            <div *ngSwitchCase="'CBO'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{data.titulo}}</mat-label>
+                    <mat-select matInput id="{{data.campo}}" name="{{data.campo}}" class="form-control"
+                        [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}">
+                        <mat-option value="">seleccione</mat-option>
+                        <mat-option *ngFor="let dt of data.data" [value]="dt.valor">
+                            <span>{{dt.dato}}</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div *ngSwitchCase="'CBON'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <mat-form-field appearance="outline">
+                    <mat-label>{{data.titulo}}</mat-label>
+                    <mat-select matInput id="{{data.campo}}" name="{{data.campo}}" class="form-control"
+                        [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}" required>
+                        <mat-option value="">seleccione</mat-option>
+                        <mat-option *ngFor="let dt of data.data" [value]="dt.valor">
+                            <span>{{dt.dato}}</span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div *ngSwitchCase="'CBOL'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <label class="control-label no-padding">{{data.titulo}}
+                    <font size="5px" color="#FF0000"> * </font>
+                </label>
+                <div>
+                    <select id="{{data.campo}}" name="{{data.campo}}" class="form-control" [(ngModel)]="data.valor"
+                        [ngModelOptions]="{standalone: true}" required>
+                        <option *ngFor="let dt of data.data" value="{{dt.valor}}">
+                            {{dt.dato}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'CHKM'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <table width="100%">
+                    <tr>
+                        <td width="40%"><label class="control-label">{{data.titulo}}&nbsp;&nbsp;</label>
+                        </td>
+                        <td *ngFor="let chks of data.data" class="row">
+                            <label class="control-label">
+                                {{chks.dato}}
+                                <input type="checkbox" name="{{chks.valor}}" id="{{chks.valor}}"
+                                    [(ngModel)]="chks.estado" [ngModelOptions]="{standalone: true}" /><br>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div *ngSwitchCase="'FEC'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <div style="margin-top:1%;">
+                    <div class="form-group">
+                        <label class="control-label no-padding-right">{{data.titulo}}</label>
+                        <div>
+                            <input name="{{data.campo}}" id="{{data.campo}}" type="date" placeholder="Fecha"
+                                class="form-control" [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngSwitchCase="'HOR'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <div style="margin-top:1%;">
+                    <div class="form-group">
+                        <label class="control-label no-padding-right">{{data.titulo}}</label>
+                        <div>
+                            <input name="{{data.campo}}" id="{{data.campo}}" type="time" placeholder="Fecha"
+                                class="form-control" [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}" />
+                        </div>
+                        <div>
+                            <select id="data.hora" name="data.hora" class="form-control" [(ngModel)]="data.hora"
+                                [ngModelOptions]="{standalone: true}" required>
+                                <option value="AM">AM</option>
+                                <option value="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngSwitchCase="'TARMOD'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                    
+                    <div class="form-group">
+                        <mat-form-field appearance="outline">
+                            <mat-label>{{data.titulo}}</mat-label>
+                            <textarea matInput autocomplete="off" name="{{data.campo}}" id="{{data.campo}}" rows="5" cols="70"
+                                [(ngModel)]="data.valor" [ngModelOptions]="{standalone: true}"
+                                placeholder="{{data.campo}}" disabled="true" required></textarea>
+                        </mat-form-field>
+                        <button (click)="cie10_ingreso()" type="button" class="btn btn-success pull-right fa fa-search">
+                            Buscar CIE </button>
+                        <button type="button" data-toggle="modal" (click)="limpiarCIE10()" class="btn btn-success pull-right fa fa-eraser">
+                            &nbsp;&nbsp;Limpiar&nbsp;&nbsp; </button>
+                        
+                    </div>
+
+            </div>
+
+            <div *ngSwitchCase="'BLANK'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <div style="margin-top:1%;">
+                    <div class="form-group">
+                        <div class="col-sm-8">
+                            <span class="block input-icon input-icon-right">
+                                &nbsp;&nbsp;
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngSwitchCase="'CBODEP'" fxFlex="{{data.matFlex}}" fxFlex.lt-md="100" fxFlex.lt-sm="100">
+                <div>
+                    <div class="form-group">
+                        <label class="control-label no-padding-right">{{data.titulo}}
+                        </label>
+                        <div>
+                            <select id="{{data.campo}}" name="{{data.campo}}" class="form-control"
+                                [(ngModel)]="data.cod_trat" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let dt of data.data" value="{{dt.cod_trat}}">
+                                    {{dt.descrip}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <!--div *ngSwitchDefault>
+                Componente por Definir =============> {{data.tipo}}
+            </div-->
+
+        </ng-container>
+    </div>
+<!--/div-->

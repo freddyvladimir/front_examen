@@ -1,0 +1,812 @@
+<mat-card class="cardMonitoreo">
+
+    <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutGap="20px grid">
+            <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt-sm="50" style="z-index: 2">
+
+            </div>
+
+            <div fxFlex="60" fxFlex.lt-md="60" fxFlex.lt-sm="100">
+
+                <h3>
+                    CENTRO DE MONITOREO SIIS 24/7
+                    <mat-slide-toggle [(ngModel)]="options.showHeader"
+                        [disabled]="options.headerPos === 'above' || options.navPos === 'top'">
+                    </mat-slide-toggle>
+                </h3>
+            </div>
+            <div fxFlex="20" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                <div class="container2">
+                    <div class="child">
+                        <button class="btn" mat-mini-fab color="blanco" matTooltip="Solicitud" matTooltipPosition="left"
+                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button aria-label="Clear"
+                            (click)="nuevaSolicitud(0)">
+                            <mat-icon class="indicador" style="color: rgb(105, 105, 105);">record_voice_over</mat-icon>
+                        </button>
+                    </div>
+                    <div class="child">
+                        <mat-card-title style="color: rgb(255, 255, 255); font-size: 15px;">
+                            NUEVA SOLICITUD
+                        </mat-card-title>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-content>
+        <div fxLayout="row wrap" fxLayoutGap="20px grid">
+
+            <div fxFlex="50" fxFlex.lt-md="60" fxFlex.lt-sm="50" style="z-index: 2">
+                <mat-card>
+                    <app-mapa-monitoreo></app-mapa-monitoreo>
+                </mat-card>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+
+                <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-p">
+                            <mat-card class="card-titulos" fxLayoutAlign="center" color>
+                                <mat-card-content>
+                                    <h1>HOSPITAL MUNICIPAL LOS PINOS</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-header fxLayoutAlign="center">
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(2)">
+                                        <mat-icon class="indicador"
+                                            style="color:rgb(112, 112, 112)">border_color</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-card-title
+                                    style="padding-block-end: 20px; color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">
+                                    INTERNACIONES CAMAS DISPONIBLES
+                                </mat-card-title>
+                            </mat-card-header>
+
+                            <mat-card-content *ngFor="let data of dataInternacion;">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="data.sal_id_hospital == 2">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{data.des_esp}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Camas libres {{data.libre}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not2.png">
+                                            <div class="texto-encima">{{data.libre}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-header fxLayoutAlign="center">
+
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn-emer" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(2)">
+                                        <mat-icon class="indicador" style="color: rgb(116, 116, 116);"
+                                            widh>report_problem</mat-icon>
+                                    </button>
+                                </div>
+
+                                <mat-card-title style=" color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">
+                                    EMERGENCIAS CUBICULOS DISPONIBLES
+                                </mat-card-title>
+                            </mat-card-header>
+
+
+                            <mat-card-content style="padding-top: 5px;" *ngFor="let dataEmergencia of dataCubiculos">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEmergencia.ohsp_id == 2">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>DISPONIBLES</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cubiculos disponibles {{dataEmergencia.nrocubiculos}}"
+                                            matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                            mat-icon-button aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not2.png">
+                                            <div class="texto-encima"> {{dataEmergencia.nrocubiculos}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-merced">
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1> HOSPITAL MUNICIPAL LA MERCED</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-header fxLayoutAlign="center">
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(1)">
+                                        <mat-icon class="indicador"
+                                            style="color:rgb(112, 112, 112)">border_color</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-card-title
+                                    style="color: rgb(44, 44, 44);font-size: 15px;font-weight: bold;">INTERNACIONES
+                                    CAMAS
+                                    DISPONIBLES</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content *ngFor="let data of dataInternacion;">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="data.sal_id_hospital == 1">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{data.des_esp}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Camas libres {{data.libre}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not1.png">
+                                            <div class="texto-encima">{{data.libre}}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                            <mat-card-header fxLayoutAlign="center">
+
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn-emer" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(2)">
+                                        <mat-icon class="indicador" style="color: rgb(116, 116, 116);"
+                                            widh>report_problem</mat-icon>
+                                    </button>
+                                </div>
+
+                                <mat-card-title style="color: rgb(44, 44, 44);font-size: 15px;font-weight: bold;">
+                                    EMERGENCIAS CUBICULOS DISPONIBLES
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content style="padding-top: 5px;" *ngFor="let dataEmergencia of dataCubiculos">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEmergencia.ohsp_id == 1">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>DISPONIBLES</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cubiculos disponibles {{dataEmergencia.nrocubiculos}}"
+                                            matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                            mat-icon-button aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not1.png">
+                                            <div class="texto-encima"> {{dataEmergencia.nrocubiculos}}</div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-cotahuma">
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1>HOSPITAL MUNICIPAL COTAHUMA</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-header fxLayoutAlign="center">
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(5)">
+                                        <mat-icon class="indicador"
+                                            style="color:rgb(112, 112, 112)">border_color</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-card-title
+                                    style="color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">INTERNACIONES
+                                    CAMAS
+                                    DISPONIBLES</mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content *ngFor="let data of dataInternacion;">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="data.sal_id_hospital == 5">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{data.des_esp}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Camas libres {{data.libre}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not3.png">
+                                            <div class="texto-encima">{{data.libre}}</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+
+                            <mat-card-header fxLayoutAlign="center">
+
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn-emer" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(2)">
+                                        <mat-icon class="indicador" style="color: rgb(116, 116, 116);"
+                                            widh>report_problem</mat-icon>
+                                    </button>
+                                </div>
+
+                                <mat-card-title style="
+                                
+                                color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">
+                                    EMERGENCIAS CUBICULOS DISPONIBLES
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content *ngFor="let dataEmergencia of dataCubiculos">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEmergencia.ohsp_id == 5">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>DISPONIBLES</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cubiculos disponibles {{dataEmergencia.nrocubiculos}}"
+                                            matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                            mat-icon-button aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not3.png">
+                                            <div class="texto-encima"> {{dataEmergencia.nrocubiculos}}</div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-portada">
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1>HOSPITAL MUNICIPAL LA PORTADA</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-header fxLayoutAlign="center">
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(3)">
+                                        <mat-icon class="indicador"
+                                            style="color:rgb(112, 112, 112)">border_color</mat-icon>
+                                    </button>
+                                </div>
+                                <mat-card-title
+                                    style="color: rgb(44, 44, 44);font-size: 15px;font-weight: bold;">INTERNACIONES
+                                    CAMAS
+                                    DISPONIBLES</mat-card-title>
+                            </mat-card-header>
+
+                            <mat-card-content *ngFor="let data of dataInternacion;">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="data.sal_id_hospital == 3">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{data.des_esp}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Camas libres {{data.libre}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not4.png">
+                                            <div class="texto-encima">{{data.libre}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                            <mat-card-header fxLayoutAlign="center">
+                                <div mat-card-avatar class="example-header-image">
+                                    <button class="btn-emer" mat-mini-fab color="blanco" matTooltip="Solicitud"
+                                        matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                        mat-icon-button aria-label="Clear" (click)="nuevaSolicitud(2)">
+                                        <mat-icon class="indicador" style="color: rgb(116, 116, 116);"
+                                            widh>report_problem</mat-icon>
+                                    </button>
+                                </div>
+
+                                <mat-card-title style="color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">
+                                    EMERGENCIAS CUBICULOS DISPONIBLES
+                                </mat-card-title>
+                            </mat-card-header>
+                            <mat-card-content style="padding-top: 5px;" *ngFor="let dataEmergencia of dataCubiculos">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEmergencia.ohsp_id == 3">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>DISPONIBLES</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cubiculos disponibles {{dataEmergencia.nrocubiculos}}"
+                                            matTooltipPosition="left" matTooltipClass="tooltip-plomo" matSuffix
+                                            mat-icon-button aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not4.png">
+                                            <div class="texto-encima"> {{dataEmergencia.nrocubiculos}}</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--  DESDE AQUI ESPECIALIDADES ATENCION   -->
+
+        <div fxLayout="row wrap" fxLayoutGap="20px grid">
+            <div fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+
+                <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-p">
+
+
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1> HOSPITAL MUNICIPAL LOS PINOS</h1>
+                                </mat-card-content>
+                            </mat-card>
+
+                            <mat-card-subtitle style="text-align: center; color: rgb(44, 44, 44); font-size: 15px;
+                            font-weight: bold;">ESPECIALIDADES
+                            </mat-card-subtitle>
+                            <mat-card-content *ngFor="let dataEsp of dataEspecialidades">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEsp.ohsp_id == 2">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{dataEsp.onombre_especialidad}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="cantidad {{dataEsp.vtotal}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not2.png">
+                                            <div class="texto-encima">{{dataEsp.vtotal}}</div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-merced">
+
+
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1> HOSPITAL MUNICIPAL LA MERCED</h1>
+                                </mat-card-content>
+                            </mat-card>
+
+                            <mat-card-subtitle
+                                style="text-align: center; color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">ESPECIALIDADES
+                            </mat-card-subtitle>
+                            <mat-card-content *ngFor="let dataEsp of dataEspecialidades">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEsp.ohsp_id == 1">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{dataEsp.onombre_especialidad}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="cantidad {{dataEsp.vtotal}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not1.png.png">
+                                            <div class="texto-encima">{{dataEsp.vtotal}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+
+                        </mat-card>
+                    </div>
+
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-cotahuma">
+
+
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1> HOSPITAL MUNICIPAL COTAHUMA</h1>
+                                </mat-card-content>
+                            </mat-card>
+
+                            <mat-card-subtitle
+                                style="text-align: center; color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">ESPECIALIDADES
+                            </mat-card-subtitle>
+                            <mat-card-content *ngFor="let dataEsp of dataEspecialidades">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEsp.ohsp_id == 5">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{dataEsp.onombre_especialidad}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="cantidad {{dataEsp.vtotal}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not3.png">
+                                            <div class="texto-encima">{{dataEsp.vtotal}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-portada">
+
+
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1> HOSPITAL MUNICIPAL LA PORTADA</h1>
+                                </mat-card-content>
+                            </mat-card>
+
+                            <mat-card-subtitle
+                                style="text-align: center; color: rgb(44, 44, 44); font-size: 15px;font-weight: bold;">ESPECIALIDADES
+                            </mat-card-subtitle>
+                            <mat-card-content *ngFor="let dataEsp of dataEspecialidades">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="dataEsp.ohsp_id == 3">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>{{dataEsp.onombre_especialidad}}</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="cantidad {{dataEsp.vtotal}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not4.png">
+                                            <div class="texto-encima">{{dataEsp.vtotal}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+
+            <div fxFlex="50" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+
+                <div fxLayout="row wrap" fxLayoutGap="20px grid">
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-p">
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1>HOSPITAL MUNICIPAL LOS PINOS</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-content *ngFor="let datosConsulta of dataConsultas">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 2 && datosConsulta.tipo=='P'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PLANIFICADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not2.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 2 && datosConsulta.tipo=='S'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PROGRAMADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not2.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 2 && datosConsulta.tipo=='A'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>ATENDIDAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not2.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-merced">
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1>HOSPITAL MUNICIPAL LA MERCED</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-content *ngFor="let datosConsulta of dataConsultas">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 1 && datosConsulta.tipo=='P'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PLANIFICADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not1.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 1 && datosConsulta.tipo=='S'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PROGRAMADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not1.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 1 && datosConsulta.tipo=='A'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>ATENDIDAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not1.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-cotahuma">
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1>HOSPITAL MUNICIPAL COTAHUMA</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-content *ngFor="let datosConsulta of dataConsultas">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 5 && datosConsulta.tipo=='P'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PLANIFICADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not3.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 5 && datosConsulta.tipo=='S'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PROGRAMADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not3.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 5 && datosConsulta.tipo=='A'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>ATENDIDAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not3.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div fxFlex="25" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+                        <mat-card class="card-portada">
+                            <mat-card class="card-titulos" fxLayoutAlign="center">
+                                <mat-card-content>
+                                    <h1> HOSPITAL MUNICIPAL LA PORTADA</h1>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card-content *ngFor="let datosConsulta of dataConsultas">
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 3 && datosConsulta.tipo=='P'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PLANIFICADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not4.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 3 && datosConsulta.tipo=='S'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>PROGRAMADAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not4.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="agranda" fxLayout="row wrap" fxLayoutGap="2px grid"
+                                    *ngIf="datosConsulta.idhosp == 3 && datosConsulta.tipo=='A'">
+                                    <div fxFlex="80" fxFlex.lt-md="110" fxFlex.lt-sm="180">
+                                        <!--{{data.des_esp}} -->
+                                        <mat-card class="card">
+                                            <h5>ATENDIDAS</h5>
+                                        </mat-card>
+                                    </div>
+                                    <div fxFlex="20" fxFlex.lt-md="60" fxFlex.lt="100">
+                                        <div class="numeros-monitoreo" mat-mini-fab
+                                            matTooltip="Cantidad {{datosConsulta.cntfichas}}" matTooltipPosition="left"
+                                            matTooltipClass="tooltip-plomo" matSuffix mat-icon-button
+                                            aria-label="Clear">
+                                            <img mat-card-image src="assets/images/centro_monitoreo/not4.png">
+                                            <div class="texto-encima"> {{datosConsulta.cntfichas}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </mat-card-content>
+
+</mat-card>

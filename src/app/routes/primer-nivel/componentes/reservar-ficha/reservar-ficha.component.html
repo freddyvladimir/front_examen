@@ -1,0 +1,185 @@
+<mat-card>
+    <mat-card-title>Atencion del paciente</mat-card-title>
+    <mat-card-content>
+        <mat-stepper [linear]="isLinear" #stepper>
+            <mat-step label="Seleccione especialidad">
+                <mat-grid-list cols="4" rowHeight="2:1">
+                    <mat-grid-tile matStepperNext *ngFor="let especialidades of lista_especialidades">
+                        <mat-card class="especialidad-card" (click)="SacarCalendario(stepper,especialidades);">
+                            <mat-card-title-group>
+                                <mat-card-title style="font-size:15px;">{{especialidades.cpgrupo}}</mat-card-title>
+                            </mat-card-title-group>
+                            <!--mat-card-content>
+                                PRECIO {{especialidades.precio}}
+                            </mat-card-content-->
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-step>
+            <mat-step label="Seleccionar día/médico">
+
+
+                <mtx-popover #popover="mtxPopover" [position]="[positionStart, positionEnd]" [enterDelay]="enterDelay"
+                    [leaveDelay]="leaveDelay" [xOffset]="xOffset" [yOffset]="yOffset"
+                    [closeOnPanelClick]="closeOnPanelClick" [closeOnBackdropClick]="true">
+                    <mat-card class="card-medico">
+                        <mat-card-title-group>
+                            <img mat-card-sm-image src="assets/images/avatars/doctora.webp"
+                                style="width: 150px; height: 150px; text-align: center; border-radius: 100%;">
+                            <mat-card-title>DR. {{decMedico.nombre_doctor}} <br>
+                                {{decMedico.paterno_doctor}} {{decMedico.materno_doctor}}
+                            </mat-card-title>
+                            <mat-card-subtitle>{{decEspecialidad}}</mat-card-subtitle>
+
+                        </mat-card-title-group>
+                        <mat-card-content>
+                            TURNO: {{decMedico.tptrn_descripcion}}
+                            <br>
+                            HORARIO: {{decMedico.horaInicio}} - {{decMedico.horaFin}}
+                            <br>
+                            FICHAS OCUPADAS: {{decMedico.trn_cont_fichas_pre}} DE {{decMedico.trn_fichas_precitadas}}
+                        </mat-card-content>
+                    </mat-card>
+                </mtx-popover>
+
+                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-calendar"></i></button>
+                <!--button type="button" class="btn btn-default" ng-click="subir()"><i class="glyphicon glyphicon-arrow-up"></i></button>
+        <button type="button" class="btn btn-default" ng-click="bajar()"><i class="glyphicon glyphicon-arrow-down"></i></button>
+        {{dia_actual}}-->
+
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Domingo</th>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miercoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                            <th>Sabado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let calen of calendario">
+                            <td class="dia" *ngFor="let semanas of calen.semana"> <strong>{{semanas.fecha_dia}}</strong>
+                                <div *ngFor="let datos_doctores of semanas.datos_doctor">
+                                    <mat-chip-list aria-label="Dog selection" width="100%" height="100%">
+                                        <mat-chip style="background: aquamarine;" color="primary" (click)="listar_fichas(stepper,datos_doctores)"
+                                            (mouseenter)="datoMedico(datos_doctores)"
+                                            #popoverTrigger="mtxPopoverTrigger" [mtxPopoverTriggerFor]="popover"
+                                            mtxPopoverTriggerOn="hover">
+                                            <mat-chip-avatar>
+                                                <img src="assets/images/iconoMed.png" width="100%" height="100%" />
+                                            </mat-chip-avatar>
+                                            <strong style="font-size:10px;">
+                                                {{datos_doctores.nombre_doctor}} {{datos_doctores.paterno_doctor}}
+                                                {{datos_doctores.materno_doctor}}
+                                            </strong>
+                                        </mat-chip>
+                                    </mat-chip-list>
+
+                                    <!--button (click)="listar_fichas(stepper,datos_doctores)"
+                                        (mouseenter)="datoMedico(datos_doctores)" mat-raised-button color="primary"
+                                        #popoverTrigger="mtxPopoverTrigger" [mtxPopoverTriggerFor]="popover"
+                                        mtxPopoverTriggerOn="hover">
+                                        {{datos_doctores.nombre_doctor}}
+                                    </button-->
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!--mat-form-field appearance="outline">
+                    <mat-label>FECHAS:</mat-label>
+                    <mat-select id="fechas" name="fechas" (selectionChange)="listar_doctores($event.value);"
+                        [(ngModel)]="datos.fechas" required>
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let fecha of data_fechas" [value]="fecha.tfecha">
+                            {{fecha.tfecha | date : "dd - MM - y"}} / {{fecha.dia}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="datos.fecha == undefined ">Seleccione Fecha</mat-error>
+                </mat-form-field>
+
+                <mat-card class="especialidad-card" *ngFor="let doctores of data_doctores"
+                    (click)="listar_fichas(doctores)">
+                    <mat-card-title-group>
+                        <mat-card-title>{{doctores.nombredoctor}} {{doctores.paternodoctor}}
+                            {{doctores.maternodoctor}}</mat-card-title>
+
+                        <img mat-card-sm-image src="assets/img/perfil-doctora.png">
+                    </mat-card-title-group>
+                    <mat-card-content>
+                        ATENCION {{doctores.horainicio}} a {{doctores.horafin}}
+                    </mat-card-content>
+                </mat-card-->
+            </mat-step>
+            <mat-step label="Seleccionar hora">
+                <mat-grid-list cols="5" rowHeight="2:1">
+                    <mat-grid-tile matStepperNext *ngFor="let fichas of data_fichas">
+                        <mat-card *ngIf="fichas.Estado === 'L' " class="card-ficha-libre"
+                            (click)="seleccionar_ficha(stepper,fichas)">
+                            <mat-card-title-group>
+                                <mat-card-title>{{fichas.Ficha}}</mat-card-title>
+                            </mat-card-title-group>
+                            <mat-card-content>
+                                {{fichas.Hora}}
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card *ngIf="fichas.Estado === 'O' " class="card-ficha-ocupado"
+                            (click)="seleccionar_ficha(stepper,fichas)">
+                            <mat-card-title-group>
+                                <mat-card-title>{{fichas.Ficha}}</mat-card-title>
+                            </mat-card-title-group>
+                            <mat-card-content>
+                                {{fichas.Hora}}
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card *ngIf="fichas.Estado === 'P' " class="card-ficha-no-disponible"
+                            (click)="seleccionar_ficha(stepper,fichas)">
+                            <mat-card-title-group>
+                                <mat-card-title>{{fichas.Ficha}}</mat-card-title>
+                            </mat-card-title-group>
+                            <mat-card-content>
+                                {{fichas.Hora}}
+                            </mat-card-content>
+                        </mat-card>
+                    </mat-grid-tile>
+                </mat-grid-list>
+            </mat-step>
+            <mat-step label="Completado">
+
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title class="titulo-ficha">
+                            <h2>FICHA: {{fichaSeleccionada}}</h2>
+                        </mat-card-title>
+                        <mat-card-subtitle class="titulo-ficha">
+                            <h3>Fecha de atención: {{fechaSeleccionada | date : "y-MM-dd"}}</h3>
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <h3>
+                            DR(A). {{doctor_seleccionado.nombre_doctor}} {{doctor_seleccionado.paterno_doctor}}
+                            {{doctor_seleccionado.materno_doctor}} <br>
+                            CONSULTORIO: {{decEspecialidad}} <br>
+                            {{doctor_seleccionado.tptrn_descripcion}} <br>
+                            {{horaAtencion}}
+                        </h3>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button>Volver</button>
+                        <button mat-button>Cancelar</button>
+                        <button mat-button (click)="addNewItem(dataReserva)">Reservar</button>
+                    </mat-card-actions>
+                    <!--mat-card-footer>
+                        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                    </mat-card-footer-->
+                </mat-card>
+            </mat-step>
+        </mat-stepper>
+    </mat-card-content>
+</mat-card>

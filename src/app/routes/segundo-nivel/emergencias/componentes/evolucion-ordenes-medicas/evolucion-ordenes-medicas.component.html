@@ -1,0 +1,119 @@
+<br>
+<div class="example-action-buttons">
+    <button mat-button color="primary" (click)="expandedAccordion()">{{swAccordionExpanded ? 'Expandir Todo' : 'Colapsar
+        Todo'}}</button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                NOTAS DE EVOLUCIÓN CLÍNICA
+            </mat-panel-title>
+            <mat-panel-description>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-card>
+            <mat-card-title></mat-card-title>
+
+            <div class="mat-elevation-z8">
+                <table mat-table [dataSource]="dataSource" matSort>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> ACCIÓN </th>
+                        <td mat-cell *matCellDef="let row">
+                            <button  mat-icon-button color="primary" (click)="edit(row)">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button color="primary" (click)="delete(row.$key)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CODIGO </th>
+                        <td mat-cell *matCellDef="let row"> {{row.esp_cod_especialidad}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> DESCRIPCION </th>
+                        <td mat-cell *matCellDef="let row"> {{row.esp_desc_especialidad}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cuaderno">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> CUADERNO </th>
+                        <td mat-cell *matCellDef="let row"> {{row.esp_id_cuaderno}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="consulta">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> PRECIO CONSULTA</th>
+                        <td mat-cell *matCellDef="let row"> {{row.esp_precio}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="reconsulta">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> PRECIO RECONSULTA</th>
+                        <td mat-cell *matCellDef="let row"> {{row.esp_precio_reconsulta}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    <!-- Row shown when there is no matching data. -->
+                    <!--<tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                    </tr>-->
+                </table>
+
+                <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>-->
+            </div>
+
+            <div class="btn-flotante">
+                <button mat-fab color="primary" (click)="create()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+        </mat-card>        
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                ORDENES MÉDICAS
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-panel-description>
+        </mat-panel-description>
+        ORDENES MEDICAS
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                CIE 10
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-form-field appearance="fill">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                OTROS
+            </mat-panel-title>
+            <mat-panel-description>
+                Inform the date you wish to travel
+                <mat-icon>date_range</mat-icon>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" (focus)="picker.open()" readonly>
+        </mat-form-field>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-expansion-panel>
+</mat-accordion>

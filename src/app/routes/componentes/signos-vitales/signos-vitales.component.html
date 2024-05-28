@@ -1,0 +1,167 @@
+<mat-card>
+    <mat-card-title>Signos Vitales</mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+    <mat-card-content>
+        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+            fxLayoutAlign="center">
+            <div fxFlex="50%">
+                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+                    fxLayoutAlign="center">
+                    <mat-card>
+                        <mat-card-title> IMC</mat-card-title>
+                        <mat-card-subtitle>Indice Masa Corporal</mat-card-subtitle>
+                        <mat-card-content>
+                            <div fxFlex="50%">
+                                <div>
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Peso:</mat-label>
+                                        <input matInput type="text" [(ngModel)]="signosVitales.peso" value=""
+                                            (keyup)="changeIMC()" [disabled]="isDisabled">
+                                    </mat-form-field>
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Altura:</mat-label>
+                                        <input matInput type="text" [(ngModel)]="signosVitales.altura" value=""
+                                            (keyup)="changeIMC()" [disabled]="isDisabled">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div fxFlex="50%">
+                                <img src="assets/images/imagesIMC/{{silueta}}" [ngClass]="{'img-anim': animClass,
+        'img-anim2': !animClass}" />
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+            <div fxFlex="50%">
+                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+                    fxLayoutAlign="center">
+                    <mat-card>
+                        <mat-card-title>Temperatura:</mat-card-title>
+                        <mat-card-subtitle></mat-card-subtitle>
+                        <mat-card-content>
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Axilar:</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.temperaturaAxilar" value=""
+                                        (keyup)="changeTemp()" [disabled]="isDisabled">
+                                </mat-form-field>
+                                <div class="temperatura-container">
+                                    <div class="temperatura-inv"
+                                        [@grow2]="{value: valueState,params: {temperaturaHeight: 100-temperaturaHeight}}">
+                                    </div>
+                                    <div class="temperatura"
+                                        [@grow]="{value: valueState,params: {temperaturaHeight: temperaturaHeight}}">
+                                    </div>
+                                    <div
+                                        style="width: 20px;height: 20px; background-color: #f00;border-radius: 10px; margin: 0px auto;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label> Rectal:</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.temperaturaRectal" value=""
+                                        (keyup)="changeTempRectal()" [disabled]="isDisabled">
+                                </mat-form-field>
+                                <div class="temperatura-container">
+                                    <div class="temperatura-inv"
+                                        [@growRectal2]="{value: valueState,params: {temperaturaRectalHeight: 100-temperaturaRectalHeight}}">
+                                    </div>
+                                    <div class="temperatura"
+                                        [@growRectal]="{value: valueState,params: {temperaturaRectalHeight: temperaturaRectalHeight}}">
+                                    </div>
+                                    <div
+                                        style="width: 20px;height: 20px; background-color: #f00;border-radius: 10px; margin: 0px auto;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label> Oral:</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.temperaturaOral" value=""
+                                        (keyup)="changeTempOral()" [disabled]="isDisabled">
+                                </mat-form-field>
+                                <div class="temperatura-container">
+                                    <div class="temperatura-inv"
+                                        [@growOral2]="{value: valueState,params: {temperaturaOralHeight: 100-temperaturaOralHeight}}">
+                                    </div>
+                                    <div class="temperatura"
+                                        [@growOral]="{value: valueState,params: {temperaturaOralHeight: temperaturaOralHeight}}">
+                                    </div>
+                                    <div
+                                        style="width: 20px;height: 20px; background-color: #f00;border-radius: 10px; margin: 0px auto;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label> Auricular:</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.temperaturaAuricular"
+                                        value="" (keyup)="changeTempAuricular()" [disabled]="isDisabled">
+                                </mat-form-field>
+                                <div class="temperatura-container">
+
+
+                                    <div class="temperatura-inv"
+                                        [@growAuricular2]="{value: valueState,params: {temperaturaAuricularHeight: 100-temperaturaAuricularHeight}}">
+                                    </div>
+                                    <div class="temperatura"
+                                        [@growAuricular]="{value: valueState,params: {temperaturaAuricularHeight: temperaturaAuricularHeight}}">
+                                    </div>
+                                    <div
+                                        style="width: 20px;height: 20px; background-color: #f00;border-radius: 10px; margin: 0px auto;">
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+
+
+                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%"
+                    fxLayoutAlign="center">
+                    <mat-card>
+                        <mat-card-title></mat-card-title>
+                        <mat-card-subtitle></mat-card-subtitle>
+                        <mat-card-content>
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Frecuencia Cardiaca (l/m) :</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.frecuenciaCardiaca" value=""
+                                        [disabled]="isDisabled">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Presión Arterial(mmHg):</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.presionArterial" value=""
+                                        [disabled]="isDisabled">
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label>Frecuencia Respiratoria (r/m):</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.frecuenciaRespiratoria"
+                                        value="" [disabled]="isDisabled">
+                                </mat-form-field>
+                            </div>
+
+                            <div fxFlex="25%">
+                                <mat-form-field class="example-full-width" appearance="outline">
+                                    <mat-label> Saturación de Oxígeno (o2):</mat-label>
+                                    <input matInput type="text" [(ngModel)]="signosVitales.saturacionOxigeno" value=""
+                                        [disabled]="isDisabled">
+                                </mat-form-field>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,92 @@
+<button mat-icon-button class="close-button" (click)="close()">
+    <mat-icon class="close-icon" color="primary">close</mat-icon>
+</button>
+
+<h2 mat-dialog-title color="primary">Nuevo Registro</h2>
+
+<form [formGroup]="evolucionClinicaForm">
+    <div fxLayout="row wrap" fxLayoutGap="8px grid">
+        <div fxFlex="30" fxFlex.lt-sm="100">
+            <mat-form-field appearance="outline">
+                <input matInput autocomplete="off" [matDatepicker]="picker2" placeholder="Fecha de Atención"
+                    formControlName="fecha1">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxFlex="30" fxFlex.lt-sm="100">
+            <mat-form-field appearance="outline">
+                <mat-placeholder>Hora de Atención:</mat-placeholder>
+                <mtx-datetimepicker-toggle [for]="hora1" matSuffix></mtx-datetimepicker-toggle>
+                <mtx-datetimepicker #hora1 [timeInterval]="5" type="time">
+                </mtx-datetimepicker>
+                <input [mtxDatetimepicker]="hora1" formControlName="hora1" matInput [disabled]="tipoBock" required>
+                <mat-error>Formato incorrecto</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="30" fxFlex.lt-sm="100">
+            <mat-form-field appearance="outline">
+                <mat-label>Notas de evolución:</mat-label>
+                <textarea matInput autocomplete="off" formControlName="notasEvolucion"
+                    placeholder="Historia de la enfermedad Actual" required></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <button mat-raised-button color="primary" class="m-t-8">Guardar</button>
+</form>
+
+<div mat-dialog-actions align="end">
+    <!--<button mat-raised-button (click)="close()" color="primary">Cancelar</button>
+    <button mat-raised-button cdkFocusInitial [disabled]="!especialidadForm.valid" color="primary" (click)="submit()">{{
+        contextAddEdit == 'add' ? 'Guardar' : 'Actualizar'}}</button>-->
+</div>
+<!--<form [formGroup]="especialidadForm">
+    <div mat-dialog-content>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline"
+                    [ngClass]="{ 'gamlp-invalid': especialidadForm.get('esp_cod_especialidad')?.touched && especialidadForm.get('esp_cod_especialidad')?.errors?.['required']}">
+                    <mat-label>Código de Especialidad:</mat-label>
+                    <input matInput formControlName="esp_cod_especialidad">
+                </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Descripción:</mat-label>
+                    <input matInput formControlName="esp_desc_especialidad">
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayoutAlign="" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Código de Cuaderno:</mat-label>
+                    <input type="number" matInput formControlName="esp_id_cuaderno">
+                </mat-form-field>
+            </div>
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Precio Consulta:</mat-label>
+                    <input type="number" matInput formControlName="esp_precio">
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxLayoutAlign="" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <div fxFlex="50%">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Precio Reconsulta:</mat-label>
+                    <input type="number" matInput formControlName="esp_precio_reconsulta">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button (click)="close()" color="primary">Cancelar</button>
+        <button mat-raised-button cdkFocusInitial [disabled]="!especialidadForm.valid" color="primary" (click)="submit()">{{ contextAddEdit == 'add' ? 'Guardar' : 'Actualizar'}}</button>
+    </div>
+
+</form>-->

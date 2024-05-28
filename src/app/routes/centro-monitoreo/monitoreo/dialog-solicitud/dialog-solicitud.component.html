@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>DATOS DE LA SOLICITUD</h2>
+<mat-dialog-content class="mat-typography">
+  <div fxFlex="100" fxFlex.lt-sm="100">    
+    <app-formulario-atencion [hospital]="hospitalSeleccionadoMonitoreo" (retornarData)="cerrarModal()"></app-formulario-atencion>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>CANCELAR</button>
+  <!--button *ngIf="!tipoBock" mat-button [mat-dialog-close]="data" color="primary" (click)="crearNuevo()"
+    [disabled]="!myForm.form.valid" cdkFocusInitial>GUARDAR</button>
+  <button *ngIf="tipoBock" mat-button [mat-dialog-close]="data" color="primary" (click)="modificarRegistro()"
+    [disabled]="!myForm.form.valid" cdkFocusInitial>MODIFICAR</button-->
+</mat-dialog-actions>

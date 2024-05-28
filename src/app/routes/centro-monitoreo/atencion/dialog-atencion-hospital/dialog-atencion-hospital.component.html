@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>DATOS DE LA SOLICITUD</h2>
+<mat-dialog-content class="mat-typography">
+
+    <div fxLayout="row wrap" fxLayoutGap="10px grid" class="matero-col">
+        <div fxFlex="100" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+            <section class="example-section" [formGroup]="asignacion">
+                <h4>Seleccione el dia de atencion :</h4>
+
+                <mat-checkbox formControlName="adecuada">Adecuada</mat-checkbox>
+                <mat-checkbox formControlName="justificada">Justificada</mat-checkbox>
+                <mat-checkbox formControlName="oportuna">Oportuna</mat-checkbox>
+
+            </section>
+        </div>
+        <div fxFlex="100" fxFlex.lt-md="50" fxFlex.lt-sm="100">
+            <mat-card-title> MEDICO DE EMERGENCIAS</mat-card-title>
+            <mat-card (click)="guardarDatos()" class="card-medico" *ngFor="let med of listaMedicos">
+                <mat-card-title-group>
+                    <img *ngIf="med.genero == 'M'" style="width: 150px; height: 150px; text-align: center; border-radius: 100%;" mat-card-sm-image
+                        src="assets/images/doctor.png">
+                    <img *ngIf="med.genero == 'F'" style="width: 150px; height: 150px; text-align: center; border-radius: 100%;" mat-card-sm-image
+                        src="assets/images/doctora.png">
+                    <mat-card-title>{{med.medpaterno}} {{med.medmaterno}} {{med.mednombre}}</mat-card-title>
+                </mat-card-title-group>
+            </mat-card>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCELAR</button>
+    <!--button *ngIf="!tipoBock" mat-button [mat-dialog-close]="data" color="primary" (click)="crearNuevo()"
+    [disabled]="!myForm.form.valid" cdkFocusInitial>GUARDAR</button>
+  <button *ngIf="tipoBock" mat-button [mat-dialog-close]="data" color="primary" (click)="modificarRegistro()"
+    [disabled]="!myForm.form.valid" cdkFocusInitial>MODIFICAR</button-->
+</mat-dialog-actions>

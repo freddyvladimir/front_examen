@@ -1,0 +1,168 @@
+<h3>REGISTRO HOJA DE HEMODIALISIS</h3>
+<hr>
+<br>
+<form [formGroup]="newForm">
+    <div mat-dialog-content>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <mat-form-field appearance="outline">
+                <mat-label> Fecha de Sesión: </mat-label>
+                <div fxFlex="100%">
+                    <input matInput [matDatepicker]="picker" (dateChange)="fechaSesion('change', $event)"
+                        formControlName="var_fechaSesion" required>
+                </div>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <div fxFlex="2%"></div>
+            <mat-form-field appearance="outline">
+                <mat-label>Maquina : </mat-label>
+                <mat-select [disabled]="newForm.value" formControlName="servicio_maquina"
+                    (selectionChange)="valueComboMaquina($event.value)" required>
+                    <mat-option *ngFor="let variable_combo1 of variable_combo1" [value]="variable_combo1.maqid">
+                        {{variable_combo1.maqid}} &nbsp;&nbsp;
+                        {{variable_combo1.maqdatos[0].maq_codigo}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <mat-form-field appearance="outline">
+                <mat-label>Nº de Dial :</mat-label>
+                <div fxFlex="100%">
+                    <input formControlName="nro_dial" matInput placeholder="Ingrese Nº DIAL" value="" type="number"
+                        required minlength="2">
+                </div>
+            </mat-form-field>
+            <div fxFlex="2%"></div>
+            <mat-form-field appearance="outline">
+                <mat-label>Nombres / Apellidos :</mat-label>
+                <div fxFlex="100%">
+                    <input formControlName="_nombres" matInput placeholder="Example... Hospital Municipal Cotahuma"
+                        value="" readonly>
+                </div>
+            </mat-form-field>
+        </div>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <mat-form-field appearance="outline">
+                <mat-label>Edad : </mat-label>
+                <div fxFlex="100%">
+                    <input formControlName="_edad" matInput placeholder="Example... Hospital Municipal Cotahuma"
+                        value="" readonly>
+                </div>
+            </mat-form-field>
+            <div fxFlex="2%"></div>
+            <mat-form-field appearance="outline">
+                <mat-label>Estatura : </mat-label>
+                <div fxFlex="100%">
+                    <input type="number" formControlName="_estatura" matInput
+                        placeholder="Ingrese la estatura en 'Centimetros'" value="required">
+                </div>
+            </mat-form-field>
+        </div>
+        <div fxLayoutAlign="start center">
+            <div fxFlex="48.5%">
+                <mat-form-field appearance="outline">
+                    <mat-label> Acceso Vascular : </mat-label>
+                    <mat-select id="var_accVascular" name="var_accVascular" formControlName="var_accVascular" required
+                        (selectionChange)="valuesAccesoVascualr($event.value)">
+                        <mat-option value="Z992"> Fistula </mat-option>
+                        <mat-option value="Z491"> Cateter </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div *ngIf="seleccionar" fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column"
+            fxLayout.md="row" fxLayout="row" fxLayoutGap="0.6%">
+
+            <mat-form-field appearance="outline">
+                <mat-label> Fistula : </mat-label>
+                <div fxFlex="100">
+                    <mat-select id="_fistula" name="_fistula" formControlName="_fistula" required>
+                        <mat-option value="Autologa"> Autologa </mat-option>
+                        <mat-option value="Protesis"> Protesis </mat-option>
+                    </mat-select>
+                </div>
+            </mat-form-field>
+
+            <div fxFlex="2%"></div>
+
+            <mat-form-field appearance="outline">
+                <mat-label> Riesgo : </mat-label>
+                <div fxFlex="100%">
+                    <mat-select id="_riesgo" name="_riesgo" formControlName="_riesgo" required>
+                        <mat-option value="0"> Si </mat-option>
+                        <mat-option value="1"> No </mat-option>
+                    </mat-select>
+                </div>
+            </mat-form-field>
+
+        </div>
+        <div *ngIf="seleccionar2" fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column"
+            fxLayout.md="row" fxLayout="row" fxLayoutGap="0.6%">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Cateter : </mat-label>
+                <div fxFlex="100%">
+                    <mat-select id="var_cateter" formControlName="var_cateter" required>
+                        <mat-option value="Temporal"> Temporal </mat-option>
+                        <mat-option value="Permanente"> Permanente </mat-option>
+                    </mat-select>
+                </div>
+            </mat-form-field>
+
+            <div fxFlex="2%"></div>
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>Nro. Cateters Usados : </mat-label>
+                <div fxFlex="100%">
+                    <input type="text" matInput formControlName="var_nroCateterUsds" autocomplete="doNotAutoComplete">
+                </div>
+            </mat-form-field>
+
+
+            <div fxFlex="2%"></div>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Inicio Último Cateter : </mat-label>
+                <div fxFlex="100%">
+                    <input matInput [matDatepicker]="picker2" (dateChange)="fechaInicioCateter('change', $event)"
+                        formControlName="var_fechaCateter">
+                </div>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+
+                <mat-datepicker #picker2></mat-datepicker>
+
+            </mat-form-field>
+
+            <div fxFlex="3%"></div>
+
+            <mat-form-field appearance="outline">
+                <mat-label> Nro de Dias: </mat-label>
+                <div fxFlex="23%">
+                    <input type="text" matInput formControlName="var_nroDias" autocomplete="doNotAutoComplete">
+                </div>
+            </mat-form-field>
+
+        </div>
+        <div fxLayoutAlign="center center" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.6%">
+            <mat-form-field appearance="outline">
+                <mat-label> Observaciones: </mat-label>
+                <div fxFlex="100%">
+                    <textarea name="var_observaciones" id="var_observaciones" matInput
+                        formControlName="var_observaciones" cols="30" rows="10"></textarea>
+                </div>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-raised-button mat-dialog-close>Cancelar</button>
+        <!-- <button mat-raised-button (click)="guardaRegistro()">Guardar</button> -->
+        <button mat-raised-button (click)="onSubmit('crear')"
+            >Guardar</button>
+    </div>
+</form>

@@ -1,0 +1,74 @@
+<mat-card class="example-card">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-card-title>Datos del paciente</mat-card-title>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="regresar()">
+            <mat-icon>receipt</mat-icon>
+            <span>Servicios</span>
+        </button>
+        <!--button mat-menu-item disabled>
+            <mat-icon>assignment</mat-icon>
+            <span>Servicios</span>
+        </button-->
+        <button mat-menu-item (click)="cancelar()">
+            <mat-icon>reply_all</mat-icon>
+            <span>Cancelar</span>
+        </button>
+    </mat-menu>
+    <br>
+    <mat-card-content>
+        <div fxLayoutAlign="end start" fxLayout.sm="column" fxLayout.xs="column" fxLayout.md="row" fxLayout="row"
+            fxLayoutGap="0.5%">
+            <div fxFlex="5%"></div>
+            <div fxFlex="20%">
+                <img mat-card-image src="assets/images/{{responde_datos_personales.genero}}.png"
+                    style="width: 200px; height: 200px; text-align: center; border-radius: 100%; text-transform: uppercase; color: rgb(255, 255, 255); background-color: rgba(179, 225, 238, 0.429); font: 66px / 200px Helvetica, Arial, sans-serif;">
+            </div>
+            <div fxFlex="75%">
+                <table>
+                    <tr>
+                        <td>
+                            <strong>
+                                <p>{{responde_datos_personales.nombres}} {{responde_datos_personales.paterno}}
+                                    {{responde_datos_personales.materno}}
+                                </p>
+                            </strong>
+                        </td>
+                        <td>
+                            Telefono: {{responde_datos_personales.telefono}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{responde_datos_personales.edad}}
+                        </td>
+                        <td>
+                            Correo:{{responde_datos_personales.correo}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{responde_datos_personales.ci}}
+                        </td>
+                        <td>
+                            Direccion: {{responde_datos_personales.direccion}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            BOLIVIANA
+                        </td>
+                        <td>
+                            Tipo de paciente: <strong>SUS</strong>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>
+

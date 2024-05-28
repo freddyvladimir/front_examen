@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+}
+
+td {
+    font-size: 12px;
+    text-align: center;
+    margin: auto;
+}
+.btn {
+    transition: 1s;
+    -moz-transition: 1s;
+    -webkit-transition: 1s;
+    -o-transition: 1s;
+    transform: rotate(359deg);
+    -ms-transform: rotate(359deg);
+    -moz-transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    -o-transform: rotate(359deg);
+}
+
+.btn:hover {
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+}
